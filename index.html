@@ -28,6 +28,10 @@
             --robot-eyes: #3498db;
             --robot-accent: #e74c3c;
             --robot-accent-dark: #c0392b;
+            --shadow-soft: 0 4px 15px rgba(0,0,0,0.08);
+            --shadow-medium: 0 8px 25px rgba(0,0,0,0.12);
+            --shadow-strong: 0 12px 35px rgba(0,0,0,0.18);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         [data-theme="blue"] {
@@ -86,16 +90,33 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: var(--font-family); background: var(--bg-gradient);
-            background-size: 400% 400%; animation: gradientShift 15s ease infinite;
-            min-height: 100vh; overflow-x: hidden; color: #6b5b6b;
-            position: relative; transition: all 0.5s ease;
+            font-family: var(--font-family); 
+            background: var(--bg-gradient);
+            background-size: 400% 400%; 
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh; 
+            overflow-x: hidden; 
+            color: #6b5b6b;
+            position: relative; 
+            transition: var(--transition-smooth);
         }
-        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        @keyframes gradientShift { 
+            0% { background-position: 0% 50%; } 
+            50% { background-position: 100% 50%; } 
+            100% { background-position: 0% 50%; } 
+        }
 
-        .bg-shapes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
-        .bg-shape { position: absolute; opacity: 0.15; animation: floatShape 15s infinite ease-in-out; }
+        .bg-shapes { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            pointer-events: none; z-index: 0; overflow: hidden; 
+        }
+        .bg-shape { 
+            position: absolute; opacity: 0.15; 
+            animation: floatShape 15s infinite ease-in-out; 
+        }
         .bg-shape.circle { border-radius: 50%; background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink)); }
         .bg-shape.star { background: var(--peach); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
         .bg-shape.heart { background: var(--secondary-pink); transform: rotate(45deg); }
@@ -105,7 +126,14 @@
         .bg-shape.square { background: linear-gradient(135deg, var(--peach), var(--primary-pink)); transform: rotate(45deg); }
         .bg-shape.triangle { background: var(--sky); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
         .bg-shape.diamond { background: linear-gradient(135deg, var(--lavender), var(--secondary-pink)); transform: rotate(45deg); }
-        @keyframes floatShape { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); } 25% { transform: translateY(-30px) rotate(90deg) scale(1.1); } 50% { transform: translateY(-20px) rotate(180deg) scale(1); } 75% { transform: translateY(-40px) rotate(270deg) scale(0.9); } }
+        
+        @keyframes floatShape { 
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); } 
+            25% { transform: translateY(-30px) rotate(90deg) scale(1.1); } 
+            50% { transform: translateY(-20px) rotate(180deg) scale(1); } 
+            75% { transform: translateY(-40px) rotate(270deg) scale(0.9); } 
+        }
+        
         .bg-shape:nth-child(1) { top: 5%; left: 5%; width: 80px; height: 80px; animation-duration: 18s; }
         .bg-shape:nth-child(2) { top: 15%; right: 10%; width: 60px; height: 60px; animation-duration: 22s; animation-delay: 2s; }
         .bg-shape:nth-child(3) { top: 40%; left: 8%; width: 100px; height: 100px; animation-duration: 20s; animation-delay: 4s; }
@@ -119,31 +147,54 @@
         .bg-shape:nth-child(11) { top: 20%; left: 30%; width: 45px; height: 45px; animation-duration: 16s; animation-delay: 2s; }
         .bg-shape:nth-child(12) { top: 50%; right: 30%; width: 95px; height: 95px; animation-duration: 28s; animation-delay: 5s; }
 
-        #confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; overflow: hidden; display: none; }
-        .confetti { position: absolute; width: 10px; height: 10px; background-color: #f00; animation: fall linear forwards; }
+        #confetti-container { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            pointer-events: none; z-index: 9999; overflow: hidden; display: none; 
+        }
+        .confetti { 
+            position: absolute; width: 10px; height: 10px; 
+            background-color: #f00; animation: fall linear forwards; 
+        }
         @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
 
-        .flying-number { position: fixed; font-size: 2em; font-weight: 900; color: var(--success-green); pointer-events: none; z-index: 9998; animation: flyUp 2s ease-out forwards; }
-        @keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-200px) scale(0.5); opacity: 0; } }
+        .flying-number { 
+            position: fixed; font-size: 2em; font-weight: 900; 
+            color: var(--success-green); pointer-events: none; z-index: 9998; 
+            animation: flyUp 2s ease-out forwards; 
+        }
+        @keyframes flyUp { 
+            0% { transform: translateY(0) scale(1); opacity: 1; } 
+            100% { transform: translateY(-200px) scale(0.5); opacity: 0; } 
+        }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 20px; padding-bottom: 120px; position: relative; z-index: 1; }
+        .container { 
+            max-width: 1100px; margin: 0 auto; padding: 20px; 
+            padding-bottom: 120px; position: relative; z-index: 1; 
+        }
 
         .controls-panel {
             position: fixed; top: 15px; right: 15px; background: white;
             padding: 10px 15px; border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(212, 197, 226, 0.2); font-weight: 700;
+            box-shadow: var(--shadow-medium); font-weight: 700;
             z-index: 1000; display: flex; align-items: center; gap: 8px;
             border: 2px solid var(--light-pink); flex-wrap: wrap; max-width: 90%;
+            transition: var(--transition-smooth);
         }
+        .controls-panel:hover { box-shadow: var(--shadow-strong); }
         .controls-panel label { font-size: 0.85em; color: var(--dark-pink); }
         .controls-panel select, .controls-panel button {
             padding: 5px 10px; border: 2px solid var(--primary-pink);
             border-radius: 10px; font-family: var(--font-family);
             font-size: 0.85em; cursor: pointer; background: white;
-            color: var(--dark-pink); transition: all 0.3s;
+            color: var(--dark-pink); transition: var(--transition-smooth);
         }
-        .controls-panel select:hover, .controls-panel button:hover { background: var(--light-pink); }
-        .reset-btn { background: linear-gradient(135deg, #e8a5a5, #d48a8a) !important; color: white !important; border-color: #c77a7a !important; }
+        .controls-panel select:hover, .controls-panel button:hover { 
+            background: var(--light-pink); transform: translateY(-2px);
+        }
+        .reset-btn { 
+            background: linear-gradient(135deg, #e8a5a5, #d48a8a) !important; 
+            color: white !important; border-color: #c77a7a !important; 
+        }
         .reset-btn:hover { background: linear-gradient(135deg, #d48a8a, #b56b6b) !important; }
         .garden-btn { 
             background: linear-gradient(135deg, #a8d5ba, #c8e6d9) !important; 
@@ -157,111 +208,225 @@
             font-weight: 900 !important;
         }
         .wheel-btn:hover { background: linear-gradient(135deg, #ffed4e, #ffd700) !important; }
+        .stats-btn {
+            background: linear-gradient(135deg, #c5e0f5, #a8c5e2) !important;
+            color: #2a4a6a !important; border-color: #7a9eb8 !important;
+            font-weight: 900 !important;
+        }
+        .stats-btn:hover { background: linear-gradient(135deg, #a8c5e2, #7a9eb8) !important; color: white !important; }
 
         .header {
             text-align: center; padding: 25px 30px; margin: 20px auto 35px auto;
             max-width: 800px; background: linear-gradient(135deg, var(--primary-pink) 0%, var(--lavender) 50%, var(--sky) 100%);
             border-radius: 20px; border: 4px solid #fff;
-            box-shadow: 0 10px 30px rgba(212, 197, 226, 0.3), 0 0 0 3px var(--secondary-pink), inset 0 0 20px rgba(255, 255, 255, 0.4);
+            box-shadow: var(--shadow-strong);
             position: relative; overflow: hidden;
+            transition: var(--transition-smooth);
         }
+        .header:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
         .header::before { content: '💫'; position: absolute; top: 12px; right: 25px; font-size: 1.5em; animation: sparkle 2s infinite; }
         .header::after { content: '💫'; position: absolute; top: 12px; left: 25px; font-size: 1.5em; animation: sparkle 2s infinite 1s; }
-        @keyframes sparkle { 0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; } 50% { transform: scale(1.2) rotate(180deg); opacity: 0.7; } }
+        @keyframes sparkle { 
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; } 
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.7; } 
+        }
         .header h1 {
             font-size: 2.5em; font-weight: 900; margin-bottom: 10px; color: #fff;
             text-shadow: 1px 1px 0px rgba(181, 131, 141, 0.4), 0 0 15px rgba(255, 255, 255, 0.6);
             letter-spacing: 1px; line-height: 1.3; position: relative; z-index: 2;
         }
-        .header p { font-size: 1.1em; color: #fff; font-weight: 600; text-shadow: 1px 1px 3px rgba(0,0,0,0.1); position: relative; z-index: 2; }
+        .header p { 
+            font-size: 1.1em; color: #fff; font-weight: 600; 
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1); position: relative; z-index: 2; 
+        }
 
-        .section { margin-bottom: 35px; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .section { 
+            margin-bottom: 35px; 
+            animation: fadeIn 0.5s ease; 
+        }
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
 
         .lesson-card {
             background: #fff; border-radius: 20px; padding: 25px; margin-bottom: 20px;
             border-right: 5px solid var(--primary-pink);
-            box-shadow: 0 4px 15px rgba(232, 180, 184, 0.15); text-align: center;
+            box-shadow: var(--shadow-soft); text-align: center;
+            transition: var(--transition-smooth);
         }
-        .lesson-icon { font-size: 3.5em; margin-bottom: 10px; display: inline-block; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.08)); }
+        .lesson-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: var(--shadow-medium); 
+        }
+        .lesson-icon { 
+            font-size: 3.5em; margin-bottom: 10px; display: inline-block; 
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.08)); 
+        }
         .lesson-card h3 {
             display: inline-block; font-size: 1.5em; font-weight: 900; color: #fff;
             background: linear-gradient(135deg, var(--primary-pink) 0%, var(--secondary-pink) 50%, var(--lavender) 100%);
             padding: 8px 22px; border-radius: 15px; margin: 10px auto; border: 2px solid #fff;
             box-shadow: 0 4px 12px rgba(232, 180, 184, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.4);
-            text-shadow: 1px 1px 0px rgba(181, 131, 141, 0.3); letter-spacing: 0.5px; position: relative; z-index: 2;
+            text-shadow: 1px 1px 0px rgba(181, 131, 141, 0.3); letter-spacing: 0.5px; 
+            position: relative; z-index: 2;
         }
-        .lesson-card h3::before { content: ''; margin-left: 8px; font-size: 0.9em; }
+        .lesson-card h3::before { content: '🌿'; margin-left: 8px; font-size: 0.9em; }
         .lesson-card h3::after { content: ''; margin-right: 8px; font-size: 0.9em; }
         .lesson-card > p { font-size: 1.05em; margin-top: 12px; color: #7a6b7a; }
         .rule-box {
             background: var(--light-pink); border: 2px dashed var(--secondary-pink);
             border-radius: 12px; padding: 15px; margin: 12px 0; position: relative;
             text-align: right; font-size: 1em; line-height: 1.7; color: #6b5b6b;
+            transition: var(--transition-smooth);
         }
+        .rule-box:hover { background: #fff5f8; }
 
         .interactive-area {
             background: linear-gradient(135deg, var(--light-pink), #faf0f4);
             border-radius: 20px; padding: 25px; text-align: center;
             border: 2px solid var(--secondary-pink); margin-top: 25px;
+            transition: var(--transition-smooth);
         }
-        .problem-display { font-size: 1.9em; font-weight: 900; margin-bottom: 15px; direction: ltr; color: var(--dark-pink); }
+        .interactive-area:hover { box-shadow: var(--shadow-medium); }
+        .problem-display { 
+            font-size: 1.9em; font-weight: 900; margin-bottom: 15px; 
+            direction: ltr; color: var(--dark-pink); 
+        }
         .answer-input {
             padding: 12px; font-size: 1.2em; border: 2px solid var(--primary-pink);
-            border-radius: 12px; text-align: center; width: 180px; font-family: var(--font-family);
-            outline: none; transition: 0.3s; background: var(--input-bg); color: var(--input-text);
+            border-radius: 12px; text-align: center; width: 180px; 
+            font-family: var(--font-family);
+            outline: none; transition: var(--transition-smooth); 
+            background: var(--input-bg); color: var(--input-text);
             font-weight: 700;
         }
         .answer-input::placeholder { color: #999; font-weight: 400; }
-        .answer-input:focus { border-color: var(--dark-pink); box-shadow: 0 0 15px rgba(232, 180, 184, 0.4); }
-        .answer-input.correct-answer { border-color: var(--success-green); box-shadow: 0 0 20px rgba(168, 213, 186, 0.5); animation: pulseGreen 0.5s ease; }
-        .answer-input.wrong-answer { border-color: var(--fail-red); box-shadow: 0 0 20px rgba(232, 165, 165, 0.5); animation: shake 0.5s ease; }
-        @keyframes pulseGreen { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        .answer-input:focus { 
+            border-color: var(--dark-pink); 
+            box-shadow: 0 0 20px rgba(232, 180, 184, 0.5);
+            transform: scale(1.05);
+        }
+        .answer-input.correct-answer { 
+            border-color: var(--success-green); 
+            box-shadow: 0 0 25px rgba(168, 213, 186, 0.6); 
+            animation: pulseGreen 0.5s ease; 
+        }
+        .answer-input.wrong-answer { 
+            border-color: var(--fail-red); 
+            box-shadow: 0 0 25px rgba(232, 165, 165, 0.6); 
+            animation: shake 0.5s ease; 
+        }
+        @keyframes pulseGreen { 
+            0%, 100% { transform: scale(1); } 
+            50% { transform: scale(1.05); } 
+        }
+        @keyframes shake { 
+            0%, 100% { transform: translateX(0); } 
+            25% { transform: translateX(-10px); } 
+            75% { transform: translateX(10px); } 
+        }
 
-        .btn-group { margin-top: 20px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn-group { 
+            margin-top: 20px; display: flex; gap: 12px; 
+            justify-content: center; flex-wrap: wrap; 
+        }
         .action-btn {
             padding: 12px 30px; background: var(--primary-pink); color: white;
             border: none; border-radius: 12px; font-size: 1.05em; cursor: pointer;
-            font-family: var(--font-family); font-weight: 700; transition: 0.3s;
-            box-shadow: 0 4px 12px rgba(232, 180, 184, 0.3);
+            font-family: var(--font-family); font-weight: 700; 
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
         }
-        .action-btn:hover { background: var(--dark-pink); transform: translateY(-2px); }
-        .new-btn { background: var(--mint) !important; color: #5a7a6a !important; box-shadow: 0 4px 12px rgba(168, 213, 186, 0.3); }
-        .instant-btn { background: linear-gradient(135deg, var(--peach), #ffdac1) !important; color: #8a7a5a !important; box-shadow: 0 4px 12px rgba(244, 228, 193, 0.4); }
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .action-btn:hover::before { width: 300px; height: 300px; }
+        .action-btn:hover { 
+            background: var(--dark-pink); 
+            transform: translateY(-3px); 
+            box-shadow: var(--shadow-medium);
+        }
+        .action-btn:active { transform: translateY(-1px); }
+        .new-btn { 
+            background: var(--mint) !important; color: #5a7a6a !important; 
+            box-shadow: 0 4px 12px rgba(168, 213, 186, 0.3); 
+        }
+        .instant-btn { 
+            background: linear-gradient(135deg, var(--peach), #ffdac1) !important; 
+            color: #8a7a5a !important; 
+            box-shadow: 0 4px 12px rgba(244, 228, 193, 0.4); 
+        }
+        .hint-btn {
+            background: linear-gradient(135deg, #ffd700, #ffed4e) !important;
+            color: #8a6a00 !important;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+        }
 
         .new-challenge-btn {
-            padding: 15px 40px; background: linear-gradient(135deg, var(--success-green), var(--mint)) !important;
+            padding: 15px 40px; 
+            background: linear-gradient(135deg, var(--success-green), var(--mint)) !important;
             color: white !important; border: 3px solid white; border-radius: 20px;
-            font-size: 1.3em; font-weight: 900; cursor: pointer; font-family: var(--font-family);
-            transition: all 0.3s ease; box-shadow: 0 6px 20px rgba(168, 213, 186, 0.5);
+            font-size: 1.3em; font-weight: 900; cursor: pointer; 
+            font-family: var(--font-family);
+            transition: var(--transition-smooth); 
+            box-shadow: 0 6px 20px rgba(168, 213, 186, 0.5);
             animation: pulseBtn 2s infinite; margin-top: 20px;
         }
-        .new-challenge-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(168, 213, 186, 0.7); }
-        @keyframes pulseBtn { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+        .new-challenge-btn:hover { 
+            transform: translateY(-3px) scale(1.05); 
+            box-shadow: 0 8px 25px rgba(168, 213, 186, 0.7); 
+        }
+        @keyframes pulseBtn { 
+            0%, 100% { transform: scale(1); } 
+            50% { transform: scale(1.03); } 
+        }
 
-        .feedback { margin-top: 15px; font-weight: 900; font-size: 1.1em; min-height: 35px; transition: all 0.3s; }
+        .feedback { 
+            margin-top: 15px; font-weight: 900; font-size: 1.1em; 
+            min-height: 35px; transition: var(--transition-smooth); 
+        }
         .feedback.correct { color: #7a9a8a; }
         .feedback.incorrect { color: #b5838d; }
 
         .big-success-msg {
             font-size: 2.5em; color: var(--success-green); font-weight: 900;
             text-shadow: 1px 1px 0px white, 2px 2px 0px rgba(0,0,0,0.05);
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin: 15px 0; display: none;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            margin: 15px 0; display: none;
         }
         .big-fail-msg {
             font-size: 2em; color: var(--fail-red); font-weight: 900;
             text-shadow: 1px 1px 0px white, 2px 2px 0px rgba(0,0,0,0.05);
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin: 15px 0; display: none;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            margin: 15px 0; display: none;
         }
-        @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+        @keyframes popIn { 
+            from { transform: scale(0); } 
+            to { transform: scale(1); } 
+        }
 
         .score-board {
             position: fixed; top: 15px; left: 15px; background: white;
-            padding: 12px 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(212, 197, 226, 0.2);
-            font-weight: 700; z-index: 1000; display: flex; align-items: center; gap: 8px;
+            padding: 12px 20px; border-radius: 15px; 
+            box-shadow: var(--shadow-medium);
+            font-weight: 700; z-index: 1000; 
+            display: flex; align-items: center; gap: 8px;
             border: 2px solid var(--light-pink); color: var(--dark-pink);
+            transition: var(--transition-smooth);
         }
+        .score-board:hover { transform: scale(1.05); }
         .score-board span { font-size: 1.2em; }
 
         .companion-container {
@@ -283,7 +448,7 @@
         .companion-speech {
             background: white; padding: 12px 18px; border-radius: 18px;
             border: 2px solid var(--primary-pink);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 260px;
+            box-shadow: var(--shadow-medium); max-width: 280px;
             font-size: 0.95em; color: var(--dark-pink); font-weight: 600;
             position: relative; animation: popIn 0.5s ease; display: none;
             pointer-events: none;
@@ -299,52 +464,42 @@
             animation: companionBounce 3s ease-in-out infinite;
             transition: width 0.3s ease, height 0.3s ease;
         }
-        @keyframes companionBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes companionBounce { 
+            0%, 100% { transform: translateY(0); } 
+            50% { transform: translateY(-8px); } 
+        }
 
         .robot-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            padding: 10px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            z-index: 1001;
-            border: 2px solid var(--primary-pink);
+            position: fixed; bottom: 20px; right: 20px;
+            background: white; padding: 10px; border-radius: 15px;
+            box-shadow: var(--shadow-medium);
+            display: flex; flex-direction: column; gap: 8px;
+            z-index: 1001; border: 2px solid var(--primary-pink);
         }
         .robot-control-btn {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--primary-pink);
-            border-radius: 10px;
-            background: white;
-            color: var(--dark-pink);
-            font-size: 1.2em;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            font-weight: 900;
+            width: 40px; height: 40px;
+            border: 2px solid var(--primary-pink); border-radius: 10px;
+            background: white; color: var(--dark-pink);
+            font-size: 1.2em; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition-smooth); font-weight: 900;
         }
         .robot-control-btn:hover {
-            background: var(--primary-pink);
-            color: white;
+            background: var(--primary-pink); color: white;
             transform: scale(1.1);
         }
         .robot-control-btn:active { transform: scale(0.95); }
 
-        .garden-modal-overlay {
+        .garden-modal-overlay, .wheel-modal-overlay, .stats-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.5); z-index: 10000; display: none;
             align-items: center; justify-content: center;
             backdrop-filter: blur(5px);
         }
-        .garden-modal-overlay.active { display: flex; }
-        .garden-modal {
+        .garden-modal-overlay.active, .wheel-modal-overlay.active, .stats-modal-overlay.active { 
+            display: flex; 
+        }
+        .garden-modal, .wheel-modal, .stats-modal {
             background: linear-gradient(180deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
             border-radius: 30px; padding: 30px; max-width: 90%; max-height: 85vh;
             width: 700px; position: relative; overflow-y: auto;
@@ -352,55 +507,77 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             animation: modalPopIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        @keyframes modalPopIn { 0% { transform: scale(0.5) rotate(-5deg); opacity: 0; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
+        .wheel-modal {
+            background: linear-gradient(135deg, #fff5f8 0%, #f5f0ff 100%);
+            border: 5px solid var(--primary-pink);
+        }
+        .stats-modal {
+            background: linear-gradient(135deg, #fff5f8 0%, #f5f0ff 100%);
+            border: 5px solid var(--primary-pink);
+        }
+        @keyframes modalPopIn { 
+            0% { transform: scale(0.5) rotate(-5deg); opacity: 0; } 
+            100% { transform: scale(1) rotate(0deg); opacity: 1; } 
+        }
         .garden-modal::before {
             content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
             background: linear-gradient(180deg, transparent, #66bb6a);
             border-radius: 0 0 25px 25px; pointer-events: none;
         }
-        .garden-modal-close {
+        .modal-close {
             position: absolute; top: 15px; left: 15px;
             background: white; border: 3px solid #e57373; color: #e57373;
             width: 40px; height: 40px; border-radius: 50%;
             font-size: 1.5em; font-weight: 900; cursor: pointer;
             display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s; z-index: 10;
+            transition: var(--transition-smooth); z-index: 10;
         }
-        .garden-modal-close:hover { background: #e57373; color: white; transform: rotate(90deg); }
-        .garden-modal-title {
+        .modal-close:hover { 
+            background: #e57373; color: white; 
+            transform: rotate(90deg); 
+        }
+        .modal-title {
             text-align: center; font-size: 2.2em; font-weight: 900;
             color: #2e7d32; margin-bottom: 10px;
             text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
         }
-        .garden-modal-subtitle {
+        .wheel-modal .modal-title, .stats-modal .modal-title {
+            color: var(--dark-pink);
+        }
+        .modal-subtitle {
             text-align: center; font-size: 1.1em; color: #388e3c;
             margin-bottom: 20px; font-weight: 700;
         }
-        .garden-stats-bar {
+        .stats-bar {
             background: rgba(255,255,255,0.7); border-radius: 15px; padding: 15px;
             margin-bottom: 20px; text-align: center;
             border: 2px dashed #81c784;
         }
-        .garden-stats-bar span { font-size: 1.3em; font-weight: 900; color: #2e7d32; }
-        .garden-flowers-container {
+        .stats-bar span { font-size: 1.3em; font-weight: 900; color: #2e7d32; }
+        .flowers-container {
             display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
             padding: 25px; background: rgba(255,255,255,0.4);
             border-radius: 20px; min-height: 150px;
             position: relative; z-index: 2;
         }
-        .garden-flower {
-            font-size: 3em; animation: flowerGrow 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .flower {
+            font-size: 3em; 
+            animation: flowerGrow 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
-            cursor: pointer; transition: transform 0.3s;
+            cursor: pointer; transition: var(--transition-smooth);
         }
-        .garden-flower:hover { transform: scale(1.4) rotate(20deg); }
-        @keyframes flowerGrow { 0% { transform: scale(0) rotate(-180deg); opacity: 0; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
-        .garden-empty {
+        .flower:hover { transform: scale(1.4) rotate(20deg); }
+        @keyframes flowerGrow { 
+            0% { transform: scale(0) rotate(-180deg); opacity: 0; } 
+            100% { transform: scale(1) rotate(0deg); opacity: 1; } 
+        }
+        .empty-message {
             text-align: center; color: #66bb6a; font-size: 1.3em;
             padding: 30px; font-style: italic; width: 100%;
         }
-        .garden-butterflies {
-            position: absolute; font-size: 2em; animation: butterflyFly 8s ease-in-out infinite;
+        .butterflies {
+            position: absolute; font-size: 2em; 
+            animation: butterflyFly 8s ease-in-out infinite;
             pointer-events: none;
         }
         @keyframes butterflyFly {
@@ -410,94 +587,43 @@
             75% { transform: translate(50px, 30px) rotate(5deg); }
         }
 
-        .wheel-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 10001; display: none;
-            align-items: center; justify-content: center;
-            backdrop-filter: blur(8px);
-        }
-        .wheel-modal-overlay.active { display: flex; }
-        .wheel-modal {
-            background: linear-gradient(135deg, #fff5f8 0%, #f5f0ff 100%);
-            border-radius: 30px; padding: 30px; max-width: 95%; max-height: 90vh;
-            width: 600px; position: relative; overflow-y: auto;
-            border: 5px solid var(--primary-pink);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: modalPopIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-align: center;
-        }
-        .wheel-modal-close {
-            position: absolute; top: 15px; left: 15px;
-            background: white; border: 3px solid #e57373; color: #e57373;
-            width: 40px; height: 40px; border-radius: 50%;
-            font-size: 1.5em; font-weight: 900; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s; z-index: 10;
-        }
-        .wheel-modal-close:hover { background: #e57373; color: white; transform: rotate(90deg); }
-        .wheel-modal-title {
-            font-size: 2em; font-weight: 900; color: var(--dark-pink);
-            margin-bottom: 15px;
-        }
         .wheel-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-            margin: 20px auto;
+            position: relative; width: 400px; height: 400px; margin: 20px auto;
         }
         .wheel-canvas {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
+            width: 100%; height: 100%; border-radius: 50%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         .wheel-pointer {
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
+            position: absolute; top: -10px; left: 50%;
+            transform: translateX(-50%); width: 0; height: 0;
+            border-left: 20px solid transparent; border-right: 20px solid transparent;
             border-top: 40px solid #e74c3c;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
-            z-index: 5;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); z-index: 5;
         }
         .wheel-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
+            position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 50%;
-            border: 4px solid var(--dark-pink);
+            width: 60px; height: 60px; background: white;
+            border-radius: 50%; border: 4px solid var(--dark-pink);
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            font-weight: 900;
-            color: var(--dark-pink);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5em; font-weight: 900; color: var(--dark-pink);
             z-index: 5;
         }
         .spin-btn {
             padding: 15px 50px;
             background: linear-gradient(135deg, #ff7eb3, #ff758c);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.3em;
-            font-weight: 900;
-            cursor: pointer;
+            color: white; border: none; border-radius: 25px;
+            font-size: 1.3em; font-weight: 900; cursor: pointer;
             font-family: var(--font-family);
             box-shadow: 0 6px 20px rgba(255, 126, 179, 0.4);
-            transition: all 0.3s;
-            margin-top: 20px;
+            transition: var(--transition-smooth); margin-top: 20px;
         }
-        .spin-btn:hover:not(:disabled) { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(255, 126, 179, 0.6); }
+        .spin-btn:hover:not(:disabled) { 
+            transform: translateY(-3px) scale(1.05); 
+            box-shadow: 0 8px 25px rgba(255, 126, 179, 0.6); 
+        }
         .spin-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
         .challenge-mode {
@@ -505,11 +631,26 @@
             padding: 30px; border-radius: 25px; text-align: center;
             border: 2px solid var(--secondary-pink); position: relative;
         }
-        .timer { font-size: 1.8em; font-weight: 900; color: var(--dark-pink); margin-bottom: 12px; }
+        .timer { 
+            font-size: 1.8em; font-weight: 900; color: var(--dark-pink); 
+            margin-bottom: 12px; 
+        }
         .timer.stopped { color: var(--fail-red); animation: pulse 1s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .progress-bar { width: 100%; height: 20px; background: rgba(244, 194, 194, 0.3); border-radius: 12px; overflow: hidden; margin-bottom: 20px; border: 2px solid white; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary-pink), var(--lavender)); width: 100%; transition: width 1s linear; }
+        @keyframes pulse { 
+            0%, 100% { opacity: 1; } 
+            50% { opacity: 0.5; } 
+        }
+        .progress-bar { 
+            width: 100%; height: 20px; 
+            background: rgba(244, 194, 194, 0.3); 
+            border-radius: 12px; overflow: hidden; 
+            margin-bottom: 20px; border: 2px solid white; 
+        }
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(90deg, var(--primary-pink), var(--lavender)); 
+            width: 100%; transition: width 1s linear; 
+        }
 
         .flashcards-intro {
             text-align: center; margin-bottom: 25px; padding: 18px;
@@ -517,32 +658,76 @@
             border-radius: 18px; border: 2px dashed var(--primary-pink);
         }
         .flashcards-intro h3 { color: var(--dark-pink); font-size: 1.3em; margin-bottom: 8px; }
-        .flashcards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; padding: 15px; }
+        .flashcards-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+            gap: 20px; padding: 15px; 
+        }
         .flashcard-container { perspective: 1000px; height: 240px; cursor: pointer; }
-        .flashcard { position: relative; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
+        .flashcard { 
+            position: relative; width: 100%; height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            transform-style: preserve-3d; 
+        }
         .flashcard.flipped { transform: rotateY(180deg); }
         .flashcard-face {
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-            border-radius: 18px; display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 20px; box-shadow: 0 8px 25px rgba(232, 180, 184, 0.2); border: 2px solid white;
+            position: absolute; width: 100%; height: 100%; 
+            backface-visibility: hidden; border-radius: 18px;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; padding: 20px; 
+            box-shadow: 0 8px 25px rgba(232, 180, 184, 0.2); 
+            border: 2px solid white;
         }
-        .flashcard-front { background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink)); color: white; }
+        .flashcard-front { 
+            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink)); 
+            color: white; 
+        }
         .flashcard-front .card-icon { font-size: 2.5em; margin-bottom: 8px; }
-        .flashcard-front .card-label { font-size: 0.85em; opacity: 0.95; margin-bottom: 12px; background: rgba(255,255,255,0.25); padding: 4px 12px; border-radius: 12px; }
-        .flashcard-front .card-question { font-size: 1.05em; font-weight: 700; text-align: center; line-height: 1.5; }
-        .flashcard-back { background: linear-gradient(135deg, var(--success-green), var(--mint)); color: #5a7a6a; transform: rotateY(180deg); }
+        .flashcard-front .card-label { 
+            font-size: 0.85em; opacity: 0.95; margin-bottom: 12px;
+            background: rgba(255,255,255,0.25); padding: 4px 12px; border-radius: 12px; 
+        }
+        .flashcard-front .card-question { 
+            font-size: 1.05em; font-weight: 700; text-align: center; line-height: 1.5; 
+        }
+        .flashcard-back { 
+            background: linear-gradient(135deg, var(--success-green), var(--mint)); 
+            color: #5a7a6a; transform: rotateY(180deg); 
+        }
         .flashcard-back .card-icon { font-size: 2.5em; margin-bottom: 8px; }
-        .flashcard-back .card-label { font-size: 0.85em; margin-bottom: 12px; background: rgba(255,255,255,0.5); padding: 4px 12px; border-radius: 12px; font-weight: 700; }
-        .flashcard-back .card-answer { font-size: 1em; font-weight: 700; color: #5a7a6a; text-align: center; line-height: 1.5; }
+        .flashcard-back .card-label { 
+            font-size: 0.85em; margin-bottom: 12px;
+            background: rgba(255,255,255,0.5); padding: 4px 12px; border-radius: 12px; font-weight: 700; 
+        }
+        .flashcard-back .card-answer { 
+            font-size: 1em; font-weight: 700; color: #5a7a6a; 
+            text-align: center; line-height: 1.5; 
+        }
         .flashcard-controls { text-align: center; margin-top: 25px; padding: 15px; }
 
         .footer-credit {
             margin-top: 50px; text-align: center; padding: 25px;
             background: rgba(255, 255, 255, 0.9); border-radius: 20px;
-            border: 2px solid var(--light-pink); box-shadow: 0 8px 25px rgba(212, 197, 226, 0.15);
+            border: 2px solid var(--light-pink); 
+            box-shadow: 0 8px 25px rgba(212, 197, 226, 0.15);
         }
-        .footer-credit p { margin: 6px 0; font-size: 1.05em; color: var(--dark-pink); font-weight: 600; }
-        .school-name { font-size: 1.2em; font-weight: 900; color: var(--dark-pink); margin-top: 12px; letter-spacing: 0.5px; }
+        .footer-credit p { 
+            margin: 6px 0; font-size: 1.05em; 
+            color: var(--dark-pink); font-weight: 600; 
+        }
+        .school-name { 
+            font-size: 1.2em; font-weight: 900; color: var(--dark-pink); 
+            margin-top: 12px; letter-spacing: 0.5px; 
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+        
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0;
+            margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+            white-space: nowrap; border: 0;
+        }
 
         @media (max-width: 768px) {
             .header h1 { font-size: 1.6em; }
@@ -560,13 +745,11 @@
             .bg-shape { opacity: 0.1; }
             .new-challenge-btn { font-size: 1.1em; padding: 12px 30px; }
             .companion-svg { width: 110px; height: 170px; }
-            .companion-speech { max-width: 180px; font-size: 0.85em; }
-            .garden-modal { padding: 20px; width: 95%; }
-            .garden-modal-title { font-size: 1.6em; }
-            .garden-flower { font-size: 2.2em; }
+            .companion-speech { max-width: 200px; font-size: 0.85em; }
+            .garden-modal, .wheel-modal, .stats-modal { padding: 20px; width: 95%; }
+            .modal-title { font-size: 1.6em; }
+            .flower { font-size: 2.2em; }
             .wheel-container { width: 300px; height: 300px; }
-            .wheel-modal { width: 95%; padding: 20px; }
-            .wheel-modal-title { font-size: 1.5em; }
             .robot-controls { bottom: 10px; right: 10px; }
             .robot-control-btn { width: 35px; height: 35px; font-size: 1em; }
         }
@@ -583,25 +766,30 @@
     <div id="confetti-container"></div>
 
     <div class="controls-panel">
-        <label> الثيم:</label>
-        <select id="themeSelector" onchange="changeTheme(this.value)">
+        <label>🎨 الثيم:</label>
+        <select id="themeSelector" onchange="changeTheme(this.value)" aria-label="اختيار الثيم">
             <option value="pink">وردي 🌷</option>
             <option value="blue">أزرق 💙</option>
             <option value="green">أخضر 💚</option>
-            <option value="rainbow">قوس قزح 🌈</option>
+            <option value="rainbow">قوس قزح </option>
             <option value="warm">دافئ 🍂</option>
         </select>
-        <button onclick="toggleDarkMode()" id="darkModeBtn"> ليلي</button>
-        <button class="garden-btn" onclick="openGarden()"> الحديقة</button>
-        <button class="wheel-btn" onclick="openWheel()">🎡 العجلة</button>
-        <button class="reset-btn" onclick="resetAll()" title="تصفير النقاط والزهور">🔄 تصفير</button>
+        <button onclick="toggleDarkMode()" id="darkModeBtn" aria-label="تبديل الوضع الليلي">🌙 ليلي</button>
+        <button class="stats-btn" onclick="openStats()" aria-label="عرض الإحصائيات">📊 إحصائيات</button>
+        <button class="garden-btn" onclick="openGarden()" aria-label="عرض الحديقة"> الحديقة</button>
+        <button class="wheel-btn" onclick="openWheel()" aria-label="فتح العجلة">🎡 العجلة</button>
+        <button class="reset-btn" onclick="resetAll()" title="تصفير النقاط والزهور" aria-label="تصفير كل شيء">🔄 تصفير</button>
     </div>
 
-    <div class="score-board"><span id="scoreEmoji">🌟</span><span id="score">0</span> نقطة | 🌸 <span id="flowerCount">0</span></div>
+    <div class="score-board" role="status" aria-live="polite">
+        <span id="scoreEmoji">🌟</span>
+        <span id="score">0</span> نقطة | 
+        🌸 <span id="flowerCount">0</span>
+    </div>
 
     <div class="container">
         <div class="header">
-            <h1 id="headerEmoji"> مغامرة الأعداد الصحيحة 🌷</h1>
+            <h1 id="headerEmoji">🌷 مغامرة الأعداد الصحيحة 🌷</h1>
             <p>تعلم الرياضيات بأسلوب تفاعلي وممتع!</p>
         </div>
 
@@ -615,14 +803,15 @@
             </div>
             <div class="interactive-area">
                 <div class="problem-display" id="addProblem">(+5) + (-2) = ?</div>
-                <input type="number" class="answer-input" id="addAnswer" placeholder="اكتب الجواب">
+                <input type="number" class="answer-input" id="addAnswer" placeholder="اكتب الجواب" aria-label="إجابة الجمع">
                 <div class="btn-group">
-                    <button class="action-btn instant-btn" onclick="instantCheck('addition')">🌤️ تحقق فوري</button>
-                    <button class="action-btn new-btn" onclick="newProblem('addition')">مسألة جديدة 🌸</button>
+                    <button class="action-btn instant-btn" onclick="instantCheck('addition')" aria-label="تحقق من الإجابة">🌤️ تحقق فوري</button>
+                    <button class="action-btn hint-btn" onclick="showHint('addition')" aria-label="عرض تلميح">💡 تلميح</button>
+                    <button class="action-btn new-btn" onclick="newProblem('addition')" aria-label="مسألة جديدة">مسألة جديدة 🌸</button>
                 </div>
                 <div id="addSuccessMsg" class="big-success-msg">أحسنت! </div>
                 <div id="addFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة 🌱</div>
-                <div class="feedback" id="addFeedback"></div>
+                <div class="feedback" id="addFeedback" role="alert"></div>
             </div>
         </div>
 
@@ -635,14 +824,15 @@
             </div>
             <div class="interactive-area">
                 <div class="problem-display" id="subProblem">(-8) - (-3) = ?</div>
-                <input type="number" class="answer-input" id="subAnswer" placeholder="اكتب الجواب">
+                <input type="number" class="answer-input" id="subAnswer" placeholder="اكتب الجواب" aria-label="إجابة الطرح">
                 <div class="btn-group">
-                    <button class="action-btn instant-btn" onclick="instantCheck('subtraction')">🌤️ تحقق فوري</button>
-                    <button class="action-btn new-btn" onclick="newProblem('subtraction')">مسألة جديدة 🌸</button>
+                    <button class="action-btn instant-btn" onclick="instantCheck('subtraction')" aria-label="تحقق من الإجابة">️ تحقق فوري</button>
+                    <button class="action-btn hint-btn" onclick="showHint('subtraction')" aria-label="عرض تلميح">💡 تلميح</button>
+                    <button class="action-btn new-btn" onclick="newProblem('subtraction')" aria-label="مسألة جديدة">مسألة جديدة 🌸</button>
                 </div>
                 <div id="subSuccessMsg" class="big-success-msg">أحسنت! 🎊</div>
                 <div id="subFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة 🌱</div>
-                <div class="feedback" id="subFeedback"></div>
+                <div class="feedback" id="subFeedback" role="alert"></div>
             </div>
         </div>
 
@@ -654,14 +844,15 @@
             </div>
             <div class="interactive-area">
                 <div class="problem-display" id="mulProblem">(-4) × (+5) = ?</div>
-                <input type="number" class="answer-input" id="mulAnswer" placeholder="اكتب الجواب">
+                <input type="number" class="answer-input" id="mulAnswer" placeholder="اكتب الجواب" aria-label="إجابة الضرب">
                 <div class="btn-group">
-                    <button class="action-btn instant-btn" onclick="instantCheck('multiplication')">🌤️ تحقق فوري</button>
-                    <button class="action-btn new-btn" onclick="newProblem('multiplication')">مسألة جديدة 🌸</button>
+                    <button class="action-btn instant-btn" onclick="instantCheck('multiplication')" aria-label="تحقق من الإجابة">🌤️ تحقق فوري</button>
+                    <button class="action-btn hint-btn" onclick="showHint('multiplication')" aria-label="عرض تلميح">💡 تلميح</button>
+                    <button class="action-btn new-btn" onclick="newProblem('multiplication')" aria-label="مسألة جديدة">مسألة جديدة 🌸</button>
                 </div>
                 <div id="mulSuccessMsg" class="big-success-msg">أحسنت! 🎊</div>
-                <div id="mulFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة 🌱</div>
-                <div class="feedback" id="mulFeedback"></div>
+                <div id="mulFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة </div>
+                <div class="feedback" id="mulFeedback" role="alert"></div>
             </div>
         </div>
 
@@ -670,18 +861,19 @@
                 <span class="lesson-icon" id="divIcon">🍀</span>
                 <h3>درس قسمة الأعداد الصحيحة</h3>
                 <p>تطبق نفس قواعد الإشارات في الضرب تماماً.</p>
-                <div class="rule-box"><strong>تنبيه هام:</strong> لا يمكن القسمة على صفر!<br><span class="ruleEmoji">🌷</span> (+12) ÷ (-3) = -4</div>
+                <div class="rule-box"><strong>تنبيه هام:</strong> لا يمكن القسمة على صفر!<br><span class="ruleEmoji"></span> (+12) ÷ (-3) = -4</div>
             </div>
             <div class="interactive-area">
                 <div class="problem-display" id="divProblem">(-20) ÷ (+4) = ?</div>
-                <input type="number" class="answer-input" id="divAnswer" placeholder="اكتب الجواب">
+                <input type="number" class="answer-input" id="divAnswer" placeholder="اكتب الجواب" aria-label="إجابة القسمة">
                 <div class="btn-group">
-                    <button class="action-btn instant-btn" onclick="instantCheck('division')">🌤️ تحقق فوري</button>
-                    <button class="action-btn new-btn" onclick="newProblem('division')">مسألة جديدة 🌸</button>
+                    <button class="action-btn instant-btn" onclick="instantCheck('division')" aria-label="تحقق من الإجابة">🌤️ تحقق فوري</button>
+                    <button class="action-btn hint-btn" onclick="showHint('division')" aria-label="عرض تلميح">💡 تلميح</button>
+                    <button class="action-btn new-btn" onclick="newProblem('division')" aria-label="مسألة جديدة">مسألة جديدة 🌸</button>
                 </div>
-                <div id="divSuccessMsg" class="big-success-msg">أحسنت! 🎊</div>
-                <div id="divFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة </div>
-                <div class="feedback" id="divFeedback"></div>
+                <div id="divSuccessMsg" class="big-success-msg">أحسنت! </div>
+                <div id="divFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة 🌱</div>
+                <div class="feedback" id="divFeedback" role="alert"></div>
             </div>
         </div>
 
@@ -693,44 +885,45 @@
             </div>
             <div class="interactive-area">
                 <div class="problem-display" id="parProblem">2 × (3 + (-5)) = ?</div>
-                <input type="number" class="answer-input" id="parAnswer" placeholder="اكتب الجواب">
+                <input type="number" class="answer-input" id="parAnswer" placeholder="اكتب الجواب" aria-label="إجابة الأقواس">
                 <div class="btn-group">
-                    <button class="action-btn instant-btn" onclick="instantCheck('parentheses')">🌤️ تحقق فوري</button>
-                    <button class="action-btn new-btn" onclick="newProblem('parentheses')">مسألة جديدة </button>
+                    <button class="action-btn instant-btn" onclick="instantCheck('parentheses')" aria-label="تحقق من الإجابة">🌤️ تحقق فوري</button>
+                    <button class="action-btn hint-btn" onclick="showHint('parentheses')" aria-label="عرض تلميح">💡 تلميح</button>
+                    <button class="action-btn new-btn" onclick="newProblem('parentheses')" aria-label="مسألة جديدة">مسألة جديدة 🌸</button>
                 </div>
                 <div id="parSuccessMsg" class="big-success-msg">أحسنت! 🎊</div>
                 <div id="parFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة 🌱</div>
-                <div class="feedback" id="parFeedback"></div>
+                <div class="feedback" id="parFeedback" role="alert"></div>
             </div>
         </div>
 
         <div id="flashcards" class="section">
-            <div class="flashcards-intro"><h3> البطاقات التعليمية التفاعلية</h3><p>اضغط على أي بطاقة لقلبها ورؤية الإجابة! 🌷</p></div>
+            <div class="flashcards-intro"><h3>🎨 البطاقات التعليمية التفاعلية</h3><p>اضغط على أي بطاقة لقلبها ورؤية الإجابة! 🌷</p></div>
             <div class="flashcards-grid" id="flashcardsGrid"></div>
             <div class="flashcard-controls">
-                <button class="action-btn new-btn" onclick="shuffleFlashcards()">🍃 خلط البطاقات</button>
-                <button class="action-btn" onclick="resetFlashcards()">🌸 إعادة البطاقات</button>
+                <button class="action-btn new-btn" onclick="shuffleFlashcards()" aria-label="خلط البطاقات">🍃 خلط البطاقات</button>
+                <button class="action-btn" onclick="resetFlashcards()" aria-label="إعادة البطاقات">🌸 إعادة البطاقات</button>
             </div>
         </div>
 
         <div id="challenge" class="section">
             <div class="challenge-mode">
-                <h2 style="font-size: 1.6em; margin-bottom: 12px; color: var(--dark-pink);">️ تحدي الـ 30 ثانية</h2>
+                <h2 style="font-size: 1.6em; margin-bottom: 12px; color: var(--dark-pink);">⏱️ تحدي الـ 30 ثانية</h2>
                 <div class="timer" id="timer">30 ثانية</div>
                 <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
                 <div id="challenge-game-area">
                     <div class="problem-display" id="challengeProblem">اضغط ابدأ للتحدي!</div>
-                    <input type="number" class="answer-input" id="challengeAnswer" disabled placeholder="الجواب">
+                    <input type="number" class="answer-input" id="challengeAnswer" disabled placeholder="الجواب" aria-label="إجابة التحدي">
                     <div class="btn-group">
-                        <button class="action-btn" id="startChallenge" onclick="startChallenge()" style="background: var(--fail-red);">ابدأ التحدي 🎈</button>
-                        <button class="action-btn instant-btn" id="challengeInstantBtn" onclick="instantCheck('challenge')" style="display:none;">️ تحقق فوري</button>
-                        <button class="action-btn" id="challengeCheckBtn" onclick="checkAnswer('challenge')" style="display:none;">تحقق 🌿</button>
+                        <button class="action-btn" id="startChallenge" onclick="startChallenge()" style="background: var(--fail-red);" aria-label="بدء التحدي">ابدأ التحدي 🎈</button>
+                        <button class="action-btn instant-btn" id="challengeInstantBtn" onclick="instantCheck('challenge')" style="display:none;" aria-label="تحقق فوري">️ تحقق فوري</button>
+                        <button class="action-btn" id="challengeCheckBtn" onclick="checkAnswer('challenge')" style="display:none;" aria-label="تحقق">تحقق 🌿</button>
                     </div>
                 </div>
-                <button class="new-challenge-btn" id="newChallengeBtn" onclick="startChallenge()" style="display:none;">🔄 تحدي جديد</button>
+                <button class="new-challenge-btn" id="newChallengeBtn" onclick="startChallenge()" style="display:none;" aria-label="تحدي جديد">🔄 تحدي جديد</button>
                 <div id="challengeSuccessMsg" class="big-success-msg">أحسنت! 🎊</div>
                 <div id="challengeFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة </div>
-                <div class="feedback" id="challengeFeedback"></div>
+                <div class="feedback" id="challengeFeedback" role="alert"></div>
             </div>
         </div>
 
@@ -743,8 +936,8 @@
     </div>
 
     <div class="companion-container" id="companionContainer" style="bottom: 20px; right: 20px;">
-        <div class="companion-speech" id="companionSpeech">مرحباً! أنا روبوتك المساعد! 🤖</div>
-        <svg class="companion-svg" id="companionSvg" viewBox="0 0 150 230" xmlns="http://www.w3.org/2000/svg">
+        <div class="companion-speech" id="companionSpeech" role="status" aria-live="polite">مرحباً! أنا روبوتك المساعد! 🤖</div>
+        <svg class="companion-svg" id="companionSvg" viewBox="0 0 150 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="روبوت مساعد">
             <ellipse cx="75" cy="225" rx="40" ry="5" fill="rgba(0,0,0,0.15)"/>
             <rect x="50" y="170" width="12" height="40" rx="6" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="1.5"/>
             <rect x="88" y="170" width="12" height="40" rx="6" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="1.5"/>
@@ -795,11 +988,11 @@
     </div>
 
     <div class="robot-controls" id="robotControls">
-        <button class="robot-control-btn" onclick="resizeRobot(1.2)" title="تكبير">➕</button>
-        <button class="robot-control-btn" onclick="resizeRobot(0.8)" title="تصغير">➖</button>
-        <button class="robot-control-btn" onclick="resetRobotPosition()" title="إعادة الموضع">🔄</button>
-        <button class="robot-control-btn" onclick="toggleRobotControls()" title="إخفاء الأدوات">✕</button>
-        <select id="robotColorSelect" onchange="changeRobotColor(this.value)" title="لون الروبوت" style="width: 40px; height: 40px; padding: 0; border: 2px solid var(--primary-pink); border-radius: 10px; cursor: pointer;">
+        <button class="robot-control-btn" onclick="resizeRobot(1.2)" title="تكبير" aria-label="تكبير الروبوت">➕</button>
+        <button class="robot-control-btn" onclick="resizeRobot(0.8)" title="تصغير" aria-label="تصغير الروبوت"></button>
+        <button class="robot-control-btn" onclick="resetRobotPosition()" title="إعادة الموضع" aria-label="إعادة موضع الروبوت">🔄</button>
+        <button class="robot-control-btn" onclick="toggleRobotControls()" title="إخفاء الأدوات" aria-label="إخفاء أدوات التحكم">✕</button>
+        <select id="robotColorSelect" onchange="changeRobotColor(this.value)" title="لون الروبوت" aria-label="اختيار لون الروبوت" style="width: 40px; height: 40px; padding: 0; border: 2px solid var(--primary-pink); border-radius: 10px; cursor: pointer;">
             <option value="default">⚙️</option>
             <option value="pink">🌸</option>
             <option value="blue">💙</option>
@@ -811,32 +1004,52 @@
 
     <div class="garden-modal-overlay" id="gardenModal">
         <div class="garden-modal">
-            <button class="garden-modal-close" onclick="closeGarden()">✕</button>
-            <div class="garden-modal-title">🌺 حديقة إنجازاتي 🌺</div>
-            <div class="garden-modal-subtitle">كل نقطة = زهرة في حديقتي الجميلة!</div>
-            <div class="garden-stats-bar">
+            <button class="modal-close" onclick="closeGarden()" aria-label="إغلاق">✕</button>
+            <div class="modal-title">🌺 حديقة إنجازاتي 🌺</div>
+            <div class="modal-subtitle">كل نقطة = زهرة في حديقتي الجميلة!</div>
+            <div class="stats-bar">
                 🌟 إجمالي النقاط: <span id="modalScore">0</span> | 
-                🌸 عدد الزهور: <span id="modalFlowerCount">0</span>
+                 عدد الزهور: <span id="modalFlowerCount">0</span>
             </div>
-            <div class="garden-flowers-container" id="modalGardenFlowers">
-                <div class="garden-empty">🌱 الحديقة فارغة... اجمعي النقاط لتزهر!</div>
+            <div class="flowers-container" id="modalGardenFlowers">
+                <div class="empty-message">🌱 الحديقة فارغة... اجمعي النقاط لتزهر!</div>
             </div>
-            <div class="garden-butterflies" style="top: 20%; right: 10%;">🦋</div>
-            <div class="garden-butterflies" style="top: 40%; left: 15%; animation-delay: 2s;">🦋</div>
-            <div class="garden-butterflies" style="top: 60%; right: 20%; animation-delay: 4s;">🦋</div>
+            <div class="butterflies" style="top: 20%; right: 10%;">🦋</div>
+            <div class="butterflies" style="top: 40%; left: 15%; animation-delay: 2s;">🦋</div>
+            <div class="butterflies" style="top: 60%; right: 20%; animation-delay: 4s;">🦋</div>
         </div>
     </div>
 
     <div class="wheel-modal-overlay" id="wheelModal">
         <div class="wheel-modal">
-            <button class="wheel-modal-close" onclick="closeWheel()">✕</button>
-            <div class="wheel-modal-title">🎡 عجلة الأسماء الدوارة 🎡</div>
+            <button class="modal-close" onclick="closeWheel()" aria-label="إغلاق">✕</button>
+            <div class="modal-title">🎡 عجلة الأسماء الدوارة 🎡</div>
             <div class="wheel-container">
                 <div class="wheel-pointer"></div>
                 <canvas class="wheel-canvas" id="wheelCanvas" width="400" height="400"></canvas>
                 <div class="wheel-center">🎯</div>
             </div>
-            <button class="spin-btn" id="spinBtn" onclick="spinWheel()"> تدوير العجلة</button>
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()" aria-label="تدوير العجلة"> تدوير العجلة</button>
+        </div>
+    </div>
+
+    <div class="stats-modal-overlay" id="statsModal">
+        <div class="stats-modal">
+            <button class="modal-close" onclick="closeStats()" aria-label="إغلاق">✕</button>
+            <div class="modal-title">📊 إحصائيات التقدم 📊</div>
+            <div class="stats-bar">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; text-align: right;">
+                    <div>📝 إجمالي المحاولات: <span id="statAttempts">0</span></div>
+                    <div>✅ إجابات صحيحة: <span id="statCorrect">0</span></div>
+                    <div>❌ إجابات خاطئة: <span id="statWrong">0</span></div>
+                    <div>🎯 نسبة النجاح: <span id="statAccuracy">0%</span></div>
+                    <div>⭐ النقاط: <span id="statScore">0</span></div>
+                    <div>🌸 الزهور: <span id="statFlowers">0</span></div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="action-btn" onclick="exportStats()" aria-label="تصدير الإحصائيات">📥 تصدير الإحصائيات</button>
+            </div>
         </div>
     </div>
 
@@ -851,6 +1064,21 @@
         let currentMode = 'light';
         let flowerCount = 0;
         let gardenFlowers = [];
+        let currentWinner = null;
+
+        let stats = {
+            attempts: 0,
+            correct: 0,
+            wrong: 0,
+            byType: {
+                addition: { correct: 0, wrong: 0 },
+                subtraction: { correct: 0, wrong: 0 },
+                multiplication: { correct: 0, wrong: 0 },
+                division: { correct: 0, wrong: 0 },
+                parentheses: { correct: 0, wrong: 0 },
+                challenge: { correct: 0, wrong: 0 }
+            }
+        };
 
         let robotScale = 1;
         let robotX = 20;
@@ -861,89 +1089,149 @@
         let robotStartX = 0;
         let robotStartY = 0;
 
-        const wheelNames = ['حلا', 'سلام', 'لانا', 'لجين', 'جنى', 'يقين', 'ليندا', 'صبا', 'ليان شعار', 'ليان سوريد', 'أبرار', 'حنين', 'تقى', 'لمار', 'ماسة'];
+        // ✅ تم تعديل الاسم من "ليان سوريد" إلى "ليان سويد"
+        const wheelNames = ['حلا', 'سلام', 'لانا', 'لجين', 'جنى', 'يقين', 'ليندا', 'صبا', 'ليان شعار', 'ليان سويد', 'أبرار', 'حنين', 'تقى', 'لمار', 'ماسة'];
         const wheelColors = ['#ff7eb3', '#ff758c', '#ffd700', '#a8d5ba', '#c5e0f5', '#d4c5e2', '#f4a6c3', '#f7c5d8', '#ffdac1', '#c8e6d9', '#e8b4b8', '#f4c2c2', '#b5838d', '#d63384', '#ff9a9e'];
         let wheelRotation = 0;
         let isSpinning = false;
         let usedNames = [];
-        let currentWinner = null;
 
-        // ✅ عبارات تحفيز عامة بدون أسماء (متغيرة وعشوائية)
-        const successMessages = [
-            "رائعة! استمري هكذا! 🌟",
-            "أنتِ ذكية جداً! 💪",
-            "ممتازة! فخورون بكِ! 🎉",
-            "إجابة رائعة! 🌸",
-            "استمري في التألق! ✨",
-            "أنتِ نجمة الرياضيات! ⭐",
-            "عمل رائع! 🌷",
-            "مبروك! إجابة صحيحة! 🎊",
-            "أنتِ تتقدمين بسرعة! 🚀",
-            "مذهلة! واصلي! 💫",
-            "أحسنتِ صنعاً! 🌺",
-            "إجابة مثالية! 👏",
-            "أنتِ عبقرية! ",
-            "فخورون بإنجازاتكِ! 💖",
-            "استمري في التعلم! 📚",
-            "برافو عليكِ! 🎈",
-            "إجابة ذكية! 💡",
-            "أداء ممتاز! 🏆"
-        ];
+        const robotPhrases = {
+            'حلا': {
+                success: ["حلا، إجابة رائعة! 🌟", "أحسنتِ يا حلا! 💪", "ممتازة حلا! 🎉", "حلا، أنتِ ذكية! ✨"],
+                fail: ["حلا، لا بأس حاولي مرة أخرى! 💪", "حلا، فكري بهدوء! 🤔", "حلا، أنتِ قريبة! 🌸"],
+                start: ["يلا حلا، نبدأ التحدي! 🚀", "حلا، أنتِ مستعدة؟ 💪"],
+                end: ["حلا، الوقت انتهى لكن لا بأس! 🌸", "حلا، المحاولة أهم! 💫"]
+            },
+            'سلام': {
+                success: ["سلام، إجابة ذكية! 🌟", "أحسنتِ يا سلام! 💪", "ممتازة سلام! 🎉", "سلام، رائعة! "],
+                fail: ["سلام، كل خطأ فرصة للتعلم! 🌱", "سلام، أنتِ قريبة! 🌸", "سلام، حاولي مرة أخرى! 💪"],
+                start: ["يلا سلام، نبدأ التحدي! 🚀", "سلام، أنتِ مستعدة؟ 💪"],
+                end: ["سلام، الوقت انتهى لكن لا بأس! 🌸", "سلام، المحاولة أهم! 💫"]
+            },
+            'لانا': {
+                success: ["لانا، عمل رائع! 🌟", "ممتازة يا لانا! 💪", "لانا، أحسنتِ! 🎉", "لانا، استمري! ✨"],
+                fail: ["لانا، لا تستسلمي! 💪", "لانا، حاولي مجدداً! ", "لانا، فكري بهدوء! 🤔"],
+                start: ["يلا لانا، نبدأ التحدي! 🚀", "لانا، أنتِ مستعدة؟ 💪"],
+                end: ["لانا، الوقت انتهى لكن لا بأس! 🌸", "لانا، المحاولة أهم! 💫"]
+            },
+            'لجين': {
+                success: ["لجين، أنتِ نجمة! 🌟", "إجابة مثالية يا لجين! 💪", "لجين، رائعة! ✨", "ممتازة يا لجين! 🎉"],
+                fail: ["لجين، ثقي بنفسك! 🌟", "لجين، المحاولة أهم! 💫", "لجين، لا بأس! 💪"],
+                start: ["يلا لجين، نبدأ التحدي! 🚀", "لجين، أنتِ مستعدة؟ 💪"],
+                end: ["لجين، الوقت انتهى لكن لا بأس! 🌸", "لجين، المحاولة أهم! 💫"]
+            },
+            'جنى': {
+                success: ["جنى، أحسنتِ! 🌟", "ممتازة يا جنى! 💪", "جنى، استمري في التألق! ✨", "عمل رائع يا جنى! 🎉"],
+                fail: ["جنى، لا تحزني! 💪", "جنى، فكري مرة أخرى! 🤔", "جنى، أنتِ قادرة! 💪"],
+                start: ["يلا جنى، نبدأ التحدي! 🚀", "جنى، أنتِ مستعدة؟ 💪"],
+                end: ["جنى، الوقت انتهى لكن لا بأس! 🌸", "جنى، المحاولة أهم! 💫"]
+            },
+            'يقين': {
+                success: ["يقين، إجابة صحيحة! 🌟", "أحسنتِ يا يقين! 💪", "يقين، أنتِ ذكية! ✨", "ممتازة يا يقين! 🎉"],
+                fail: ["يقين، أنتِ قادرة! 💖", "يقين، راجعي القاعدة! 📖", "يقين، لا بأس! 💪"],
+                start: ["يلا يقين، نبدأ التحدي! 🚀", "يقين، أنتِ مستعدة؟ 💪"],
+                end: ["يقين، الوقت انتهى لكن لا بأس! 🌸", "يقين، المحاولة أهم! 💫"]
+            },
+            'ليندا': {
+                success: ["ليندا، رائعة! 🌟", "ممتازة يا ليندا! 💪", "ليندا، استمري! ", "أحسنتِ يا ليندا! 🎉"],
+                fail: ["ليندا، لا بأس! 💪", "ليندا، حاولي مرة أخرى! 🌸", "ليندا، أنتِ قريبة! 🌟"],
+                start: ["يلا ليندا، نبدأ التحدي! 🚀", "ليندا، أنتِ مستعدة؟ 💪"],
+                end: ["ليندا، الوقت انتهى لكن لا بأس! 🌸", "ليندا، المحاولة أهم! 💫"]
+            },
+            'صبا': {
+                success: ["صبا، عمل جميل! 🌟", "أحسنتِ يا صبا! 💪", "صبا، أنتِ متميزة! ✨", "رائعة يا صبا! 🎉"],
+                fail: ["صبا، كل خطأ درس! 🌱", "صبا، استمري! 🌟", "صبا، حاولي مجدداً! 💪"],
+                start: ["يلا صبا، نبدأ التحدي! 🚀", "صبا، أنتِ مستعدة؟ 💪"],
+                end: ["صبا، الوقت انتهى لكن لا بأس! 🌸", "صبا، المحاولة أهم! 💫"]
+            },
+            'ليان شعار': {
+                success: ["ليان شعار، ممتازة! 🌟", "إجابة رائعة يا ليان! 💪", "ليان، استمري! ✨", "أحسنتِ يا ليان! 🎉"],
+                fail: ["ليان، لا تستسلمي! 💪", "ليان شعار، فكري بهدوء! ", "ليان، أنتِ قريبة! "],
+                start: ["يلا ليان، نبدأ التحدي! 🚀", "ليان شعار، أنتِ مستعدة؟ 💪"],
+                end: ["ليان، الوقت انتهى لكن لا بأس! 🌸", "ليان شعار، المحاولة أهم! 💫"]
+            },
+            // ✅ تم تعديل الاسم من "ليان سوريد" إلى "ليان سويد"
+            'ليان سويد': {
+                success: ["ليان سويد، أحسنتِ! 🌟", "ممتازة يا ليان! 💪", "ليان، رائعة! ✨", "عمل جميل يا ليان! 🎉"],
+                fail: ["ليان، أنتِ قريبة! 🌸", "ليان سويد، حاولي! 💪", "ليان، لا بأس! 🌟"],
+                start: ["يلا ليان، نبدأ التحدي! 🚀", "ليان سويد، أنتِ مستعدة؟ 💪"],
+                end: ["ليان، الوقت انتهى لكن لا بأس! ", "ليان سويد، المحاولة أهم! 💫"]
+            },
+            'أبرار': {
+                success: ["أبرار، عمل رائع! 🌟", "أحسنتِ يا أبرار! 💪", "أبرار، أنتِ نجمة! ✨", "ممتازة يا أبرار! 🎉"],
+                fail: ["أبرار، لا بأس! 💪", "أبرار، راجعي الدرس! 📖", "أبرار، حاولي مرة أخرى! 🌸"],
+                start: ["يلا أبرار، نبدأ التحدي! 🚀", "أبرار، أنتِ مستعدة؟ 💪"],
+                end: ["أبرار، الوقت انتهى لكن لا بأس! 🌸", "أبرار، المحاولة أهم! "]
+            },
+            'حنين': {
+                success: ["حنين، إجابة ذكية! 🌟", "ممتازة يا حنين! 💪", "حنين، استمري! ✨", "أحسنتِ يا حنين! 🎉"],
+                fail: ["حنين، ثقي بنفسك! 🌟", "حنين، حاولي مرة أخرى! 💪", "حنين، أنتِ قريبة! 🌸"],
+                start: ["يلا حنين، نبدأ التحدي! 🚀", "حنين، أنتِ مستعدة؟ 💪"],
+                end: ["حنين، الوقت انتهى لكن لا بأس! 🌸", "حنين، المحاولة أهم! 💫"]
+            },
+            'تقى': {
+                success: ["تقى، أنتِ عبقرية! 🌟", "أحسنتِ يا تقى! 💪", "تقى، رائعة! ✨", "ممتازة يا تقى! 🎉"],
+                fail: ["تقى، أنتِ ذكية! 🌟", "تقى، فكري مرة أخرى! 🤔", "تقى، لا بأس! 💪"],
+                start: ["يلا تقى، نبدأ التحدي! 🚀", "تقى، أنتِ مستعدة؟ 💪"],
+                end: ["تقى، الوقت انتهى لكن لا بأس! 🌸", "تقى، المحاولة أهم! 💫"]
+            },
+            'لمار': {
+                success: ["لمار، عمل ممتاز! 🌟", "أحسنتِ يا لمار! ", "لمار، استمري! ✨", "رائعة يا لمار! 🎉"],
+                fail: ["لمار، لا تحزني! 💪", "لمار، المحاولة مهمة! 🌱", "لمار، حاولي مجدداً! 🌸"],
+                start: ["يلا لمار، نبدأ التحدي! 🚀", "لمار، أنتِ مستعدة؟ 💪"],
+                end: ["لمار، الوقت انتهى لكن لا بأس! 🌸", "لمار، المحاولة أهم! 💫"]
+            },
+            'ماسة': {
+                success: ["ماسة، أنتِ متميزة! ", "إجابة رائعة يا ماسة! ", "ماسة، أحسنتِ! ", "ممتازة يا ماسة! "],
+                fail: ["ماسة، أنتِ قادرة! 💖", "ماسة، حاولي مجدداً! 🌸", "ماسة، لا بأس! 💪"],
+                start: ["يلا ماسة، نبدأ التحدي! 🚀", "ماسة، أنتِ مستعدة؟ 💪"],
+                end: ["ماسة، الوقت انتهى لكن لا بأس! 🌸", "ماسة، المحاولة أهم! 💫"]
+            }
+        };
 
-        const failMessages = [
-            "لا تحزني، حاولي مرة أخرى! ",
-            "كل خطأ هو فرصة للتعلم! 🌱",
-            "لا تستسلمي، أنتِ قريبة! 🌸",
-            "فكري بهدوء وحاولي مجدداً! 🤔",
-            "أنتِ قادرة على ذلك! 💖",
-            "تحتاجين لمراجعة بسيطة فقط! 📖",
-            "لا بأس، المحاولة أهم! 💫",
-            "ثقي بنفسكِ أكثر! 🌟",
-            "خطوة بخطوة ستصلين! ‍♀️",
-            "التعلم يحتاج صبراً! 🌻"
-        ];
+        const generalPhrases = {
+            success: ["رائعة! استمري هكذا! ", "أنتِ ذكية جداً! 💪", "ممتازة! فخورون بكِ! 🎉", "إجابة رائعة! 🌸", "استمري في التألق! ✨"],
+            fail: ["لا تحزني، حاولي مرة أخرى! 💪", "كل خطأ هو فرصة للتعلم! 🌱", "لا تستسلمي، أنتِ قريبة! 🌸", "فكري بهدوء وحاولي مجدداً! "],
+            start: ["يلا نبدأ التحدي! أنا معكِ! 💪", "أنتِ مستعدة؟ يلا! 🚀", "هيا، أريهم ما عندكِ! "],
+            end: ["انتهى الوقت! لكن لا بأس، حاولي مرة أخرى! ", "لا تحزني، المرة القادمة ستكون أفضل! 🌟"]
+        };
 
-        const challengeStartMessages = [
-            "يلا نبدأ التحدي! أنا معكِ! 💪",
-            "أنتِ مستعدة؟ يلا! 🚀",
-            "هيا، أريهم ما عندكِ! ",
-            "التحدي ممتع، استمتعي به! 🎯",
-            "أنتِ قادرة على الإنجاز! 💫"
-        ];
-
-        const challengeEndMessages = [
-            "انتهى الوقت! لكن لا بأس، حاولي مرة أخرى! 🌸",
-            "لا تحزني، المرة القادمة ستكون أفضل! ",
-            "المحاولة هي الخطوة الأولى للنجاح! 🌟",
-            "أنتِ شجاعة لمحاولتكِ! 🎈"
-        ];
+        const hints = {
+            addition: "تذكري: إذا كانت الإشارات متشابهة نجمع، وإذا كانت مختلفة نطرح ونأخذ إشارة الأكبر",
+            subtraction: "تذكري: حوّلي الطرح إلى جمع بتغيير إشارة العدد الثاني",
+            multiplication: "تذكري: سالب × سالب = موجب، وموجب × سالب = سالب",
+            division: "تذكري: نفس قواعد الضرب تنطبق على القسمة",
+            parentheses: "تذكري: ابدئي دائماً بحل ما داخل الأقواس أولاً",
+            challenge: "فكري بهدوء، أنتِ قادرة على الحل! 💪"
+        };
 
         const themeEmojis = {
-            pink: { header: '🌷 مغامرة الأعداد الصحيحة 🌷', score: '🌟', add: '', sub: '🦋', mul: '🌻', div: '🍀', par: '🎐',
-                rule: '🌷', ruleNeg: '🍂', btn: '🌤️', newBtn: '🌸', shuffle: '🍃', reset: '🌸',
-                success: '', fail: '🌱', start: '🎈', check: '🌿', stop: '🌙', timer: '️',
-                flashcard: '', cardLabel: '🌾', cardBack: '💫', cardBackLabel: '',
-                feedback: '🌸', feedbackWrong: '🥀', newChallenge: ' تحدي جديد' },
-            blue: { header: '💙 مغامرة الأعداد الصحيحة 💙', score: '⭐', add: '🌊', sub: '🐬', mul: '', div: '💎', par: '',
-                rule: '💙', ruleNeg: '🌊', btn: '☁️', newBtn: '💫', shuffle: '🌊', reset: '⭐',
-                success: '🎉', fail: '', start: '🎈', check: '💫', stop: '🌙', timer: '⏱️',
+            pink: { header: '🌷 مغامرة الأعداد الصحيحة 🌷', score: '', add: '🌺', sub: '🦋', mul: '🌻', div: '🍀', par: '',
+                rule: '🌷', ruleNeg: '🍂', btn: '️', newBtn: '🌸', shuffle: '🍃', reset: '🌸',
+                success: '🎊', fail: '🌱', start: '🎈', check: '🌿', stop: '', timer: '🕰️',
+                flashcard: '🌺', cardLabel: '🌾', cardBack: '💫', cardBackLabel: '🌿',
+                feedback: '🌸', feedbackWrong: '', newChallenge: '🔄 تحدي جديد' },
+            blue: { header: '💙 مغامرة الأعداد الصحيحة 💙', score: '⭐', add: '🌊', sub: '', mul: '🌙', div: '💎', par: '🌊',
+                rule: '💙', ruleNeg: '', btn: '☁️', newBtn: '💫', shuffle: '🌊', reset: '⭐',
+                success: '', fail: '🌊', start: '🎈', check: '💫', stop: '🌙', timer: '⏱️',
                 flashcard: '🌊', cardLabel: '⭐', cardBack: '✨', cardBackLabel: '💫',
-                feedback: '⭐', feedbackWrong: '', newChallenge: '🔄 تحدي جديد' },
-            green: { header: '💚 مغامرة الأعداد الصحيحة 💚', score: '', add: '🌱', sub: '🦎', mul: '🌳', div: '🍃', par: '',
-                rule: '🌿', ruleNeg: '🍂', btn: '️', newBtn: '🌸', shuffle: '🍃', reset: '🌿',
-                success: '🎉', fail: '🍂', start: '🎈', check: '🌿', stop: '', timer: '⏳',
-                flashcard: '🌳', cardLabel: '🌾', cardBack: '✨', cardBackLabel: '🌿',
+                feedback: '⭐', feedbackWrong: '🌊', newChallenge: '🔄 تحدي جديد' },
+            green: { header: '💚 مغامرة الأعداد الصحيحة 💚', score: '🍀', add: '🌱', sub: '🦎', mul: '🌳', div: '', par: '🌱',
+                rule: '🌿', ruleNeg: '', btn: '🌤️', newBtn: '🌸', shuffle: '', reset: '🌿',
+                success: '🎉', fail: '', start: '🎈', check: '🌿', stop: '🌙', timer: '⏳',
+                flashcard: '🌳', cardLabel: '🌾', cardBack: '✨', cardBackLabel: '',
                 feedback: '🌿', feedbackWrong: '🍂', newChallenge: '🔄 تحدي جديد' },
-            rainbow: { header: '🌈 مغامرة قوس قزح 🌈', score: '🌟', add: '🌸', sub: '💧', mul: '🌿', div: '🌻', par: '',
-                rule: '🌈', ruleNeg: '🌧️', btn: '️', newBtn: '🌟', shuffle: '🎨', reset: '🌈',
+            rainbow: { header: '🌈 مغامرة قوس قزح 🌈', score: '🌟', add: '🌸', sub: '💧', mul: '🌿', div: '', par: '🌈',
+                rule: '🌈', ruleNeg: '️', btn: '☀️', newBtn: '🌟', shuffle: '', reset: '🌈',
                 success: '🎉', fail: '🌧️', start: '🎈', check: '✨', stop: '🌙', timer: '⏱️',
-                flashcard: '🌈', cardLabel: '🌟', cardBack: '✨', cardBackLabel: '🌈',
+                flashcard: '', cardLabel: '🌟', cardBack: '✨', cardBackLabel: '',
                 feedback: '🌸', feedbackWrong: '🌧️', newChallenge: '🌈 تحدي جديد' },
-            warm: { header: '🍂 مغامرة دافئة 🍂', score: '🍂', add: '', sub: '🦊', mul: '🍄', div: '🌾', par: '🌰',
-                rule: '', ruleNeg: '🌰', btn: '☕', newBtn: '🍁', shuffle: '🌾', reset: '',
-                success: '🎉', fail: '🍂', start: '', check: '🍁', stop: '🌙', timer: '🕯️',
-                flashcard: '🍁', cardLabel: '🌾', cardBack: '✨', cardBackLabel: '🍂',
-                feedback: '🍂', feedbackWrong: '', newChallenge: '🍂 تحدي جديد' }
+            warm: { header: '🍂 مغامرة دافئة 🍂', score: '🍂', add: '🍁', sub: '🦊', mul: '🍄', div: '', par: '🌰',
+                rule: '🍂', ruleNeg: '', btn: '☕', newBtn: '🍁', shuffle: '🌾', reset: '🍂',
+                success: '🎉', fail: '🍂', start: '🎈', check: '🍁', stop: '🌙', timer: '️',
+                flashcard: '', cardLabel: '🌾', cardBack: '✨', cardBackLabel: '🍂',
+                feedback: '🍂', feedbackWrong: '🍂', newChallenge: ' تحدي جديد' }
         };
 
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -964,14 +1252,25 @@
                 gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
                 gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
                 oscillator.start(audioContext.currentTime); oscillator.stop(audioContext.currentTime + 0.4);
+            } else if (type === 'click') {
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                oscillator.start(audioContext.currentTime); oscillator.stop(audioContext.currentTime + 0.1);
             }
         }
 
-        function changeTheme(theme) { currentTheme = theme; document.documentElement.setAttribute('data-theme', theme); updateEmojis(); renderFlashcards(); }
+        function changeTheme(theme) { 
+            currentTheme = theme; 
+            document.documentElement.setAttribute('data-theme', theme); 
+            updateEmojis(); renderFlashcards(); 
+            saveProgress();
+        }
         function toggleDarkMode() {
             currentMode = currentMode === 'light' ? 'dark' : 'light';
             document.documentElement.setAttribute('data-mode', currentMode);
             document.getElementById('darkModeBtn').textContent = currentMode === 'light' ? '🌙 ليلي' : '☀️ نهاري';
+            saveProgress();
         }
 
         function openGarden() {
@@ -979,21 +1278,74 @@
             document.getElementById('modalFlowerCount').textContent = flowerCount;
             renderModalGarden();
             document.getElementById('gardenModal').classList.add('active');
+            playSound('click');
         }
-        function closeGarden() { document.getElementById('gardenModal').classList.remove('active'); }
+        function closeGarden() { 
+            document.getElementById('gardenModal').classList.remove('active'); 
+            playSound('click');
+        }
 
         function openWheel() {
             document.getElementById('wheelModal').classList.add('active');
             drawWheel();
+            playSound('click');
         }
-        function closeWheel() { document.getElementById('wheelModal').classList.remove('active'); }
+        function closeWheel() { 
+            document.getElementById('wheelModal').classList.remove('active'); 
+            playSound('click');
+        }
+
+        function openStats() {
+            updateStatsDisplay();
+            document.getElementById('statsModal').classList.add('active');
+            playSound('click');
+        }
+        function closeStats() { 
+            document.getElementById('statsModal').classList.remove('active'); 
+            playSound('click');
+        }
+
+        function updateStatsDisplay() {
+            document.getElementById('statAttempts').textContent = stats.attempts;
+            document.getElementById('statCorrect').textContent = stats.correct;
+            document.getElementById('statWrong').textContent = stats.wrong;
+            const accuracy = stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0;
+            document.getElementById('statAccuracy').textContent = accuracy + '%';
+            document.getElementById('statScore').textContent = score;
+            document.getElementById('statFlowers').textContent = flowerCount;
+        }
+
+        function exportStats() {
+            const statsData = {
+                score: score,
+                flowers: flowerCount,
+                attempts: stats.attempts,
+                correct: stats.correct,
+                wrong: stats.wrong,
+                accuracy: stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0,
+                byType: stats.byType,
+                date: new Date().toLocaleString('ar-SA')
+            };
+            const dataStr = JSON.stringify(statsData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'إحصائيات_تقى_' + new Date().getTime() + '.json';
+            link.click();
+            URL.revokeObjectURL(url);
+            showCompanionSpeech("تم تصدير الإحصائيات بنجاح! 📊");
+        }
 
         function resetAll() {
             if (confirm('هل أنتِ متأكدة من تصفير النقاط وحذف جميع الزهور؟ 🌱')) {
                 score = 0; flowerCount = 0; gardenFlowers = [];
+                stats = { attempts: 0, correct: 0, wrong: 0, byType: { addition: { correct: 0, wrong: 0 }, subtraction: { correct: 0, wrong: 0 }, multiplication: { correct: 0, wrong: 0 }, division: { correct: 0, wrong: 0 }, parentheses: { correct: 0, wrong: 0 }, challenge: { correct: 0, wrong: 0 } } };
                 document.getElementById('score').textContent = score;
                 document.getElementById('flowerCount').textContent = flowerCount;
                 showCompanionSpeech("تم التصفير! لنبدأ من جديد بقوة! 💪");
+                saveProgress();
+                playSound('click');
             }
         }
 
@@ -1024,7 +1376,7 @@
         }
 
         function addFlowersByPoints(points) {
-            const flowerTypes = ['🌸', '🌺', '🌻', '🌷', '', '💮', '🏵️', '🌾', '🌼'];
+            const flowerTypes = ['🌸', '🌺', '🌻', '🌷', '🌹', '💮', '🏵️', '🌾', '🌼'];
             for (let i = 0; i < points; i++) {
                 flowerCount++;
                 const randomFlower = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
@@ -1036,13 +1388,13 @@
         function renderModalGarden() {
             const container = document.getElementById('modalGardenFlowers');
             if (gardenFlowers.length === 0) {
-                container.innerHTML = '<div class="garden-empty"> الحديقة فارغة... اجمعي النقاط لتزهر!</div>';
+                container.innerHTML = '<div class="empty-message">🌱 الحديقة فارغة... اجمعي النقاط لتزهر!</div>';
                 return;
             }
             container.innerHTML = '';
             gardenFlowers.forEach((flower, index) => {
                 const el = document.createElement('div');
-                el.className = 'garden-flower';
+                el.className = 'flower';
                 el.textContent = flower;
                 el.title = `زهرة #${index + 1}`;
                 el.style.animationDelay = (index * 0.05) + 's';
@@ -1056,22 +1408,41 @@
             setTimeout(() => { speech.style.display = 'none'; }, 4000);
         }
 
+        function showHint(type) {
+            const hint = hints[type] || "فكري بهدوء، أنتِ قادرة! 💪";
+            showCompanionSpeech("💡 " + hint);
+            playSound('click');
+        }
+
+        function getPhrase(name, type) {
+            if (name && robotPhrases[name] && robotPhrases[name][type]) {
+                const phrases = robotPhrases[name][type];
+                return phrases[Math.floor(Math.random() * phrases.length)];
+            } else {
+                const phrases = generalPhrases[type];
+                return phrases[Math.floor(Math.random() * phrases.length)];
+            }
+        }
+
         function resizeRobot(factor) {
             robotScale *= factor;
             robotScale = Math.max(0.5, Math.min(2, robotScale));
             updateRobotTransform();
             saveRobotState();
+            playSound('click');
         }
 
         function resetRobotPosition() {
             robotScale = 1; robotX = 20; robotY = 20;
             updateRobotPosition(); updateRobotTransform(); saveRobotState();
             showCompanionSpeech("تم إعادة الموضع! 🔄");
+            playSound('click');
         }
 
         function toggleRobotControls() {
             const controls = document.getElementById('robotControls');
             controls.style.display = controls.style.display === 'none' ? 'flex' : 'none';
+            playSound('click');
         }
 
         function updateRobotPosition() {
@@ -1096,6 +1467,38 @@
                 const state = JSON.parse(saved);
                 robotScale = state.scale || 1; robotX = state.x || 20; robotY = state.y || 20;
                 updateRobotPosition(); updateRobotTransform();
+            }
+        }
+
+        function saveProgress() {
+            const progress = {
+                score: score,
+                flowerCount: flowerCount,
+                gardenFlowers: gardenFlowers,
+                stats: stats,
+                currentTheme: currentTheme,
+                currentMode: currentMode
+            };
+            localStorage.setItem('mathProgress', JSON.stringify(progress));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('mathProgress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                score = progress.score || 0;
+                flowerCount = progress.flowerCount || 0;
+                gardenFlowers = progress.gardenFlowers || [];
+                stats = progress.stats || stats;
+                currentTheme = progress.currentTheme || 'pink';
+                currentMode = progress.currentMode || 'light';
+                document.getElementById('score').textContent = score;
+                document.getElementById('flowerCount').textContent = flowerCount;
+                document.getElementById('themeSelector').value = currentTheme;
+                if (currentMode === 'dark') {
+                    document.documentElement.setAttribute('data-mode', 'dark');
+                    document.getElementById('darkModeBtn').textContent = '☀️ نهاري';
+                }
             }
         }
 
@@ -1192,9 +1595,8 @@
                     isSpinning = false;
                     document.getElementById('spinBtn').disabled = false;
                     playSound('correct');
-                    // ✅ تحفيز عام بدون ذكر الاسم
-                    const randomComment = successMessages[Math.floor(Math.random() * successMessages.length)];
-                    showCompanionSpeech(randomComment);
+                    const phrase = getPhrase(currentWinner, 'success');
+                    showCompanionSpeech(phrase);
                     createConfetti();
                     document.getElementById('confetti-container').style.display = 'block';
                     setTimeout(() => {
@@ -1207,7 +1609,7 @@
         }
 
         const flashcardsData = [
-            { icon: '', question: 'ما ناتج جمع (-5) + (-3) وفقاً لقاعدة الإشارات المتشابهة؟', answer: 'الناتج هو -8، لأننا نجمع القيمتين (5+3=8) ونضع الإشارة المشتركة (السالب)', category: 'من درس الجمع' },
+            { icon: '🌺', question: 'ما ناتج جمع (-5) + (-3) وفقاً لقاعدة الإشارات المتشابهة؟', answer: 'الناتج هو -8، لأننا نجمع القيمتين (5+3=8) ونضع الإشارة المشتركة (السالب)', category: 'من درس الجمع' },
             { icon: '🦋', question: 'كيف نحول العملية (-6) - (+2) إلى عملية جمع؟', answer: 'نغير الطرح إلى جمع ونعكس إشارة العدد الثاني: (-6) + (-2) = -8', category: 'من درس الطرح' },
             { icon: '🌻', question: 'ما ناتج (-4) × (+5) ولماذا؟', answer: 'الناتج هو -20، لأن موجب × سالب = سالب (إشارات مختلفة)', category: 'من درس الضرب' },
             { icon: '🍀', question: 'ما ناتج (+12) ÷ (-3) وما القاعدة المطبقة؟', answer: 'الناتج هو -4، لأن موجب ÷ سالب = سالب (نفس قاعدة الضرب)', category: 'من درس القسمة' },
@@ -1233,24 +1635,31 @@
             }
             if (!currentProblems[type]) return;
             const correct = currentProblems[type].ans;
+            
+            stats.attempts++;
+            
             if (val === correct) {
                 playSound('correct'); input.classList.add('correct-answer');
                 fb.textContent = themeEmojis[currentTheme].success + ' إجابة صحيحة!';
                 fb.className = 'feedback correct'; fb.style.display = 'block'; successMsg.style.display = 'block';
                 const rect = input.getBoundingClientRect(); createFlyingNumbers(rect.left + rect.width / 2, rect.top);
                 
-                // ✅ نقطة واحدة للعادي، نقطتين للتحدي فقط
+                stats.correct++;
+                if (stats.byType[type]) stats.byType[type].correct++;
+                
                 const points = type === 'challenge' ? 2 : 1;
                 score += points; 
                 document.getElementById('score').textContent = score;
                 addFlowersByPoints(points);
                 
-                // ✅ تحفيز عام بدون ذكر الاسم
-                const randomComment = successMessages[Math.floor(Math.random() * successMessages.length)];
-                showCompanionSpeech(randomComment);
+                const phrase = getPhrase(currentWinner, 'success');
+                showCompanionSpeech(phrase);
                 
                 createConfetti(); document.getElementById('confetti-container').style.display = 'block';
                 setTimeout(() => { document.getElementById('confetti-container').style.display = 'none'; document.getElementById('confetti-container').innerHTML = ''; }, 5000);
+                
+                saveProgress();
+                
                 if (type === 'challenge') {
                     challengeStopped = true; clearInterval(challengeTimer);
                     document.getElementById('timer').classList.add('stopped');
@@ -1270,11 +1679,16 @@
                 fb.textContent = themeEmojis[currentTheme].feedbackWrong + ' الجواب الصحيح هو: ' + correct;
                 fb.className = 'feedback incorrect'; fb.style.display = 'block'; failMsg.style.display = 'block';
                 
-                // ✅ تحفيز عام عند الخطأ بدون ذكر الاسم
-                const randomFailComment = failMessages[Math.floor(Math.random() * failMessages.length)];
-                showCompanionSpeech(randomFailComment);
+                stats.wrong++;
+                if (stats.byType[type]) stats.byType[type].wrong++;
+                
+                const phrase = getPhrase(currentWinner, 'fail');
+                showCompanionSpeech(phrase);
                 
                 setTimeout(() => { failMsg.style.display = 'none'; }, 3000);
+                
+                saveProgress();
+                
                 if (type === 'challenge') {
                     challengeStopped = true; clearInterval(challengeTimer);
                     document.getElementById('timer').classList.add('stopped');
@@ -1295,7 +1709,7 @@
             const grid = document.getElementById('flashcardsGrid');
             const e = themeEmojis[currentTheme]; grid.innerHTML = '';
             flashcardsData.forEach((card) => {
-                grid.innerHTML += `<div class="flashcard-container" onclick="flipCard(this)"><div class="flashcard"><div class="flashcard-face flashcard-front"><div class="card-icon">${card.icon}</div><div class="card-label">${e.cardLabel} ${card.category} - اضغط للقلب</div><div class="card-question">${card.question}</div></div><div class="flashcard-face flashcard-back"><div class="card-icon">${e.cardBack}</div><div class="card-label">${e.cardBackLabel} الإجابة الصحيحة</div><div class="card-answer">${card.answer}</div></div></div></div>`;
+                grid.innerHTML += `<div class="flashcard-container" onclick="flipCard(this)" role="button" tabindex="0" aria-label="بطاقة ${card.category}"><div class="flashcard"><div class="flashcard-face flashcard-front"><div class="card-icon">${card.icon}</div><div class="card-label">${e.cardLabel} ${card.category} - اضغط للقلب</div><div class="card-question">${card.question}</div></div><div class="flashcard-face flashcard-back"><div class="card-icon">${e.cardBack}</div><div class="card-label">${e.cardBackLabel} الإجابة الصحيحة</div><div class="card-answer">${card.answer}</div></div></div></div>`;
             });
         }
 
@@ -1304,6 +1718,8 @@
             card.classList.toggle('flipped');
             if (card.classList.contains('flipped') && !card.dataset.counted) {
                 score += 2; document.getElementById('score').textContent = score; card.dataset.counted = 'true';
+                playSound('click');
+                saveProgress();
             }
         }
 
@@ -1313,9 +1729,13 @@
                 [flashcardsData[i], flashcardsData[j]] = [flashcardsData[j], flashcardsData[i]];
             }
             renderFlashcards();
+            playSound('click');
         }
 
-        function resetFlashcards() { document.querySelectorAll('.flashcard').forEach(card => { card.classList.remove('flipped'); card.dataset.counted = ''; }); }
+        function resetFlashcards() { 
+            document.querySelectorAll('.flashcard').forEach(card => { card.classList.remove('flipped'); card.dataset.counted = ''; }); 
+            playSound('click');
+        }
 
         function generateProblem(type) {
             let n1, n2, ans, exp;
@@ -1373,9 +1793,9 @@
             document.getElementById('timer').classList.remove('stopped');
             newProblem('challenge');
             
-            // ✅ تحفيز عام لبدء التحدي بدون ذكر الاسم
-            const randomStartComment = challengeStartMessages[Math.floor(Math.random() * challengeStartMessages.length)];
-            showCompanionSpeech(randomStartComment);
+            const phrase = getPhrase(currentWinner, 'start');
+            showCompanionSpeech(phrase);
+            playSound('click');
             
             clearInterval(challengeTimer);
             challengeTimer = setInterval(() => {
@@ -1393,9 +1813,8 @@
                     document.getElementById('challengeAnswer').disabled = true;
                     document.getElementById('challengeFailMsg').style.display = 'block';
                     
-                    // ✅ تحفيز عام عند انتهاء الوقت بدون ذكر الاسم
-                    const randomEndComment = challengeEndMessages[Math.floor(Math.random() * challengeEndMessages.length)];
-                    showCompanionSpeech(randomEndComment);
+                    const phrase = getPhrase(currentWinner, 'end');
+                    showCompanionSpeech(phrase);
                     
                     setTimeout(() => { document.getElementById('challengeFailMsg').style.display = 'none'; }, 3000);
                 }
@@ -1473,6 +1892,7 @@
             root.style.setProperty('--robot-accent', selectedColors.accent);
             root.style.setProperty('--robot-accent-dark', selectedColors.accentDark);
             localStorage.setItem('robotColor', color);
+            playSound('click');
         }
 
         function loadRobotColor() {
@@ -1484,13 +1904,14 @@
         }
 
         window.onload = () => {
+            loadProgress();
             ['addition','subtraction','multiplication','division','parentheses'].forEach(newProblem);
             renderFlashcards(); updateEmojis();
             drawWheel();
             loadRobotState();
             loadRobotColor();
             makeRobotLookAtQuestion();
-            setTimeout(() => { showCompanionSpeech("مرحباً! اسحبني لأي مكان أو استخدم الأزرار للتحكم! "); }, 1000);
+            setTimeout(() => { showCompanionSpeech("مرحباً! اسحبني لأي مكان أو استخدم الأزرار للتحكم! 🤖"); }, 1000);
         };
     </script>
 </body>
