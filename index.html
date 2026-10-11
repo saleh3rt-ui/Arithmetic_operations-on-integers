@@ -1,1918 +1,612 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مغامرة الأعداد الصحيحة - تقى يونسو</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-pink: #e8b4b8;
-            --secondary-pink: #f4c2c2;
-            --light-pink: #fdf6f6;
-            --dark-pink: #b5838d;
-            --success-green: #a8d5ba;
-            --fail-red: #e8a5a5;
-            --lavender: #d4c5e2;
-            --mint: #c8e6d9;
-            --peach: #ffdac1;
-            --sky: #c5e0f5;
-            --bg-gradient: linear-gradient(135deg, #faf3f5 0%, #f5eef8 50%, #f0f5fa 100%);
-            --font-family: 'Cairo', sans-serif;
-            --input-bg: #ffffff;
-            --input-text: #2a1a2a;
-            --robot-body: #a8b8c8;
-            --robot-dark: #7a8a9a;
-            --robot-darker: #5a6a7a;
-            --robot-darkest: #3a4a5a;
-            --robot-eyes: #3498db;
-            --robot-accent: #e74c3c;
-            --robot-accent-dark: #c0392b;
-            --shadow-soft: 0 4px 15px rgba(0,0,0,0.08);
-            --shadow-medium: 0 8px 25px rgba(0,0,0,0.12);
-            --shadow-strong: 0 12px 35px rgba(0,0,0,0.18);
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مغامرة الأعداد الصحيحة - تقى يونسو</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#e8b4b8;--secondary:#f4c2c2;--light:#fdf6f6;--dark:#b5838d;--green:#a8d5ba;--red:#e8a5a5;--lavender:#d4c5e2;--mint:#c8e6d9;--peach:#ffdac1;--sky:#c5e0f5;--bg:linear-gradient(135deg,#faf3f5 0%,#f5eef8 50%,#f0f5fa 100%);--font:'Cairo',sans-serif;--input-bg:#fff;--input-text:#2a1a2a;--robot-body:#c0c8d0;--robot-body-light:#e8eef4;--robot-dark:#7a8a9a;--robot-darker:#5a6a7a;--robot-darkest:#3a4a5a;--robot-eyes:#3498db;--robot-accent:#e74c3c;--robot-accent-dark:#c0392b;--robot-glow:rgba(52,152,219,0.6)}
+[data-theme="blue"]{--primary:#a8d5e2;--secondary:#c5e0f5;--light:#f0f8ff;--dark:#7a9eb8;--bg:linear-gradient(135deg,#f0f8ff,#e8f0f8,#f5f0fa)}
+[data-theme="green"]{--primary:#a8e2b4;--secondary:#c2f4d4;--light:#f0fdf6;--dark:#83b590;--bg:linear-gradient(135deg,#f0fdf6,#e8f8f0,#f0faf5)}
+[data-theme="rainbow"]{--primary:#f4a6c3;--secondary:#f7c5d8;--light:#fff5f8;--dark:#c77a9a;--bg:linear-gradient(135deg,#fff5f8,#f5f0ff,#f0f8ff)}
+[data-theme="warm"]{--primary:#e8a87c;--secondary:#f4c2a8;--light:#fdf6f0;--dark:#b57a5a;--bg:linear-gradient(135deg,#fdf6f0,#f8ede0,#f5e6d3)}
+[data-mode="dark"]{--primary:#8a6b7a;--secondary:#6b5b6b;--light:#2a2530;--dark:#b5838d;--bg:linear-gradient(135deg,#1a1520,#201a25,#1a2025);--input-bg:#3a3040;--input-text:#f5f0f5}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);background-size:400% 400%;animation:grad 15s ease infinite;min-height:100vh;overflow-x:hidden;color:#6b5b6b;position:relative}
+@keyframes grad{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.bg-shapes{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.bg-shape{position:absolute;opacity:.15;animation:float 15s infinite ease-in-out}
+.bg-shape.circle{border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary))}
+.bg-shape.star{background:var(--peach);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.bg-shape.heart{background:var(--secondary);transform:rotate(45deg)}
+.bg-shape.heart::before,.bg-shape.heart::after{content:'';position:absolute;width:100%;height:100%;background:inherit;border-radius:50%}
+.bg-shape.heart::before{top:-50%;left:0}.bg-shape.heart::after{top:0;left:-50%}
+.bg-shape.square{background:linear-gradient(135deg,var(--peach),var(--primary));transform:rotate(45deg)}
+.bg-shape.triangle{background:var(--sky);clip-path:polygon(50% 0%,0% 100%,100% 100%)}
+.bg-shape.diamond{background:linear-gradient(135deg,var(--lavender),var(--secondary));transform:rotate(45deg)}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0) scale(1)}25%{transform:translateY(-30px) rotate(90deg) scale(1.1)}50%{transform:translateY(-20px) rotate(180deg) scale(1)}75%{transform:translateY(-40px) rotate(270deg) scale(.9)}}
+.bg-shape:nth-child(1){top:5%;left:5%;width:80px;height:80px;animation-duration:18s}
+.bg-shape:nth-child(2){top:15%;right:10%;width:60px;height:60px;animation-duration:22s;animation-delay:2s}
+.bg-shape:nth-child(3){top:40%;left:8%;width:100px;height:100px;animation-duration:20s;animation-delay:4s}
+.bg-shape:nth-child(4){top:60%;right:5%;width:70px;height:70px;animation-duration:25s;animation-delay:1s}
+.bg-shape:nth-child(5){bottom:20%;left:15%;width:90px;height:90px;animation-duration:19s;animation-delay:3s}
+.bg-shape:nth-child(6){bottom:10%;right:20%;width:50px;height:50px;animation-duration:23s;animation-delay:5s}
+.bg-shape:nth-child(7){top:30%;left:50%;width:65px;height:65px;animation-duration:21s;animation-delay:2s}
+.bg-shape:nth-child(8){bottom:30%;left:40%;width:75px;height:75px;animation-duration:17s;animation-delay:4s}
+.bg-shape:nth-child(9){top:70%;left:70%;width:55px;height:55px;animation-duration:24s;animation-delay:1s}
+.bg-shape:nth-child(10){top:80%;left:25%;width:85px;height:85px;animation-duration:26s;animation-delay:3s}
+.bg-shape:nth-child(11){top:20%;left:30%;width:45px;height:45px;animation-duration:16s;animation-delay:2s}
+.bg-shape:nth-child(12){top:50%;right:30%;width:95px;height:95px;animation-duration:28s;animation-delay:5s}
+#confetti-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden;display:none}
+.confetti{position:absolute;width:10px;height:10px;background:#f00;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(100vh) rotate(720deg)}}
+.flying-number{position:fixed;font-size:2em;font-weight:900;color:var(--green);pointer-events:none;z-index:9998;animation:flyUp 2s ease-out forwards}
+@keyframes flyUp{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-200px) scale(.5);opacity:0}}
+.container{max-width:1100px;margin:0 auto;padding:20px;padding-bottom:120px;position:relative;z-index:1}
 
-        [data-theme="blue"] {
-            --primary-pink: #a8d5e2; --secondary-pink: #c5e0f5; --light-pink: #f0f8ff;
-            --dark-pink: #7a9eb8; --success-green: #b8d5a8; --fail-red: #e2a8a8;
-            --lavender: #c5c5e2; --mint: #a8d5c8; --peach: #c1daff; --sky: #a8c5e2;
-            --bg-gradient: linear-gradient(135deg, #f0f8ff 0%, #e8f0f8 50%, #f5f0fa 100%);
-            --font-family: 'Tajawal', sans-serif;
-            --input-bg: #ffffff; --input-text: #1a2a3a;
-        }
-        [data-theme="green"] {
-            --primary-pink: #a8e2b4; --secondary-pink: #c2f4d4; --light-pink: #f0fdf6;
-            --dark-pink: #83b590; --success-green: #b8d5a8; --fail-red: #e2a8b5;
-            --lavender: #c5e2d4; --mint: #a8e2c8; --peach: #c1ffd4; --sky: #a8e2c5;
-            --bg-gradient: linear-gradient(135deg, #f0fdf6 0%, #e8f8f0 50%, #f0faf5 100%);
-            --font-family: 'Amiri', serif;
-            --input-bg: #ffffff; --input-text: #1a2a1a;
-        }
-        [data-theme="rainbow"] {
-            --primary-pink: #f4a6c3; --secondary-pink: #f7c5d8; --light-pink: #fff5f8;
-            --dark-pink: #c77a9a; --success-green: #a8d5ba; --fail-red: #e8a5a5;
-            --lavender: #d4c5e2; --mint: #c8e6d9; --peach: #ffdac1; --sky: #c5e0f5;
-            --bg-gradient: linear-gradient(135deg, #fff5f8 0%, #f5f0ff 50%, #f0f8ff 100%);
-            --font-family: 'Cairo', sans-serif;
-            --input-bg: #ffffff; --input-text: #2a1a2a;
-        }
-        [data-theme="warm"] {
-            --primary-pink: #e8a87c; --secondary-pink: #f4c2a8; --light-pink: #fdf6f0;
-            --dark-pink: #b57a5a; --success-green: #c8a87c; --fail-red: #e8a5a5;
-            --lavender: #d4a8c5; --mint: #e8c8a8; --peach: #ffdac1; --sky: #e8c5a8;
-            --bg-gradient: linear-gradient(135deg, #fdf6f0 0%, #f8ede0 50%, #f5e6d3 100%);
-            --font-family: 'Cairo', sans-serif;
-            --input-bg: #fffaf0; --input-text: #3a2010;
-        }
-        [data-mode="dark"] {
-            --primary-pink: #8a6b7a; --secondary-pink: #6b5b6b; --light-pink: #2a2530;
-            --dark-pink: #b5838d; --success-green: #6b8a7a; --fail-red: #8a6b6b;
-            --lavender: #6b6b8a; --mint: #6b8a7a; --peach: #8a7a6b; --sky: #6b7a8a;
-            --bg-gradient: linear-gradient(135deg, #1a1520 0%, #201a25 50%, #1a2025 100%);
-            --input-bg: #3a3040; --input-text: #f5f0f5;
-        }
-        [data-mode="dark"][data-theme="blue"] {
-            --primary-pink: #5a7a8a; --secondary-pink: #4a6a7a; --light-pink: #1a2530;
-            --dark-pink: #8aa8b8; --bg-gradient: linear-gradient(135deg, #0a1520 0%, #101a25 50%, #0a1a25 100%);
-            --input-bg: #2a3540; --input-text: #e5f0f5;
-        }
-        [data-mode="dark"][data-theme="green"] {
-            --primary-pink: #5a8a6b; --secondary-pink: #4a7a5b; --light-pink: #1a2520;
-            --dark-pink: #8ab890; --bg-gradient: linear-gradient(135deg, #0a2015 0%, #102520 50%, #0a2520 100%);
-            --input-bg: #2a3a30; --input-text: #e5f5e5;
-        }
-        [data-mode="dark"][data-theme="warm"] {
-            --primary-pink: #8a6b4a; --secondary-pink: #6b5a3a; --light-pink: #2a2015;
-            --dark-pink: #b89070; --bg-gradient: linear-gradient(135deg, #1a1510 0%, #201a15 50%, #1a1510 100%);
-            --input-bg: #3a2a20; --input-text: #f5e5d5;
-        }
+.current-player-banner{position:fixed;top:15px;left:15px;background:linear-gradient(135deg,#ffd700,#ffed4e);padding:6px 14px;border-radius:20px;font-weight:900;font-size:.85em;color:#8a6a00;box-shadow:0 4px 12px rgba(255,215,0,.4);z-index:1001;border:2px solid #fff;display:flex;align-items:center;gap:6px}
+.current-player-banner .player-name{background:#fff;padding:2px 10px;border-radius:15px;color:var(--dark);font-size:.95em}
+.current-player-banner.spinning{animation:bannerPulse .5s ease-in-out infinite}
+@keyframes bannerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: var(--font-family); 
-            background: var(--bg-gradient);
-            background-size: 400% 400%; 
-            animation: gradientShift 15s ease infinite;
-            min-height: 100vh; 
-            overflow-x: hidden; 
-            color: #6b5b6b;
-            position: relative; 
-            transition: var(--transition-smooth);
-        }
-        
-        @keyframes gradientShift { 
-            0% { background-position: 0% 50%; } 
-            50% { background-position: 100% 50%; } 
-            100% { background-position: 0% 50%; } 
-        }
+.controls-panel{position:fixed;top:15px;right:15px;background:#fff;padding:10px 15px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.12);font-weight:700;z-index:1000;display:flex;align-items:center;gap:8px;border:2px solid var(--light);flex-wrap:wrap;max-width:90%}
+.controls-panel label{font-size:.85em;color:var(--dark)}
+.controls-panel select,.controls-panel button{padding:5px 10px;border:2px solid var(--primary);border-radius:10px;font-family:var(--font);font-size:.85em;cursor:pointer;background:#fff;color:var(--dark);transition:all .3s}
+.controls-panel select:hover,.controls-panel button:hover{background:var(--light);transform:translateY(-2px)}
+.reset-btn{background:linear-gradient(135deg,#e8a5a5,#d48a8a)!important;color:#fff!important;border-color:#c77a7a!important}
+.garden-btn{background:linear-gradient(135deg,#a8d5ba,#c8e6d9)!important;color:#2e7d32!important;border-color:#81c784!important;font-weight:900!important}
+.wheel-btn{background:linear-gradient(135deg,#ffd700,#ffed4e)!important;color:#8a6a00!important;border-color:#e6c200!important;font-weight:900!important}
+.stats-btn{background:linear-gradient(135deg,#c5e0f5,#a8c5e2)!important;color:#2a4a6a!important;border-color:#7a9eb8!important;font-weight:900!important}
 
-        .bg-shapes { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            pointer-events: none; z-index: 0; overflow: hidden; 
-        }
-        .bg-shape { 
-            position: absolute; opacity: 0.15; 
-            animation: floatShape 15s infinite ease-in-out; 
-        }
-        .bg-shape.circle { border-radius: 50%; background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink)); }
-        .bg-shape.star { background: var(--peach); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
-        .bg-shape.heart { background: var(--secondary-pink); transform: rotate(45deg); }
-        .bg-shape.heart::before, .bg-shape.heart::after { content: ''; position: absolute; width: 100%; height: 100%; background: inherit; border-radius: 50%; }
-        .bg-shape.heart::before { top: -50%; left: 0; }
-        .bg-shape.heart::after { top: 0; left: -50%; }
-        .bg-shape.square { background: linear-gradient(135deg, var(--peach), var(--primary-pink)); transform: rotate(45deg); }
-        .bg-shape.triangle { background: var(--sky); clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
-        .bg-shape.diamond { background: linear-gradient(135deg, var(--lavender), var(--secondary-pink)); transform: rotate(45deg); }
-        
-        @keyframes floatShape { 
-            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); } 
-            25% { transform: translateY(-30px) rotate(90deg) scale(1.1); } 
-            50% { transform: translateY(-20px) rotate(180deg) scale(1); } 
-            75% { transform: translateY(-40px) rotate(270deg) scale(0.9); } 
-        }
-        
-        .bg-shape:nth-child(1) { top: 5%; left: 5%; width: 80px; height: 80px; animation-duration: 18s; }
-        .bg-shape:nth-child(2) { top: 15%; right: 10%; width: 60px; height: 60px; animation-duration: 22s; animation-delay: 2s; }
-        .bg-shape:nth-child(3) { top: 40%; left: 8%; width: 100px; height: 100px; animation-duration: 20s; animation-delay: 4s; }
-        .bg-shape:nth-child(4) { top: 60%; right: 5%; width: 70px; height: 70px; animation-duration: 25s; animation-delay: 1s; }
-        .bg-shape:nth-child(5) { bottom: 20%; left: 15%; width: 90px; height: 90px; animation-duration: 19s; animation-delay: 3s; }
-        .bg-shape:nth-child(6) { bottom: 10%; right: 20%; width: 50px; height: 50px; animation-duration: 23s; animation-delay: 5s; }
-        .bg-shape:nth-child(7) { top: 30%; left: 50%; width: 65px; height: 65px; animation-duration: 21s; animation-delay: 2s; }
-        .bg-shape:nth-child(8) { bottom: 30%; left: 40%; width: 75px; height: 75px; animation-duration: 17s; animation-delay: 4s; }
-        .bg-shape:nth-child(9) { top: 70%; left: 70%; width: 55px; height: 55px; animation-duration: 24s; animation-delay: 1s; }
-        .bg-shape:nth-child(10) { top: 80%; left: 25%; width: 85px; height: 85px; animation-duration: 26s; animation-delay: 3s; }
-        .bg-shape:nth-child(11) { top: 20%; left: 30%; width: 45px; height: 45px; animation-duration: 16s; animation-delay: 2s; }
-        .bg-shape:nth-child(12) { top: 50%; right: 30%; width: 95px; height: 95px; animation-duration: 28s; animation-delay: 5s; }
+.score-board{position:fixed;top:60px;left:15px;background:#fff;padding:10px 18px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.12);font-weight:700;z-index:1000;display:flex;align-items:center;gap:8px;border:2px solid var(--light);color:var(--dark)}
+.score-board span{font-size:1.1em}
 
-        #confetti-container { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            pointer-events: none; z-index: 9999; overflow: hidden; display: none; 
-        }
-        .confetti { 
-            position: absolute; width: 10px; height: 10px; 
-            background-color: #f00; animation: fall linear forwards; 
-        }
-        @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
+.header{text-align:center;padding:25px 30px;margin:20px auto 35px;max-width:800px;background:linear-gradient(135deg,var(--primary) 0%,var(--lavender) 50%,var(--sky) 100%);border-radius:20px;border:4px solid #fff;box-shadow:0 12px 35px rgba(0,0,0,.18);position:relative;overflow:hidden}
+.header h1{font-size:2.5em;font-weight:900;margin-bottom:10px;color:#fff;text-shadow:1px 1px 0 rgba(181,131,141,.4)}
+.header p{font-size:1.1em;color:#fff;font-weight:600}
+.section{margin-bottom:35px;animation:fadeIn .5s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.lesson-card{background:#fff;border-radius:20px;padding:25px;margin-bottom:20px;border-right:5px solid var(--primary);box-shadow:0 4px 15px rgba(0,0,0,.08);text-align:center}
+.lesson-icon{font-size:3.5em;margin-bottom:10px;display:inline-block}
+.lesson-card h3{display:inline-block;font-size:1.5em;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--primary),var(--secondary) 50%,var(--lavender));padding:8px 22px;border-radius:15px;margin:10px auto;border:2px solid #fff}
+.lesson-card>p{font-size:1.05em;margin-top:12px;color:#7a6b7a}
+.rule-box{background:var(--light);border:2px dashed var(--secondary);border-radius:12px;padding:15px;margin:12px 0;text-align:right;font-size:1em;line-height:1.7;color:#6b5b6b}
+.interactive-area{background:linear-gradient(135deg,var(--light),#faf0f4);border-radius:20px;padding:25px;text-align:center;border:2px solid var(--secondary);margin-top:25px}
+.problem-display{font-size:1.9em;font-weight:900;margin-bottom:15px;direction:ltr;color:var(--dark)}
+.answer-input{padding:12px;font-size:1.2em;border:2px solid var(--primary);border-radius:12px;text-align:center;width:180px;font-family:var(--font);outline:none;transition:all .3s;background:var(--input-bg);color:var(--input-text);font-weight:700}
+.answer-input:focus{border-color:var(--dark);box-shadow:0 0 20px rgba(232,180,184,.5);transform:scale(1.05)}
+.answer-input.correct-answer{border-color:var(--green);box-shadow:0 0 25px rgba(168,213,186,.6)}
+.answer-input.wrong-answer{border-color:var(--red);box-shadow:0 0 25px rgba(232,165,165,.6);animation:shake .5s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.btn-group{margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.action-btn{padding:12px 30px;background:var(--primary);color:#fff;border:none;border-radius:12px;font-size:1.05em;cursor:pointer;font-family:var(--font);font-weight:700;transition:all .3s;box-shadow:0 4px 15px rgba(0,0,0,.08)}
+.action-btn:hover{background:var(--dark);transform:translateY(-3px)}
+.new-btn{background:var(--mint)!important;color:#5a7a6a!important}
+.instant-btn{background:linear-gradient(135deg,var(--peach),#ffdac1)!important;color:#8a7a5a!important}
+.hint-btn{background:linear-gradient(135deg,#ffd700,#ffed4e)!important;color:#8a6a00!important}
+.feedback{margin-top:15px;font-weight:900;font-size:1.1em;min-height:35px}
+.feedback.correct{color:#7a9a8a}
+.feedback.incorrect{color:#b5838d}
+.big-success-msg{font-size:2.5em;color:var(--green);font-weight:900;margin:15px 0;display:none}
+.big-fail-msg{font-size:2em;color:var(--red);font-weight:900;margin:15px 0;display:none}
 
-        .flying-number { 
-            position: fixed; font-size: 2em; font-weight: 900; 
-            color: var(--success-green); pointer-events: none; z-index: 9998; 
-            animation: flyUp 2s ease-out forwards; 
-        }
-        @keyframes flyUp { 
-            0% { transform: translateY(0) scale(1); opacity: 1; } 
-            100% { transform: translateY(-200px) scale(0.5); opacity: 0; } 
-        }
+/* ✅ الروبوت - ثابت في الزاوية اليمنى السفلية */
+.companion-container{position:fixed;bottom:20px;right:20px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px;cursor:grab}
+.companion-container:active{cursor:grabbing}
+.companion-speech{background:#fff;padding:12px 18px;border-radius:18px;border:2px solid var(--primary);box-shadow:0 8px 25px rgba(0,0,0,.12);max-width:280px;font-size:.95em;color:var(--dark);font-weight:600;position:relative;display:none;animation:popIn .5s ease}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.companion-speech::after{content:'';position:absolute;bottom:-10px;right:30px;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-top:10px solid var(--primary)}
+.companion-svg{width:180px;height:280px;filter:drop-shadow(0 8px 16px rgba(0,0,0,.25));animation:companionFloat 3s ease-in-out infinite;transition:width .3s ease,height .3s ease}
+@keyframes companionFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.robot-antenna{animation:antennaWiggle 2s ease-in-out infinite;transform-origin:90px 35px}
+@keyframes antennaWiggle{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.robot-antenna-tip{animation:antennaGlow 1.5s ease-in-out infinite}
+@keyframes antennaGlow{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+.robot-heart{animation:heartbeat 1.2s ease-in-out infinite;transform-origin:90px 148px}
+@keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+.robot-led{animation:ledBlink 2s ease-in-out infinite}
+.robot-led:nth-child(2){animation-delay:.5s}
+.robot-led:nth-child(3){animation-delay:1s}
+.robot-led:nth-child(4){animation-delay:1.5s}
+@keyframes ledBlink{0%,100%{opacity:1}50%{opacity:.3}}
+.robot-eye-blink{animation:blink 4s ease-in-out infinite}
+@keyframes blink{0%,96%,100%{transform:scaleY(1)}98%{transform:scaleY(.1)}}
+.robot-shadow{animation:shadowPulse 3s ease-in-out infinite}
+@keyframes shadowPulse{0%,100%{opacity:.15;transform:scaleX(1)}50%{opacity:.25;transform:scaleX(1.1)}}
 
-        .container { 
-            max-width: 1100px; margin: 0 auto; padding: 20px; 
-            padding-bottom: 120px; position: relative; z-index: 1; 
-        }
+/* ✅ شريط أدوات الروبوت - مزاح لليمين فوق الروبوت مباشرة */
+.robot-controls{
+  position:fixed;
+  bottom:310px;
+  right:20px;
+  background:#fff;
+  padding:10px;
+  border-radius:18px;
+  box-shadow:0 8px 25px rgba(0,0,0,.15);
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  z-index:1001;
+  border:2px solid var(--primary);
+}
+.robot-control-btn{width:40px;height:40px;border:2px solid var(--primary);border-radius:12px;background:#fff;color:var(--dark);font-size:1.1em;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-weight:900}
+.robot-control-btn:hover{background:var(--primary);color:#fff;transform:scale(1.1)}
+.robot-control-btn:active{transform:scale(.95)}
+.robot-theme-select{width:40px;height:40px;border:2px solid var(--primary);border-radius:12px;background:#fff;cursor:pointer;font-size:1.3em;padding:0;text-align:center;transition:all .3s}
+.robot-theme-select:hover{transform:scale(1.1)}
 
-        .controls-panel {
-            position: fixed; top: 15px; right: 15px; background: white;
-            padding: 10px 15px; border-radius: 15px;
-            box-shadow: var(--shadow-medium); font-weight: 700;
-            z-index: 1000; display: flex; align-items: center; gap: 8px;
-            border: 2px solid var(--light-pink); flex-wrap: wrap; max-width: 90%;
-            transition: var(--transition-smooth);
-        }
-        .controls-panel:hover { box-shadow: var(--shadow-strong); }
-        .controls-panel label { font-size: 0.85em; color: var(--dark-pink); }
-        .controls-panel select, .controls-panel button {
-            padding: 5px 10px; border: 2px solid var(--primary-pink);
-            border-radius: 10px; font-family: var(--font-family);
-            font-size: 0.85em; cursor: pointer; background: white;
-            color: var(--dark-pink); transition: var(--transition-smooth);
-        }
-        .controls-panel select:hover, .controls-panel button:hover { 
-            background: var(--light-pink); transform: translateY(-2px);
-        }
-        .reset-btn { 
-            background: linear-gradient(135deg, #e8a5a5, #d48a8a) !important; 
-            color: white !important; border-color: #c77a7a !important; 
-        }
-        .reset-btn:hover { background: linear-gradient(135deg, #d48a8a, #b56b6b) !important; }
-        .garden-btn { 
-            background: linear-gradient(135deg, #a8d5ba, #c8e6d9) !important; 
-            color: #2e7d32 !important; border-color: #81c784 !important;
-            font-weight: 900 !important;
-        }
-        .garden-btn:hover { background: linear-gradient(135deg, #81c784, #66bb6a) !important; color: white !important; }
-        .wheel-btn {
-            background: linear-gradient(135deg, #ffd700, #ffed4e) !important;
-            color: #8a6a00 !important; border-color: #e6c200 !important;
-            font-weight: 900 !important;
-        }
-        .wheel-btn:hover { background: linear-gradient(135deg, #ffed4e, #ffd700) !important; }
-        .stats-btn {
-            background: linear-gradient(135deg, #c5e0f5, #a8c5e2) !important;
-            color: #2a4a6a !important; border-color: #7a9eb8 !important;
-            font-weight: 900 !important;
-        }
-        .stats-btn:hover { background: linear-gradient(135deg, #a8c5e2, #7a9eb8) !important; color: white !important; }
-
-        .header {
-            text-align: center; padding: 25px 30px; margin: 20px auto 35px auto;
-            max-width: 800px; background: linear-gradient(135deg, var(--primary-pink) 0%, var(--lavender) 50%, var(--sky) 100%);
-            border-radius: 20px; border: 4px solid #fff;
-            box-shadow: var(--shadow-strong);
-            position: relative; overflow: hidden;
-            transition: var(--transition-smooth);
-        }
-        .header:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,0,0,0.2); }
-        .header::before { content: '💫'; position: absolute; top: 12px; right: 25px; font-size: 1.5em; animation: sparkle 2s infinite; }
-        .header::after { content: '💫'; position: absolute; top: 12px; left: 25px; font-size: 1.5em; animation: sparkle 2s infinite 1s; }
-        @keyframes sparkle { 
-            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; } 
-            50% { transform: scale(1.2) rotate(180deg); opacity: 0.7; } 
-        }
-        .header h1 {
-            font-size: 2.5em; font-weight: 900; margin-bottom: 10px; color: #fff;
-            text-shadow: 1px 1px 0px rgba(181, 131, 141, 0.4), 0 0 15px rgba(255, 255, 255, 0.6);
-            letter-spacing: 1px; line-height: 1.3; position: relative; z-index: 2;
-        }
-        .header p { 
-            font-size: 1.1em; color: #fff; font-weight: 600; 
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1); position: relative; z-index: 2; 
-        }
-
-        .section { 
-            margin-bottom: 35px; 
-            animation: fadeIn 0.5s ease; 
-        }
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(20px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-
-        .lesson-card {
-            background: #fff; border-radius: 20px; padding: 25px; margin-bottom: 20px;
-            border-right: 5px solid var(--primary-pink);
-            box-shadow: var(--shadow-soft); text-align: center;
-            transition: var(--transition-smooth);
-        }
-        .lesson-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: var(--shadow-medium); 
-        }
-        .lesson-icon { 
-            font-size: 3.5em; margin-bottom: 10px; display: inline-block; 
-            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.08)); 
-        }
-        .lesson-card h3 {
-            display: inline-block; font-size: 1.5em; font-weight: 900; color: #fff;
-            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--secondary-pink) 50%, var(--lavender) 100%);
-            padding: 8px 22px; border-radius: 15px; margin: 10px auto; border: 2px solid #fff;
-            box-shadow: 0 4px 12px rgba(232, 180, 184, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.4);
-            text-shadow: 1px 1px 0px rgba(181, 131, 141, 0.3); letter-spacing: 0.5px; 
-            position: relative; z-index: 2;
-        }
-        .lesson-card h3::before { content: '🌿'; margin-left: 8px; font-size: 0.9em; }
-        .lesson-card h3::after { content: ''; margin-right: 8px; font-size: 0.9em; }
-        .lesson-card > p { font-size: 1.05em; margin-top: 12px; color: #7a6b7a; }
-        .rule-box {
-            background: var(--light-pink); border: 2px dashed var(--secondary-pink);
-            border-radius: 12px; padding: 15px; margin: 12px 0; position: relative;
-            text-align: right; font-size: 1em; line-height: 1.7; color: #6b5b6b;
-            transition: var(--transition-smooth);
-        }
-        .rule-box:hover { background: #fff5f8; }
-
-        .interactive-area {
-            background: linear-gradient(135deg, var(--light-pink), #faf0f4);
-            border-radius: 20px; padding: 25px; text-align: center;
-            border: 2px solid var(--secondary-pink); margin-top: 25px;
-            transition: var(--transition-smooth);
-        }
-        .interactive-area:hover { box-shadow: var(--shadow-medium); }
-        .problem-display { 
-            font-size: 1.9em; font-weight: 900; margin-bottom: 15px; 
-            direction: ltr; color: var(--dark-pink); 
-        }
-        .answer-input {
-            padding: 12px; font-size: 1.2em; border: 2px solid var(--primary-pink);
-            border-radius: 12px; text-align: center; width: 180px; 
-            font-family: var(--font-family);
-            outline: none; transition: var(--transition-smooth); 
-            background: var(--input-bg); color: var(--input-text);
-            font-weight: 700;
-        }
-        .answer-input::placeholder { color: #999; font-weight: 400; }
-        .answer-input:focus { 
-            border-color: var(--dark-pink); 
-            box-shadow: 0 0 20px rgba(232, 180, 184, 0.5);
-            transform: scale(1.05);
-        }
-        .answer-input.correct-answer { 
-            border-color: var(--success-green); 
-            box-shadow: 0 0 25px rgba(168, 213, 186, 0.6); 
-            animation: pulseGreen 0.5s ease; 
-        }
-        .answer-input.wrong-answer { 
-            border-color: var(--fail-red); 
-            box-shadow: 0 0 25px rgba(232, 165, 165, 0.6); 
-            animation: shake 0.5s ease; 
-        }
-        @keyframes pulseGreen { 
-            0%, 100% { transform: scale(1); } 
-            50% { transform: scale(1.05); } 
-        }
-        @keyframes shake { 
-            0%, 100% { transform: translateX(0); } 
-            25% { transform: translateX(-10px); } 
-            75% { transform: translateX(10px); } 
-        }
-
-        .btn-group { 
-            margin-top: 20px; display: flex; gap: 12px; 
-            justify-content: center; flex-wrap: wrap; 
-        }
-        .action-btn {
-            padding: 12px 30px; background: var(--primary-pink); color: white;
-            border: none; border-radius: 12px; font-size: 1.05em; cursor: pointer;
-            font-family: var(--font-family); font-weight: 700; 
-            transition: var(--transition-smooth);
-            box-shadow: var(--shadow-soft);
-            position: relative;
-            overflow: hidden;
-        }
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        .action-btn:hover::before { width: 300px; height: 300px; }
-        .action-btn:hover { 
-            background: var(--dark-pink); 
-            transform: translateY(-3px); 
-            box-shadow: var(--shadow-medium);
-        }
-        .action-btn:active { transform: translateY(-1px); }
-        .new-btn { 
-            background: var(--mint) !important; color: #5a7a6a !important; 
-            box-shadow: 0 4px 12px rgba(168, 213, 186, 0.3); 
-        }
-        .instant-btn { 
-            background: linear-gradient(135deg, var(--peach), #ffdac1) !important; 
-            color: #8a7a5a !important; 
-            box-shadow: 0 4px 12px rgba(244, 228, 193, 0.4); 
-        }
-        .hint-btn {
-            background: linear-gradient(135deg, #ffd700, #ffed4e) !important;
-            color: #8a6a00 !important;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
-        }
-
-        .new-challenge-btn {
-            padding: 15px 40px; 
-            background: linear-gradient(135deg, var(--success-green), var(--mint)) !important;
-            color: white !important; border: 3px solid white; border-radius: 20px;
-            font-size: 1.3em; font-weight: 900; cursor: pointer; 
-            font-family: var(--font-family);
-            transition: var(--transition-smooth); 
-            box-shadow: 0 6px 20px rgba(168, 213, 186, 0.5);
-            animation: pulseBtn 2s infinite; margin-top: 20px;
-        }
-        .new-challenge-btn:hover { 
-            transform: translateY(-3px) scale(1.05); 
-            box-shadow: 0 8px 25px rgba(168, 213, 186, 0.7); 
-        }
-        @keyframes pulseBtn { 
-            0%, 100% { transform: scale(1); } 
-            50% { transform: scale(1.03); } 
-        }
-
-        .feedback { 
-            margin-top: 15px; font-weight: 900; font-size: 1.1em; 
-            min-height: 35px; transition: var(--transition-smooth); 
-        }
-        .feedback.correct { color: #7a9a8a; }
-        .feedback.incorrect { color: #b5838d; }
-
-        .big-success-msg {
-            font-size: 2.5em; color: var(--success-green); font-weight: 900;
-            text-shadow: 1px 1px 0px white, 2px 2px 0px rgba(0,0,0,0.05);
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            margin: 15px 0; display: none;
-        }
-        .big-fail-msg {
-            font-size: 2em; color: var(--fail-red); font-weight: 900;
-            text-shadow: 1px 1px 0px white, 2px 2px 0px rgba(0,0,0,0.05);
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            margin: 15px 0; display: none;
-        }
-        @keyframes popIn { 
-            from { transform: scale(0); } 
-            to { transform: scale(1); } 
-        }
-
-        .score-board {
-            position: fixed; top: 15px; left: 15px; background: white;
-            padding: 12px 20px; border-radius: 15px; 
-            box-shadow: var(--shadow-medium);
-            font-weight: 700; z-index: 1000; 
-            display: flex; align-items: center; gap: 8px;
-            border: 2px solid var(--light-pink); color: var(--dark-pink);
-            transition: var(--transition-smooth);
-        }
-        .score-board:hover { transform: scale(1.05); }
-        .score-board span { font-size: 1.2em; }
-
-        .companion-container {
-            position: fixed;
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 10px;
-            cursor: grab;
-            user-select: none;
-        }
-        .companion-container:active { cursor: grabbing; }
-        .companion-container.dragging {
-            opacity: 0.8;
-            transform: scale(1.05);
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-        }
-        .companion-speech {
-            background: white; padding: 12px 18px; border-radius: 18px;
-            border: 2px solid var(--primary-pink);
-            box-shadow: var(--shadow-medium); max-width: 280px;
-            font-size: 0.95em; color: var(--dark-pink); font-weight: 600;
-            position: relative; animation: popIn 0.5s ease; display: none;
-            pointer-events: none;
-        }
-        .companion-speech::after {
-            content: ''; position: absolute; bottom: -10px; right: 30px;
-            width: 0; height: 0; border-left: 10px solid transparent;
-            border-right: 10px solid transparent; border-top: 10px solid var(--primary-pink);
-        }
-        .companion-svg {
-            width: 160px; height: 240px;
-            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));
-            animation: companionBounce 3s ease-in-out infinite;
-            transition: width 0.3s ease, height 0.3s ease;
-        }
-        @keyframes companionBounce { 
-            0%, 100% { transform: translateY(0); } 
-            50% { transform: translateY(-8px); } 
-        }
-
-        .robot-controls {
-            position: fixed; bottom: 20px; right: 20px;
-            background: white; padding: 10px; border-radius: 15px;
-            box-shadow: var(--shadow-medium);
-            display: flex; flex-direction: column; gap: 8px;
-            z-index: 1001; border: 2px solid var(--primary-pink);
-        }
-        .robot-control-btn {
-            width: 40px; height: 40px;
-            border: 2px solid var(--primary-pink); border-radius: 10px;
-            background: white; color: var(--dark-pink);
-            font-size: 1.2em; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: var(--transition-smooth); font-weight: 900;
-        }
-        .robot-control-btn:hover {
-            background: var(--primary-pink); color: white;
-            transform: scale(1.1);
-        }
-        .robot-control-btn:active { transform: scale(0.95); }
-
-        .garden-modal-overlay, .wheel-modal-overlay, .stats-modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 10000; display: none;
-            align-items: center; justify-content: center;
-            backdrop-filter: blur(5px);
-        }
-        .garden-modal-overlay.active, .wheel-modal-overlay.active, .stats-modal-overlay.active { 
-            display: flex; 
-        }
-        .garden-modal, .wheel-modal, .stats-modal {
-            background: linear-gradient(180deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
-            border-radius: 30px; padding: 30px; max-width: 90%; max-height: 85vh;
-            width: 700px; position: relative; overflow-y: auto;
-            border: 5px solid #81c784;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: modalPopIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .wheel-modal {
-            background: linear-gradient(135deg, #fff5f8 0%, #f5f0ff 100%);
-            border: 5px solid var(--primary-pink);
-        }
-        .stats-modal {
-            background: linear-gradient(135deg, #fff5f8 0%, #f5f0ff 100%);
-            border: 5px solid var(--primary-pink);
-        }
-        @keyframes modalPopIn { 
-            0% { transform: scale(0.5) rotate(-5deg); opacity: 0; } 
-            100% { transform: scale(1) rotate(0deg); opacity: 1; } 
-        }
-        .garden-modal::before {
-            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
-            background: linear-gradient(180deg, transparent, #66bb6a);
-            border-radius: 0 0 25px 25px; pointer-events: none;
-        }
-        .modal-close {
-            position: absolute; top: 15px; left: 15px;
-            background: white; border: 3px solid #e57373; color: #e57373;
-            width: 40px; height: 40px; border-radius: 50%;
-            font-size: 1.5em; font-weight: 900; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: var(--transition-smooth); z-index: 10;
-        }
-        .modal-close:hover { 
-            background: #e57373; color: white; 
-            transform: rotate(90deg); 
-        }
-        .modal-title {
-            text-align: center; font-size: 2.2em; font-weight: 900;
-            color: #2e7d32; margin-bottom: 10px;
-            text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
-        }
-        .wheel-modal .modal-title, .stats-modal .modal-title {
-            color: var(--dark-pink);
-        }
-        .modal-subtitle {
-            text-align: center; font-size: 1.1em; color: #388e3c;
-            margin-bottom: 20px; font-weight: 700;
-        }
-        .stats-bar {
-            background: rgba(255,255,255,0.7); border-radius: 15px; padding: 15px;
-            margin-bottom: 20px; text-align: center;
-            border: 2px dashed #81c784;
-        }
-        .stats-bar span { font-size: 1.3em; font-weight: 900; color: #2e7d32; }
-        .flowers-container {
-            display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
-            padding: 25px; background: rgba(255,255,255,0.4);
-            border-radius: 20px; min-height: 150px;
-            position: relative; z-index: 2;
-        }
-        .flower {
-            font-size: 3em; 
-            animation: flowerGrow 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.15));
-            cursor: pointer; transition: var(--transition-smooth);
-        }
-        .flower:hover { transform: scale(1.4) rotate(20deg); }
-        @keyframes flowerGrow { 
-            0% { transform: scale(0) rotate(-180deg); opacity: 0; } 
-            100% { transform: scale(1) rotate(0deg); opacity: 1; } 
-        }
-        .empty-message {
-            text-align: center; color: #66bb6a; font-size: 1.3em;
-            padding: 30px; font-style: italic; width: 100%;
-        }
-        .butterflies {
-            position: absolute; font-size: 2em; 
-            animation: butterflyFly 8s ease-in-out infinite;
-            pointer-events: none;
-        }
-        @keyframes butterflyFly {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(50px, -30px) rotate(10deg); }
-            50% { transform: translate(100px, 0) rotate(-10deg); }
-            75% { transform: translate(50px, 30px) rotate(5deg); }
-        }
-
-        .wheel-container {
-            position: relative; width: 400px; height: 400px; margin: 20px auto;
-        }
-        .wheel-canvas {
-            width: 100%; height: 100%; border-radius: 50%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .wheel-pointer {
-            position: absolute; top: -10px; left: 50%;
-            transform: translateX(-50%); width: 0; height: 0;
-            border-left: 20px solid transparent; border-right: 20px solid transparent;
-            border-top: 40px solid #e74c3c;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); z-index: 5;
-        }
-        .wheel-center {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px; height: 60px; background: white;
-            border-radius: 50%; border: 4px solid var(--dark-pink);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5em; font-weight: 900; color: var(--dark-pink);
-            z-index: 5;
-        }
-        .spin-btn {
-            padding: 15px 50px;
-            background: linear-gradient(135deg, #ff7eb3, #ff758c);
-            color: white; border: none; border-radius: 25px;
-            font-size: 1.3em; font-weight: 900; cursor: pointer;
-            font-family: var(--font-family);
-            box-shadow: 0 6px 20px rgba(255, 126, 179, 0.4);
-            transition: var(--transition-smooth); margin-top: 20px;
-        }
-        .spin-btn:hover:not(:disabled) { 
-            transform: translateY(-3px) scale(1.05); 
-            box-shadow: 0 8px 25px rgba(255, 126, 179, 0.6); 
-        }
-        .spin-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-        .challenge-mode {
-            background: linear-gradient(135deg, var(--light-pink) 0%, #faf0f4 100%);
-            padding: 30px; border-radius: 25px; text-align: center;
-            border: 2px solid var(--secondary-pink); position: relative;
-        }
-        .timer { 
-            font-size: 1.8em; font-weight: 900; color: var(--dark-pink); 
-            margin-bottom: 12px; 
-        }
-        .timer.stopped { color: var(--fail-red); animation: pulse 1s infinite; }
-        @keyframes pulse { 
-            0%, 100% { opacity: 1; } 
-            50% { opacity: 0.5; } 
-        }
-        .progress-bar { 
-            width: 100%; height: 20px; 
-            background: rgba(244, 194, 194, 0.3); 
-            border-radius: 12px; overflow: hidden; 
-            margin-bottom: 20px; border: 2px solid white; 
-        }
-        .progress-fill { 
-            height: 100%; 
-            background: linear-gradient(90deg, var(--primary-pink), var(--lavender)); 
-            width: 100%; transition: width 1s linear; 
-        }
-
-        .flashcards-intro {
-            text-align: center; margin-bottom: 25px; padding: 18px;
-            background: linear-gradient(135deg, var(--light-pink), #faf0f4);
-            border-radius: 18px; border: 2px dashed var(--primary-pink);
-        }
-        .flashcards-intro h3 { color: var(--dark-pink); font-size: 1.3em; margin-bottom: 8px; }
-        .flashcards-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-            gap: 20px; padding: 15px; 
-        }
-        .flashcard-container { perspective: 1000px; height: 240px; cursor: pointer; }
-        .flashcard { 
-            position: relative; width: 100%; height: 100%;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            transform-style: preserve-3d; 
-        }
-        .flashcard.flipped { transform: rotateY(180deg); }
-        .flashcard-face {
-            position: absolute; width: 100%; height: 100%; 
-            backface-visibility: hidden; border-radius: 18px;
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: center; padding: 20px; 
-            box-shadow: 0 8px 25px rgba(232, 180, 184, 0.2); 
-            border: 2px solid white;
-        }
-        .flashcard-front { 
-            background: linear-gradient(135deg, var(--primary-pink), var(--secondary-pink)); 
-            color: white; 
-        }
-        .flashcard-front .card-icon { font-size: 2.5em; margin-bottom: 8px; }
-        .flashcard-front .card-label { 
-            font-size: 0.85em; opacity: 0.95; margin-bottom: 12px;
-            background: rgba(255,255,255,0.25); padding: 4px 12px; border-radius: 12px; 
-        }
-        .flashcard-front .card-question { 
-            font-size: 1.05em; font-weight: 700; text-align: center; line-height: 1.5; 
-        }
-        .flashcard-back { 
-            background: linear-gradient(135deg, var(--success-green), var(--mint)); 
-            color: #5a7a6a; transform: rotateY(180deg); 
-        }
-        .flashcard-back .card-icon { font-size: 2.5em; margin-bottom: 8px; }
-        .flashcard-back .card-label { 
-            font-size: 0.85em; margin-bottom: 12px;
-            background: rgba(255,255,255,0.5); padding: 4px 12px; border-radius: 12px; font-weight: 700; 
-        }
-        .flashcard-back .card-answer { 
-            font-size: 1em; font-weight: 700; color: #5a7a6a; 
-            text-align: center; line-height: 1.5; 
-        }
-        .flashcard-controls { text-align: center; margin-top: 25px; padding: 15px; }
-
-        .footer-credit {
-            margin-top: 50px; text-align: center; padding: 25px;
-            background: rgba(255, 255, 255, 0.9); border-radius: 20px;
-            border: 2px solid var(--light-pink); 
-            box-shadow: 0 8px 25px rgba(212, 197, 226, 0.15);
-        }
-        .footer-credit p { 
-            margin: 6px 0; font-size: 1.05em; 
-            color: var(--dark-pink); font-weight: 600; 
-        }
-        .school-name { 
-            font-size: 1.2em; font-weight: 900; color: var(--dark-pink); 
-            margin-top: 12px; letter-spacing: 0.5px; 
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-        }
-        
-        .sr-only {
-            position: absolute; width: 1px; height: 1px; padding: 0;
-            margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
-            white-space: nowrap; border: 0;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 { font-size: 1.6em; }
-            .header p { font-size: 0.95em; }
-            .header { padding: 18px 15px; }
-            .lesson-card h3 { font-size: 1.1em; padding: 6px 15px; }
-            .lesson-icon { font-size: 2.8em; }
-            .problem-display { font-size: 1.5em; }
-            .score-board { top: 8px; left: 8px; padding: 8px 12px; font-size: 0.85em; }
-            .controls-panel { top: 8px; right: 8px; padding: 8px 10px; font-size: 0.8em; }
-            .big-success-msg { font-size: 1.6em; }
-            .big-fail-msg { font-size: 1.3em; }
-            .flashcards-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-            .flashcard-container { height: 220px; }
-            .bg-shape { opacity: 0.1; }
-            .new-challenge-btn { font-size: 1.1em; padding: 12px 30px; }
-            .companion-svg { width: 110px; height: 170px; }
-            .companion-speech { max-width: 200px; font-size: 0.85em; }
-            .garden-modal, .wheel-modal, .stats-modal { padding: 20px; width: 95%; }
-            .modal-title { font-size: 1.6em; }
-            .flower { font-size: 2.2em; }
-            .wheel-container { width: 300px; height: 300px; }
-            .robot-controls { bottom: 10px; right: 10px; }
-            .robot-control-btn { width: 35px; height: 35px; font-size: 1em; }
-        }
-    </style>
+.garden-modal-overlay,.wheel-modal-overlay,.stats-modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:10000;display:none;align-items:center;justify-content:center}
+.garden-modal-overlay.active,.wheel-modal-overlay.active,.stats-modal-overlay.active{display:flex}
+.garden-modal,.wheel-modal,.stats-modal{background:#fff;border-radius:30px;padding:30px;max-width:90%;max-height:85vh;width:700px;position:relative;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal-close{position:absolute;top:15px;left:15px;background:#fff;border:3px solid #e57373;color:#e57373;width:40px;height:40px;border-radius:50%;font-size:1.5em;cursor:pointer}
+.modal-title{text-align:center;font-size:2em;font-weight:900;margin-bottom:20px}
+.wheel-container{position:relative;width:400px;height:400px;margin:20px auto}
+.wheel-canvas{width:100%;height:100%;border-radius:50%}
+.wheel-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-top:40px solid #e74c3c;z-index:5}
+.spin-btn{padding:15px 50px;background:linear-gradient(135deg,#ff7eb3,#ff758c);color:#fff;border:none;border-radius:25px;font-size:1.3em;font-weight:900;cursor:pointer;margin-top:20px}
+.challenge-mode{background:linear-gradient(135deg,var(--light),#faf0f4);padding:30px;border-radius:25px;text-align:center;border:2px solid var(--secondary)}
+.timer{font-size:1.8em;font-weight:900;color:var(--dark);margin-bottom:12px}
+.progress-bar{width:100%;height:20px;background:rgba(244,194,194,.3);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--lavender));width:100%;transition:width 1s linear}
+.footer-credit{margin-top:50px;text-align:center;padding:25px;background:rgba(255,255,255,.9);border-radius:20px}
+.footer-credit p{margin:6px 0;font-size:1.05em;color:var(--dark);font-weight:600}
+.school-name{font-size:1.2em;font-weight:900;color:var(--dark);margin-top:12px}
+@media(max-width:768px){.header h1{font-size:1.6em}.wheel-container{width:300px;height:300px}.companion-svg{width:130px;height:200px}.robot-controls{bottom:230px;right:15px}}
+</style>
 </head>
 <body>
-    <div class="bg-shapes">
-        <div class="bg-shape circle"></div><div class="bg-shape star"></div><div class="bg-shape heart"></div>
-        <div class="bg-shape square"></div><div class="bg-shape triangle"></div><div class="bg-shape diamond"></div>
-        <div class="bg-shape circle"></div><div class="bg-shape star"></div><div class="bg-shape heart"></div>
-        <div class="bg-shape square"></div><div class="bg-shape triangle"></div><div class="bg-shape diamond"></div>
-    </div>
-
-    <div id="confetti-container"></div>
-
-    <div class="controls-panel">
-        <label>🎨 الثيم:</label>
-        <select id="themeSelector" onchange="changeTheme(this.value)" aria-label="اختيار الثيم">
-            <option value="pink">وردي 🌷</option>
-            <option value="blue">أزرق 💙</option>
-            <option value="green">أخضر 💚</option>
-            <option value="rainbow">قوس قزح </option>
-            <option value="warm">دافئ 🍂</option>
-        </select>
-        <button onclick="toggleDarkMode()" id="darkModeBtn" aria-label="تبديل الوضع الليلي">🌙 ليلي</button>
-        <button class="stats-btn" onclick="openStats()" aria-label="عرض الإحصائيات">📊 إحصائيات</button>
-        <button class="garden-btn" onclick="openGarden()" aria-label="عرض الحديقة"> الحديقة</button>
-        <button class="wheel-btn" onclick="openWheel()" aria-label="فتح العجلة">🎡 العجلة</button>
-        <button class="reset-btn" onclick="resetAll()" title="تصفير النقاط والزهور" aria-label="تصفير كل شيء">🔄 تصفير</button>
-    </div>
-
-    <div class="score-board" role="status" aria-live="polite">
-        <span id="scoreEmoji">🌟</span>
-        <span id="score">0</span> نقطة | 
-        🌸 <span id="flowerCount">0</span>
-    </div>
-
-    <div class="container">
-        <div class="header">
-            <h1 id="headerEmoji">🌷 مغامرة الأعداد الصحيحة 🌷</h1>
-            <p>تعلم الرياضيات بأسلوب تفاعلي وممتع!</p>
-        </div>
-
-        <div id="addition" class="section">
-            <div class="lesson-card">
-                <span class="lesson-icon" id="addIcon">🌺</span>
-                <h3>درس جمع الأعداد الصحيحة</h3>
-                <p>عند جمع عددين صحيحين، ننظر إلى إشارتيهما:</p>
-                <div class="rule-box"><strong>1. إشارات متشابهة:</strong> نجمع القيمتين ونضع الإشارة المشتركة.<br><span class="ruleEmoji">🌷</span> (-5) + (-3) = -8</div>
-                <div class="rule-box"><strong>2. إشارات مختلفة:</strong> نطرح الصغرى من الكبرى ونضع إشارة الأكبر.<br><span class="ruleEmoji">🌷</span> (+7) + (-4) = +3</div>
-            </div>
-            <div class="interactive-area">
-                <div class="problem-display" id="addProblem">(+5) + (-2) = ?</div>
-                <input type="number" class="answer-input" id="addAnswer" placeholder="اكتب الجواب" aria-label="إجابة الجمع">
-                <div class="btn-group">
-                    <button class="action-btn instant-btn" onclick="instantCheck('addition')" aria-label="تحقق من الإجابة">🌤️ تحقق فوري</button>
-                    <button class="action-btn hint-btn" onclick="showHint('addition')" aria-label="عرض تلميح">💡 تلميح</button>
-                    <button class="action-btn new-btn" onclick="newProblem('addition')" aria-label="مسألة جديدة">مسألة جديدة 🌸</button>
-                </div>
-                <div id="addSuccessMsg" class="big-success-msg">أحسنت! </div>
-                <div id="addFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة 🌱</div>
-                <div class="feedback" id="addFeedback" role="alert"></div>
-            </div>
-        </div>
-
-        <div id="subtraction" class="section">
-            <div class="lesson-card">
-                <span class="lesson-icon" id="subIcon">🦋</span>
-                <h3>درس طرح الأعداد الصحيحة</h3>
-                <p>الطرح هو عملية عكسية للجمع. لتحويل الطرح إلى جمع:</p>
-                <div class="rule-box"><strong>القاعدة الذهبية:</strong><br>نغير علامة الطرح إلى جمع، ونعكس إشارة العدد الثاني.<br><span class="ruleEmoji">🌷</span> a - b = a + (-b)<br>مثال: (-6) - (+2) = (-6) + (-2) = -8</div>
-            </div>
-            <div class="interactive-area">
-                <div class="problem-display" id="subProblem">(-8) - (-3) = ?</div>
-                <input type="number" class="answer-input" id="subAnswer" placeholder="اكتب الجواب" aria-label="إجابة الطرح">
-                <div class="btn-group">
-                    <button class="action-btn instant-btn" onclick="instantCheck('subtraction')" aria-label="تحقق من الإجابة">️ تحقق فوري</button>
-                    <button class="action-btn hint-btn" onclick="showHint('subtraction')" aria-label="عرض تلميح">💡 تلميح</button>
-                    <button class="action-btn new-btn" onclick="newProblem('subtraction')" aria-label="مسألة جديدة">مسألة جديدة 🌸</button>
-                </div>
-                <div id="subSuccessMsg" class="big-success-msg">أحسنت! 🎊</div>
-                <div id="subFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة 🌱</div>
-                <div class="feedback" id="subFeedback" role="alert"></div>
-            </div>
-        </div>
-
-        <div id="multiplication" class="section">
-            <div class="lesson-card">
-                <span class="lesson-icon" id="mulIcon">🌻</span>
-                <h3>درس ضرب الأعداد الصحيحة</h3>
-                <div class="rule-box"><strong>قاعدة الإشارات:</strong><br><span class="ruleEmoji">🌷</span> موجب × موجب = موجب<br><span class="ruleEmoji"></span> سالب × سالب = موجب<br><span class="ruleEmoji"></span> موجب × سالب = سالب<br><span class="ruleEmoji">🍂</span> سالب × موجب = سالب</div>
-            </div>
-            <div class="interactive-area">
-                <div class="problem-display" id="mulProblem">(-4) × (+5) = ?</div>
-                <input type="number" class="answer-input" id="mulAnswer" placeholder="اكتب الجواب" aria-label="إجابة الضرب">
-                <div class="btn-group">
-                    <button class="action-btn instant-btn" onclick="instantCheck('multiplication')" aria-label="تحقق من الإجابة">🌤️ تحقق فوري</button>
-                    <button class="action-btn hint-btn" onclick="showHint('multiplication')" aria-label="عرض تلميح">💡 تلميح</button>
-                    <button class="action-btn new-btn" onclick="newProblem('multiplication')" aria-label="مسألة جديدة">مسألة جديدة 🌸</button>
-                </div>
-                <div id="mulSuccessMsg" class="big-success-msg">أحسنت! 🎊</div>
-                <div id="mulFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة </div>
-                <div class="feedback" id="mulFeedback" role="alert"></div>
-            </div>
-        </div>
-
-        <div id="division" class="section">
-            <div class="lesson-card">
-                <span class="lesson-icon" id="divIcon">🍀</span>
-                <h3>درس قسمة الأعداد الصحيحة</h3>
-                <p>تطبق نفس قواعد الإشارات في الضرب تماماً.</p>
-                <div class="rule-box"><strong>تنبيه هام:</strong> لا يمكن القسمة على صفر!<br><span class="ruleEmoji"></span> (+12) ÷ (-3) = -4</div>
-            </div>
-            <div class="interactive-area">
-                <div class="problem-display" id="divProblem">(-20) ÷ (+4) = ?</div>
-                <input type="number" class="answer-input" id="divAnswer" placeholder="اكتب الجواب" aria-label="إجابة القسمة">
-                <div class="btn-group">
-                    <button class="action-btn instant-btn" onclick="instantCheck('division')" aria-label="تحقق من الإجابة">🌤️ تحقق فوري</button>
-                    <button class="action-btn hint-btn" onclick="showHint('division')" aria-label="عرض تلميح">💡 تلميح</button>
-                    <button class="action-btn new-btn" onclick="newProblem('division')" aria-label="مسألة جديدة">مسألة جديدة 🌸</button>
-                </div>
-                <div id="divSuccessMsg" class="big-success-msg">أحسنت! </div>
-                <div id="divFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة 🌱</div>
-                <div class="feedback" id="divFeedback" role="alert"></div>
-            </div>
-        </div>
-
-        <div id="parentheses" class="section">
-            <div class="lesson-card">
-                <span class="lesson-icon" id="parIcon">🎐</span>
-                <h3>درس أولوية العمليات والأقواس</h3>
-                <div class="rule-box"><strong>ترتيب الحل (PEMDAS):</strong><br>1️⃣ الأقواس الداخلية أولاً<br>2️⃣ الضرب والقسمة<br>3️⃣ الجمع والطرح</div>
-            </div>
-            <div class="interactive-area">
-                <div class="problem-display" id="parProblem">2 × (3 + (-5)) = ?</div>
-                <input type="number" class="answer-input" id="parAnswer" placeholder="اكتب الجواب" aria-label="إجابة الأقواس">
-                <div class="btn-group">
-                    <button class="action-btn instant-btn" onclick="instantCheck('parentheses')" aria-label="تحقق من الإجابة">🌤️ تحقق فوري</button>
-                    <button class="action-btn hint-btn" onclick="showHint('parentheses')" aria-label="عرض تلميح">💡 تلميح</button>
-                    <button class="action-btn new-btn" onclick="newProblem('parentheses')" aria-label="مسألة جديدة">مسألة جديدة 🌸</button>
-                </div>
-                <div id="parSuccessMsg" class="big-success-msg">أحسنت! 🎊</div>
-                <div id="parFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة 🌱</div>
-                <div class="feedback" id="parFeedback" role="alert"></div>
-            </div>
-        </div>
-
-        <div id="flashcards" class="section">
-            <div class="flashcards-intro"><h3>🎨 البطاقات التعليمية التفاعلية</h3><p>اضغط على أي بطاقة لقلبها ورؤية الإجابة! 🌷</p></div>
-            <div class="flashcards-grid" id="flashcardsGrid"></div>
-            <div class="flashcard-controls">
-                <button class="action-btn new-btn" onclick="shuffleFlashcards()" aria-label="خلط البطاقات">🍃 خلط البطاقات</button>
-                <button class="action-btn" onclick="resetFlashcards()" aria-label="إعادة البطاقات">🌸 إعادة البطاقات</button>
-            </div>
-        </div>
-
-        <div id="challenge" class="section">
-            <div class="challenge-mode">
-                <h2 style="font-size: 1.6em; margin-bottom: 12px; color: var(--dark-pink);">⏱️ تحدي الـ 30 ثانية</h2>
-                <div class="timer" id="timer">30 ثانية</div>
-                <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
-                <div id="challenge-game-area">
-                    <div class="problem-display" id="challengeProblem">اضغط ابدأ للتحدي!</div>
-                    <input type="number" class="answer-input" id="challengeAnswer" disabled placeholder="الجواب" aria-label="إجابة التحدي">
-                    <div class="btn-group">
-                        <button class="action-btn" id="startChallenge" onclick="startChallenge()" style="background: var(--fail-red);" aria-label="بدء التحدي">ابدأ التحدي 🎈</button>
-                        <button class="action-btn instant-btn" id="challengeInstantBtn" onclick="instantCheck('challenge')" style="display:none;" aria-label="تحقق فوري">️ تحقق فوري</button>
-                        <button class="action-btn" id="challengeCheckBtn" onclick="checkAnswer('challenge')" style="display:none;" aria-label="تحقق">تحقق 🌿</button>
-                    </div>
-                </div>
-                <button class="new-challenge-btn" id="newChallengeBtn" onclick="startChallenge()" style="display:none;" aria-label="تحدي جديد">🔄 تحدي جديد</button>
-                <div id="challengeSuccessMsg" class="big-success-msg">أحسنت! 🎊</div>
-                <div id="challengeFailMsg" class="big-fail-msg">حظاً أوفر في المرة القادمة </div>
-                <div class="feedback" id="challengeFeedback" role="alert"></div>
-            </div>
-        </div>
-
-        <div class="footer-credit">
-            <p>عمل الطالبة: <strong>تقى يونسو</strong></p>
-            <p>المدرّسة: <strong>فلك عاصي</strong></p>
-            <p>الصف السابع - الشعبة الأولى</p>
-            <p class="school-name">المدرسة النموذجية للمتفوقين إناث</p>
-        </div>
-    </div>
-
-    <div class="companion-container" id="companionContainer" style="bottom: 20px; right: 20px;">
-        <div class="companion-speech" id="companionSpeech" role="status" aria-live="polite">مرحباً! أنا روبوتك المساعد! 🤖</div>
-        <svg class="companion-svg" id="companionSvg" viewBox="0 0 150 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="روبوت مساعد">
-            <ellipse cx="75" cy="225" rx="40" ry="5" fill="rgba(0,0,0,0.15)"/>
-            <rect x="50" y="170" width="12" height="40" rx="6" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <rect x="88" y="170" width="12" height="40" rx="6" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <ellipse cx="56" cy="212" rx="10" ry="5" fill="var(--robot-darker)" stroke="var(--robot-darkest)" stroke-width="1"/>
-            <ellipse cx="94" cy="212" rx="10" ry="5" fill="var(--robot-darker)" stroke="var(--robot-darkest)" stroke-width="1"/>
-            <rect x="25" y="110" width="12" height="50" rx="6" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <rect x="113" y="110" width="12" height="50" rx="6" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <circle cx="31" cy="165" r="8" fill="var(--robot-body)" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <circle cx="119" cy="165" r="8" fill="var(--robot-body)" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <circle cx="25" cy="162" r="2" fill="var(--robot-dark)"/>
-            <circle cx="31" cy="160" r="2" fill="var(--robot-dark)"/>
-            <circle cx="37" cy="162" r="2" fill="var(--robot-dark)"/>
-            <circle cx="113" cy="162" r="2" fill="var(--robot-dark)"/>
-            <circle cx="119" cy="160" r="2" fill="var(--robot-dark)"/>
-            <circle cx="125" cy="162" r="2" fill="var(--robot-dark)"/>
-            <rect x="40" y="100" width="70" height="75" rx="10" fill="var(--robot-body)" stroke="var(--robot-darker)" stroke-width="2"/>
-            <rect x="50" y="110" width="50" height="30" rx="5" fill="var(--robot-darkest)" stroke="var(--robot-darker)" stroke-width="1"/>
-            <path d="M 70 120 Q 70 115 75 115 Q 80 115 80 120 Q 80 125 75 130 Q 70 125 70 120" fill="var(--robot-accent)"/>
-            <circle cx="55" cy="155" r="4" fill="var(--robot-accent)" stroke="var(--robot-accent-dark)" stroke-width="1"/>
-            <circle cx="75" cy="155" r="4" fill="#2ecc71" stroke="#27ae60" stroke-width="1"/>
-            <circle cx="95" cy="155" r="4" fill="var(--robot-eyes)" stroke="#2980b9" stroke-width="1"/>
-            <rect x="65" y="85" width="20" height="15" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <rect x="35" y="30" width="80" height="60" rx="15" fill="var(--robot-body)" stroke="var(--robot-darker)" stroke-width="2"/>
-            <line x1="75" y1="30" x2="75" y2="15" stroke="var(--robot-darker)" stroke-width="2"/>
-            <circle cx="75" cy="12" r="5" fill="var(--robot-accent)" stroke="var(--robot-accent-dark)" stroke-width="1"/>
-            <circle cx="75" cy="12" r="2" fill="#ff6b6b"/>
-            <rect x="25" y="45" width="10" height="20" rx="5" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <rect x="115" y="45" width="10" height="20" rx="5" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <rect x="48" y="45" width="20" height="20" rx="10" fill="white" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <rect x="82" y="45" width="20" height="20" rx="10" fill="white" stroke="var(--robot-darker)" stroke-width="1.5"/>
-            <circle id="leftPupil" cx="58" cy="55" r="7" fill="var(--robot-eyes)"/>
-            <circle id="rightPupil" cx="92" cy="55" r="7" fill="var(--robot-eyes)"/>
-            <circle id="leftPupilInner" cx="58" cy="55" r="4" fill="var(--robot-darkest)"/>
-            <circle id="rightPupilInner" cx="92" cy="55" r="4" fill="var(--robot-darkest)"/>
-            <circle cx="60" cy="53" r="2" fill="white"/>
-            <circle cx="94" cy="53" r="2" fill="white"/>
-            <rect x="60" y="72" width="30" height="8" rx="4" fill="var(--robot-darkest)" stroke="var(--robot-darker)" stroke-width="1"/>
-            <line x1="65" y1="72" x2="65" y2="80" stroke="var(--robot-darker)" stroke-width="1"/>
-            <line x1="75" y1="72" x2="75" y2="80" stroke="var(--robot-darker)" stroke-width="1"/>
-            <line x1="85" y1="72" x2="85" y2="80" stroke="var(--robot-darker)" stroke-width="1"/>
-            <circle cx="45" cy="65" r="4" fill="#f4a6c3" opacity="0.6"/>
-            <circle cx="105" cy="65" r="4" fill="#f4a6c3" opacity="0.6"/>
-            <circle cx="50" cy="38" r="2" fill="#2ecc71"/>
-            <circle cx="65" cy="35" r="2" fill="#f39c12"/>
-            <circle cx="85" cy="35" r="2" fill="var(--robot-accent)"/>
-            <circle cx="100" cy="38" r="2" fill="var(--robot-eyes)"/>
-        </svg>
-    </div>
-
-    <div class="robot-controls" id="robotControls">
-        <button class="robot-control-btn" onclick="resizeRobot(1.2)" title="تكبير" aria-label="تكبير الروبوت">➕</button>
-        <button class="robot-control-btn" onclick="resizeRobot(0.8)" title="تصغير" aria-label="تصغير الروبوت"></button>
-        <button class="robot-control-btn" onclick="resetRobotPosition()" title="إعادة الموضع" aria-label="إعادة موضع الروبوت">🔄</button>
-        <button class="robot-control-btn" onclick="toggleRobotControls()" title="إخفاء الأدوات" aria-label="إخفاء أدوات التحكم">✕</button>
-        <select id="robotColorSelect" onchange="changeRobotColor(this.value)" title="لون الروبوت" aria-label="اختيار لون الروبوت" style="width: 40px; height: 40px; padding: 0; border: 2px solid var(--primary-pink); border-radius: 10px; cursor: pointer;">
-            <option value="default">⚙️</option>
-            <option value="pink">🌸</option>
-            <option value="blue">💙</option>
-            <option value="green">💚</option>
-            <option value="gold">⭐</option>
-            <option value="purple">💜</option>
-        </select>
-    </div>
-
-    <div class="garden-modal-overlay" id="gardenModal">
-        <div class="garden-modal">
-            <button class="modal-close" onclick="closeGarden()" aria-label="إغلاق">✕</button>
-            <div class="modal-title">🌺 حديقة إنجازاتي 🌺</div>
-            <div class="modal-subtitle">كل نقطة = زهرة في حديقتي الجميلة!</div>
-            <div class="stats-bar">
-                🌟 إجمالي النقاط: <span id="modalScore">0</span> | 
-                 عدد الزهور: <span id="modalFlowerCount">0</span>
-            </div>
-            <div class="flowers-container" id="modalGardenFlowers">
-                <div class="empty-message">🌱 الحديقة فارغة... اجمعي النقاط لتزهر!</div>
-            </div>
-            <div class="butterflies" style="top: 20%; right: 10%;">🦋</div>
-            <div class="butterflies" style="top: 40%; left: 15%; animation-delay: 2s;">🦋</div>
-            <div class="butterflies" style="top: 60%; right: 20%; animation-delay: 4s;">🦋</div>
-        </div>
-    </div>
-
-    <div class="wheel-modal-overlay" id="wheelModal">
-        <div class="wheel-modal">
-            <button class="modal-close" onclick="closeWheel()" aria-label="إغلاق">✕</button>
-            <div class="modal-title">🎡 عجلة الأسماء الدوارة 🎡</div>
-            <div class="wheel-container">
-                <div class="wheel-pointer"></div>
-                <canvas class="wheel-canvas" id="wheelCanvas" width="400" height="400"></canvas>
-                <div class="wheel-center">🎯</div>
-            </div>
-            <button class="spin-btn" id="spinBtn" onclick="spinWheel()" aria-label="تدوير العجلة"> تدوير العجلة</button>
-        </div>
-    </div>
-
-    <div class="stats-modal-overlay" id="statsModal">
-        <div class="stats-modal">
-            <button class="modal-close" onclick="closeStats()" aria-label="إغلاق">✕</button>
-            <div class="modal-title">📊 إحصائيات التقدم 📊</div>
-            <div class="stats-bar">
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; text-align: right;">
-                    <div>📝 إجمالي المحاولات: <span id="statAttempts">0</span></div>
-                    <div>✅ إجابات صحيحة: <span id="statCorrect">0</span></div>
-                    <div>❌ إجابات خاطئة: <span id="statWrong">0</span></div>
-                    <div>🎯 نسبة النجاح: <span id="statAccuracy">0%</span></div>
-                    <div>⭐ النقاط: <span id="statScore">0</span></div>
-                    <div>🌸 الزهور: <span id="statFlowers">0</span></div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 20px;">
-                <button class="action-btn" onclick="exportStats()" aria-label="تصدير الإحصائيات">📥 تصدير الإحصائيات</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let score = 0;
-        let currentProblems = {};
-        let challengeTimer = null;
-        let timeLeft = 30;
-        let solvedCount = 0;
-        let challengeStopped = false;
-        let currentTheme = 'pink';
-        let currentMode = 'light';
-        let flowerCount = 0;
-        let gardenFlowers = [];
-        let currentWinner = null;
-
-        let stats = {
-            attempts: 0,
-            correct: 0,
-            wrong: 0,
-            byType: {
-                addition: { correct: 0, wrong: 0 },
-                subtraction: { correct: 0, wrong: 0 },
-                multiplication: { correct: 0, wrong: 0 },
-                division: { correct: 0, wrong: 0 },
-                parentheses: { correct: 0, wrong: 0 },
-                challenge: { correct: 0, wrong: 0 }
-            }
-        };
-
-        let robotScale = 1;
-        let robotX = 20;
-        let robotY = 20;
-        let isDragging = false;
-        let dragStartX = 0;
-        let dragStartY = 0;
-        let robotStartX = 0;
-        let robotStartY = 0;
-
-        // ✅ تم تعديل الاسم من "ليان سوريد" إلى "ليان سويد"
-        const wheelNames = ['حلا', 'سلام', 'لانا', 'لجين', 'جنى', 'يقين', 'ليندا', 'صبا', 'ليان شعار', 'ليان سويد', 'أبرار', 'حنين', 'تقى', 'لمار', 'ماسة'];
-        const wheelColors = ['#ff7eb3', '#ff758c', '#ffd700', '#a8d5ba', '#c5e0f5', '#d4c5e2', '#f4a6c3', '#f7c5d8', '#ffdac1', '#c8e6d9', '#e8b4b8', '#f4c2c2', '#b5838d', '#d63384', '#ff9a9e'];
-        let wheelRotation = 0;
-        let isSpinning = false;
-        let usedNames = [];
-
-        const robotPhrases = {
-            'حلا': {
-                success: ["حلا، إجابة رائعة! 🌟", "أحسنتِ يا حلا! 💪", "ممتازة حلا! 🎉", "حلا، أنتِ ذكية! ✨"],
-                fail: ["حلا، لا بأس حاولي مرة أخرى! 💪", "حلا، فكري بهدوء! 🤔", "حلا، أنتِ قريبة! 🌸"],
-                start: ["يلا حلا، نبدأ التحدي! 🚀", "حلا، أنتِ مستعدة؟ 💪"],
-                end: ["حلا، الوقت انتهى لكن لا بأس! 🌸", "حلا، المحاولة أهم! 💫"]
-            },
-            'سلام': {
-                success: ["سلام، إجابة ذكية! 🌟", "أحسنتِ يا سلام! 💪", "ممتازة سلام! 🎉", "سلام، رائعة! "],
-                fail: ["سلام، كل خطأ فرصة للتعلم! 🌱", "سلام، أنتِ قريبة! 🌸", "سلام، حاولي مرة أخرى! 💪"],
-                start: ["يلا سلام، نبدأ التحدي! 🚀", "سلام، أنتِ مستعدة؟ 💪"],
-                end: ["سلام، الوقت انتهى لكن لا بأس! 🌸", "سلام، المحاولة أهم! 💫"]
-            },
-            'لانا': {
-                success: ["لانا، عمل رائع! 🌟", "ممتازة يا لانا! 💪", "لانا، أحسنتِ! 🎉", "لانا، استمري! ✨"],
-                fail: ["لانا، لا تستسلمي! 💪", "لانا، حاولي مجدداً! ", "لانا، فكري بهدوء! 🤔"],
-                start: ["يلا لانا، نبدأ التحدي! 🚀", "لانا، أنتِ مستعدة؟ 💪"],
-                end: ["لانا، الوقت انتهى لكن لا بأس! 🌸", "لانا، المحاولة أهم! 💫"]
-            },
-            'لجين': {
-                success: ["لجين، أنتِ نجمة! 🌟", "إجابة مثالية يا لجين! 💪", "لجين، رائعة! ✨", "ممتازة يا لجين! 🎉"],
-                fail: ["لجين، ثقي بنفسك! 🌟", "لجين، المحاولة أهم! 💫", "لجين، لا بأس! 💪"],
-                start: ["يلا لجين، نبدأ التحدي! 🚀", "لجين، أنتِ مستعدة؟ 💪"],
-                end: ["لجين، الوقت انتهى لكن لا بأس! 🌸", "لجين، المحاولة أهم! 💫"]
-            },
-            'جنى': {
-                success: ["جنى، أحسنتِ! 🌟", "ممتازة يا جنى! 💪", "جنى، استمري في التألق! ✨", "عمل رائع يا جنى! 🎉"],
-                fail: ["جنى، لا تحزني! 💪", "جنى، فكري مرة أخرى! 🤔", "جنى، أنتِ قادرة! 💪"],
-                start: ["يلا جنى، نبدأ التحدي! 🚀", "جنى، أنتِ مستعدة؟ 💪"],
-                end: ["جنى، الوقت انتهى لكن لا بأس! 🌸", "جنى، المحاولة أهم! 💫"]
-            },
-            'يقين': {
-                success: ["يقين، إجابة صحيحة! 🌟", "أحسنتِ يا يقين! 💪", "يقين، أنتِ ذكية! ✨", "ممتازة يا يقين! 🎉"],
-                fail: ["يقين، أنتِ قادرة! 💖", "يقين، راجعي القاعدة! 📖", "يقين، لا بأس! 💪"],
-                start: ["يلا يقين، نبدأ التحدي! 🚀", "يقين، أنتِ مستعدة؟ 💪"],
-                end: ["يقين، الوقت انتهى لكن لا بأس! 🌸", "يقين، المحاولة أهم! 💫"]
-            },
-            'ليندا': {
-                success: ["ليندا، رائعة! 🌟", "ممتازة يا ليندا! 💪", "ليندا، استمري! ", "أحسنتِ يا ليندا! 🎉"],
-                fail: ["ليندا، لا بأس! 💪", "ليندا، حاولي مرة أخرى! 🌸", "ليندا، أنتِ قريبة! 🌟"],
-                start: ["يلا ليندا، نبدأ التحدي! 🚀", "ليندا، أنتِ مستعدة؟ 💪"],
-                end: ["ليندا، الوقت انتهى لكن لا بأس! 🌸", "ليندا، المحاولة أهم! 💫"]
-            },
-            'صبا': {
-                success: ["صبا، عمل جميل! 🌟", "أحسنتِ يا صبا! 💪", "صبا، أنتِ متميزة! ✨", "رائعة يا صبا! 🎉"],
-                fail: ["صبا، كل خطأ درس! 🌱", "صبا، استمري! 🌟", "صبا، حاولي مجدداً! 💪"],
-                start: ["يلا صبا، نبدأ التحدي! 🚀", "صبا، أنتِ مستعدة؟ 💪"],
-                end: ["صبا، الوقت انتهى لكن لا بأس! 🌸", "صبا، المحاولة أهم! 💫"]
-            },
-            'ليان شعار': {
-                success: ["ليان شعار، ممتازة! 🌟", "إجابة رائعة يا ليان! 💪", "ليان، استمري! ✨", "أحسنتِ يا ليان! 🎉"],
-                fail: ["ليان، لا تستسلمي! 💪", "ليان شعار، فكري بهدوء! ", "ليان، أنتِ قريبة! "],
-                start: ["يلا ليان، نبدأ التحدي! 🚀", "ليان شعار، أنتِ مستعدة؟ 💪"],
-                end: ["ليان، الوقت انتهى لكن لا بأس! 🌸", "ليان شعار، المحاولة أهم! 💫"]
-            },
-            // ✅ تم تعديل الاسم من "ليان سوريد" إلى "ليان سويد"
-            'ليان سويد': {
-                success: ["ليان سويد، أحسنتِ! 🌟", "ممتازة يا ليان! 💪", "ليان، رائعة! ✨", "عمل جميل يا ليان! 🎉"],
-                fail: ["ليان، أنتِ قريبة! 🌸", "ليان سويد، حاولي! 💪", "ليان، لا بأس! 🌟"],
-                start: ["يلا ليان، نبدأ التحدي! 🚀", "ليان سويد، أنتِ مستعدة؟ 💪"],
-                end: ["ليان، الوقت انتهى لكن لا بأس! ", "ليان سويد، المحاولة أهم! 💫"]
-            },
-            'أبرار': {
-                success: ["أبرار، عمل رائع! 🌟", "أحسنتِ يا أبرار! 💪", "أبرار، أنتِ نجمة! ✨", "ممتازة يا أبرار! 🎉"],
-                fail: ["أبرار، لا بأس! 💪", "أبرار، راجعي الدرس! 📖", "أبرار، حاولي مرة أخرى! 🌸"],
-                start: ["يلا أبرار، نبدأ التحدي! 🚀", "أبرار، أنتِ مستعدة؟ 💪"],
-                end: ["أبرار، الوقت انتهى لكن لا بأس! 🌸", "أبرار، المحاولة أهم! "]
-            },
-            'حنين': {
-                success: ["حنين، إجابة ذكية! 🌟", "ممتازة يا حنين! 💪", "حنين، استمري! ✨", "أحسنتِ يا حنين! 🎉"],
-                fail: ["حنين، ثقي بنفسك! 🌟", "حنين، حاولي مرة أخرى! 💪", "حنين، أنتِ قريبة! 🌸"],
-                start: ["يلا حنين، نبدأ التحدي! 🚀", "حنين، أنتِ مستعدة؟ 💪"],
-                end: ["حنين، الوقت انتهى لكن لا بأس! 🌸", "حنين، المحاولة أهم! 💫"]
-            },
-            'تقى': {
-                success: ["تقى، أنتِ عبقرية! 🌟", "أحسنتِ يا تقى! 💪", "تقى، رائعة! ✨", "ممتازة يا تقى! 🎉"],
-                fail: ["تقى، أنتِ ذكية! 🌟", "تقى، فكري مرة أخرى! 🤔", "تقى، لا بأس! 💪"],
-                start: ["يلا تقى، نبدأ التحدي! 🚀", "تقى، أنتِ مستعدة؟ 💪"],
-                end: ["تقى، الوقت انتهى لكن لا بأس! 🌸", "تقى، المحاولة أهم! 💫"]
-            },
-            'لمار': {
-                success: ["لمار، عمل ممتاز! 🌟", "أحسنتِ يا لمار! ", "لمار، استمري! ✨", "رائعة يا لمار! 🎉"],
-                fail: ["لمار، لا تحزني! 💪", "لمار، المحاولة مهمة! 🌱", "لمار، حاولي مجدداً! 🌸"],
-                start: ["يلا لمار، نبدأ التحدي! 🚀", "لمار، أنتِ مستعدة؟ 💪"],
-                end: ["لمار، الوقت انتهى لكن لا بأس! 🌸", "لمار، المحاولة أهم! 💫"]
-            },
-            'ماسة': {
-                success: ["ماسة، أنتِ متميزة! ", "إجابة رائعة يا ماسة! ", "ماسة، أحسنتِ! ", "ممتازة يا ماسة! "],
-                fail: ["ماسة، أنتِ قادرة! 💖", "ماسة، حاولي مجدداً! 🌸", "ماسة، لا بأس! 💪"],
-                start: ["يلا ماسة، نبدأ التحدي! 🚀", "ماسة، أنتِ مستعدة؟ 💪"],
-                end: ["ماسة، الوقت انتهى لكن لا بأس! 🌸", "ماسة، المحاولة أهم! 💫"]
-            }
-        };
-
-        const generalPhrases = {
-            success: ["رائعة! استمري هكذا! ", "أنتِ ذكية جداً! 💪", "ممتازة! فخورون بكِ! 🎉", "إجابة رائعة! 🌸", "استمري في التألق! ✨"],
-            fail: ["لا تحزني، حاولي مرة أخرى! 💪", "كل خطأ هو فرصة للتعلم! 🌱", "لا تستسلمي، أنتِ قريبة! 🌸", "فكري بهدوء وحاولي مجدداً! "],
-            start: ["يلا نبدأ التحدي! أنا معكِ! 💪", "أنتِ مستعدة؟ يلا! 🚀", "هيا، أريهم ما عندكِ! "],
-            end: ["انتهى الوقت! لكن لا بأس، حاولي مرة أخرى! ", "لا تحزني، المرة القادمة ستكون أفضل! 🌟"]
-        };
-
-        const hints = {
-            addition: "تذكري: إذا كانت الإشارات متشابهة نجمع، وإذا كانت مختلفة نطرح ونأخذ إشارة الأكبر",
-            subtraction: "تذكري: حوّلي الطرح إلى جمع بتغيير إشارة العدد الثاني",
-            multiplication: "تذكري: سالب × سالب = موجب، وموجب × سالب = سالب",
-            division: "تذكري: نفس قواعد الضرب تنطبق على القسمة",
-            parentheses: "تذكري: ابدئي دائماً بحل ما داخل الأقواس أولاً",
-            challenge: "فكري بهدوء، أنتِ قادرة على الحل! 💪"
-        };
-
-        const themeEmojis = {
-            pink: { header: '🌷 مغامرة الأعداد الصحيحة 🌷', score: '', add: '🌺', sub: '🦋', mul: '🌻', div: '🍀', par: '',
-                rule: '🌷', ruleNeg: '🍂', btn: '️', newBtn: '🌸', shuffle: '🍃', reset: '🌸',
-                success: '🎊', fail: '🌱', start: '🎈', check: '🌿', stop: '', timer: '🕰️',
-                flashcard: '🌺', cardLabel: '🌾', cardBack: '💫', cardBackLabel: '🌿',
-                feedback: '🌸', feedbackWrong: '', newChallenge: '🔄 تحدي جديد' },
-            blue: { header: '💙 مغامرة الأعداد الصحيحة 💙', score: '⭐', add: '🌊', sub: '', mul: '🌙', div: '💎', par: '🌊',
-                rule: '💙', ruleNeg: '', btn: '☁️', newBtn: '💫', shuffle: '🌊', reset: '⭐',
-                success: '', fail: '🌊', start: '🎈', check: '💫', stop: '🌙', timer: '⏱️',
-                flashcard: '🌊', cardLabel: '⭐', cardBack: '✨', cardBackLabel: '💫',
-                feedback: '⭐', feedbackWrong: '🌊', newChallenge: '🔄 تحدي جديد' },
-            green: { header: '💚 مغامرة الأعداد الصحيحة 💚', score: '🍀', add: '🌱', sub: '🦎', mul: '🌳', div: '', par: '🌱',
-                rule: '🌿', ruleNeg: '', btn: '🌤️', newBtn: '🌸', shuffle: '', reset: '🌿',
-                success: '🎉', fail: '', start: '🎈', check: '🌿', stop: '🌙', timer: '⏳',
-                flashcard: '🌳', cardLabel: '🌾', cardBack: '✨', cardBackLabel: '',
-                feedback: '🌿', feedbackWrong: '🍂', newChallenge: '🔄 تحدي جديد' },
-            rainbow: { header: '🌈 مغامرة قوس قزح 🌈', score: '🌟', add: '🌸', sub: '💧', mul: '🌿', div: '', par: '🌈',
-                rule: '🌈', ruleNeg: '️', btn: '☀️', newBtn: '🌟', shuffle: '', reset: '🌈',
-                success: '🎉', fail: '🌧️', start: '🎈', check: '✨', stop: '🌙', timer: '⏱️',
-                flashcard: '', cardLabel: '🌟', cardBack: '✨', cardBackLabel: '',
-                feedback: '🌸', feedbackWrong: '🌧️', newChallenge: '🌈 تحدي جديد' },
-            warm: { header: '🍂 مغامرة دافئة 🍂', score: '🍂', add: '🍁', sub: '🦊', mul: '🍄', div: '', par: '🌰',
-                rule: '🍂', ruleNeg: '', btn: '☕', newBtn: '🍁', shuffle: '🌾', reset: '🍂',
-                success: '🎉', fail: '🍂', start: '🎈', check: '🍁', stop: '🌙', timer: '️',
-                flashcard: '', cardLabel: '🌾', cardBack: '✨', cardBackLabel: '🍂',
-                feedback: '🍂', feedbackWrong: '🍂', newChallenge: ' تحدي جديد' }
-        };
-
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        function playSound(type) {
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            oscillator.connect(gainNode); gainNode.connect(audioContext.destination);
-            if (type === 'correct') {
-                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
-                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1);
-                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2);
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-                oscillator.start(audioContext.currentTime); oscillator.stop(audioContext.currentTime + 0.5);
-            } else if (type === 'wrong') {
-                oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-                oscillator.frequency.setValueAtTime(150, audioContext.currentTime + 0.2);
-                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
-                oscillator.start(audioContext.currentTime); oscillator.stop(audioContext.currentTime + 0.4);
-            } else if (type === 'click') {
-                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-                oscillator.start(audioContext.currentTime); oscillator.stop(audioContext.currentTime + 0.1);
-            }
-        }
-
-        function changeTheme(theme) { 
-            currentTheme = theme; 
-            document.documentElement.setAttribute('data-theme', theme); 
-            updateEmojis(); renderFlashcards(); 
-            saveProgress();
-        }
-        function toggleDarkMode() {
-            currentMode = currentMode === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-mode', currentMode);
-            document.getElementById('darkModeBtn').textContent = currentMode === 'light' ? '🌙 ليلي' : '☀️ نهاري';
-            saveProgress();
-        }
-
-        function openGarden() {
-            document.getElementById('modalScore').textContent = score;
-            document.getElementById('modalFlowerCount').textContent = flowerCount;
-            renderModalGarden();
-            document.getElementById('gardenModal').classList.add('active');
-            playSound('click');
-        }
-        function closeGarden() { 
-            document.getElementById('gardenModal').classList.remove('active'); 
-            playSound('click');
-        }
-
-        function openWheel() {
-            document.getElementById('wheelModal').classList.add('active');
-            drawWheel();
-            playSound('click');
-        }
-        function closeWheel() { 
-            document.getElementById('wheelModal').classList.remove('active'); 
-            playSound('click');
-        }
-
-        function openStats() {
-            updateStatsDisplay();
-            document.getElementById('statsModal').classList.add('active');
-            playSound('click');
-        }
-        function closeStats() { 
-            document.getElementById('statsModal').classList.remove('active'); 
-            playSound('click');
-        }
-
-        function updateStatsDisplay() {
-            document.getElementById('statAttempts').textContent = stats.attempts;
-            document.getElementById('statCorrect').textContent = stats.correct;
-            document.getElementById('statWrong').textContent = stats.wrong;
-            const accuracy = stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0;
-            document.getElementById('statAccuracy').textContent = accuracy + '%';
-            document.getElementById('statScore').textContent = score;
-            document.getElementById('statFlowers').textContent = flowerCount;
-        }
-
-        function exportStats() {
-            const statsData = {
-                score: score,
-                flowers: flowerCount,
-                attempts: stats.attempts,
-                correct: stats.correct,
-                wrong: stats.wrong,
-                accuracy: stats.attempts > 0 ? Math.round((stats.correct / stats.attempts) * 100) : 0,
-                byType: stats.byType,
-                date: new Date().toLocaleString('ar-SA')
-            };
-            const dataStr = JSON.stringify(statsData, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'إحصائيات_تقى_' + new Date().getTime() + '.json';
-            link.click();
-            URL.revokeObjectURL(url);
-            showCompanionSpeech("تم تصدير الإحصائيات بنجاح! 📊");
-        }
-
-        function resetAll() {
-            if (confirm('هل أنتِ متأكدة من تصفير النقاط وحذف جميع الزهور؟ 🌱')) {
-                score = 0; flowerCount = 0; gardenFlowers = [];
-                stats = { attempts: 0, correct: 0, wrong: 0, byType: { addition: { correct: 0, wrong: 0 }, subtraction: { correct: 0, wrong: 0 }, multiplication: { correct: 0, wrong: 0 }, division: { correct: 0, wrong: 0 }, parentheses: { correct: 0, wrong: 0 }, challenge: { correct: 0, wrong: 0 } } };
-                document.getElementById('score').textContent = score;
-                document.getElementById('flowerCount').textContent = flowerCount;
-                showCompanionSpeech("تم التصفير! لنبدأ من جديد بقوة! 💪");
-                saveProgress();
-                playSound('click');
-            }
-        }
-
-        function updateEmojis() {
-            const e = themeEmojis[currentTheme];
-            document.getElementById('headerEmoji').textContent = e.header;
-            document.getElementById('scoreEmoji').textContent = e.score;
-            document.getElementById('addIcon').textContent = e.add;
-            document.getElementById('subIcon').textContent = e.sub;
-            document.getElementById('mulIcon').textContent = e.mul;
-            document.getElementById('divIcon').textContent = e.div;
-            document.getElementById('parIcon').textContent = e.par;
-            document.querySelectorAll('.ruleEmoji').forEach(el => {
-                el.textContent = el.parentElement.innerHTML.includes('سالب') ? e.ruleNeg : e.rule;
-            });
-            document.getElementById('newChallengeBtn').textContent = e.newChallenge;
-        }
-
-        function createFlyingNumbers(x, y) {
-            const numbers = ['+', '-', '×', '÷', '=', '✓'];
-            for (let i = 0; i < 8; i++) {
-                const num = document.createElement('div'); num.className = 'flying-number';
-                num.textContent = numbers[Math.floor(Math.random() * numbers.length)];
-                num.style.left = (x + Math.random() * 100 - 50) + 'px';
-                num.style.top = y + 'px'; num.style.animationDelay = (Math.random() * 0.5) + 's';
-                document.body.appendChild(num); setTimeout(() => num.remove(), 2000);
-            }
-        }
-
-        function addFlowersByPoints(points) {
-            const flowerTypes = ['🌸', '🌺', '🌻', '🌷', '🌹', '💮', '🏵️', '🌾', '🌼'];
-            for (let i = 0; i < points; i++) {
-                flowerCount++;
-                const randomFlower = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
-                gardenFlowers.push(randomFlower);
-            }
-            document.getElementById('flowerCount').textContent = flowerCount;
-        }
-
-        function renderModalGarden() {
-            const container = document.getElementById('modalGardenFlowers');
-            if (gardenFlowers.length === 0) {
-                container.innerHTML = '<div class="empty-message">🌱 الحديقة فارغة... اجمعي النقاط لتزهر!</div>';
-                return;
-            }
-            container.innerHTML = '';
-            gardenFlowers.forEach((flower, index) => {
-                const el = document.createElement('div');
-                el.className = 'flower';
-                el.textContent = flower;
-                el.title = `زهرة #${index + 1}`;
-                el.style.animationDelay = (index * 0.05) + 's';
-                container.appendChild(el);
-            });
-        }
-
-        function showCompanionSpeech(text) {
-            const speech = document.getElementById('companionSpeech');
-            speech.textContent = text; speech.style.display = 'block';
-            setTimeout(() => { speech.style.display = 'none'; }, 4000);
-        }
-
-        function showHint(type) {
-            const hint = hints[type] || "فكري بهدوء، أنتِ قادرة! 💪";
-            showCompanionSpeech("💡 " + hint);
-            playSound('click');
-        }
-
-        function getPhrase(name, type) {
-            if (name && robotPhrases[name] && robotPhrases[name][type]) {
-                const phrases = robotPhrases[name][type];
-                return phrases[Math.floor(Math.random() * phrases.length)];
-            } else {
-                const phrases = generalPhrases[type];
-                return phrases[Math.floor(Math.random() * phrases.length)];
-            }
-        }
-
-        function resizeRobot(factor) {
-            robotScale *= factor;
-            robotScale = Math.max(0.5, Math.min(2, robotScale));
-            updateRobotTransform();
-            saveRobotState();
-            playSound('click');
-        }
-
-        function resetRobotPosition() {
-            robotScale = 1; robotX = 20; robotY = 20;
-            updateRobotPosition(); updateRobotTransform(); saveRobotState();
-            showCompanionSpeech("تم إعادة الموضع! 🔄");
-            playSound('click');
-        }
-
-        function toggleRobotControls() {
-            const controls = document.getElementById('robotControls');
-            controls.style.display = controls.style.display === 'none' ? 'flex' : 'none';
-            playSound('click');
-        }
-
-        function updateRobotPosition() {
-            const container = document.getElementById('companionContainer');
-            container.style.right = robotX + 'px';
-            container.style.bottom = robotY + 'px';
-        }
-
-        function updateRobotTransform() {
-            const svg = document.getElementById('companionSvg');
-            svg.style.width = (160 * robotScale) + 'px';
-            svg.style.height = (240 * robotScale) + 'px';
-        }
-
-        function saveRobotState() {
-            localStorage.setItem('robotState', JSON.stringify({ scale: robotScale, x: robotX, y: robotY }));
-        }
-
-        function loadRobotState() {
-            const saved = localStorage.getItem('robotState');
-            if (saved) {
-                const state = JSON.parse(saved);
-                robotScale = state.scale || 1; robotX = state.x || 20; robotY = state.y || 20;
-                updateRobotPosition(); updateRobotTransform();
-            }
-        }
-
-        function saveProgress() {
-            const progress = {
-                score: score,
-                flowerCount: flowerCount,
-                gardenFlowers: gardenFlowers,
-                stats: stats,
-                currentTheme: currentTheme,
-                currentMode: currentMode
-            };
-            localStorage.setItem('mathProgress', JSON.stringify(progress));
-        }
-
-        function loadProgress() {
-            const saved = localStorage.getItem('mathProgress');
-            if (saved) {
-                const progress = JSON.parse(saved);
-                score = progress.score || 0;
-                flowerCount = progress.flowerCount || 0;
-                gardenFlowers = progress.gardenFlowers || [];
-                stats = progress.stats || stats;
-                currentTheme = progress.currentTheme || 'pink';
-                currentMode = progress.currentMode || 'light';
-                document.getElementById('score').textContent = score;
-                document.getElementById('flowerCount').textContent = flowerCount;
-                document.getElementById('themeSelector').value = currentTheme;
-                if (currentMode === 'dark') {
-                    document.documentElement.setAttribute('data-mode', 'dark');
-                    document.getElementById('darkModeBtn').textContent = '☀️ نهاري';
-                }
-            }
-        }
-
-        const companionContainer = document.getElementById('companionContainer');
-        companionContainer.addEventListener('mousedown', (e) => {
-            if (e.target.closest('.robot-controls')) return;
-            isDragging = true; dragStartX = e.clientX; dragStartY = e.clientY;
-            robotStartX = robotX; robotStartY = robotY;
-            companionContainer.classList.add('dragging'); e.preventDefault();
-        });
-        document.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const deltaX = dragStartX - e.clientX; const deltaY = e.clientY - dragStartY;
-            robotX = Math.max(0, Math.min(window.innerWidth - 200, robotStartX + deltaX));
-            robotY = Math.max(0, Math.min(window.innerHeight - 300, robotStartY + deltaY));
-            updateRobotPosition();
-        });
-        document.addEventListener('mouseup', () => {
-            if (isDragging) { isDragging = false; companionContainer.classList.remove('dragging'); saveRobotState(); }
-        });
-        companionContainer.addEventListener('touchstart', (e) => {
-            if (e.target.closest('.robot-controls')) return;
-            isDragging = true; dragStartX = e.touches[0].clientX; dragStartY = e.touches[0].clientY;
-            robotStartX = robotX; robotStartY = robotY;
-            companionContainer.classList.add('dragging');
-        });
-        document.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const deltaX = dragStartX - e.touches[0].clientX; const deltaY = e.touches[0].clientY - dragStartY;
-            robotX = Math.max(0, Math.min(window.innerWidth - 200, robotStartX + deltaX));
-            robotY = Math.max(0, Math.min(window.innerHeight - 300, robotStartY + deltaY));
-            updateRobotPosition();
-        });
-        document.addEventListener('touchend', () => {
-            if (isDragging) { isDragging = false; companionContainer.classList.remove('dragging'); saveRobotState(); }
-        });
-
-        function drawWheel() {
-            const canvas = document.getElementById('wheelCanvas');
-            const ctx = canvas.getContext('2d');
-            const centerX = canvas.width / 2; const centerY = canvas.height / 2;
-            const radius = 180; const numSegments = wheelNames.length;
-            const anglePerSegment = (2 * Math.PI) / numSegments;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.save(); ctx.translate(centerX, centerY); ctx.rotate(wheelRotation);
-            for (let i = 0; i < numSegments; i++) {
-                const startAngle = i * anglePerSegment; const endAngle = startAngle + anglePerSegment;
-                ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, radius, startAngle, endAngle); ctx.closePath();
-                ctx.fillStyle = wheelColors[i]; ctx.fill();
-                ctx.strokeStyle = 'white'; ctx.lineWidth = 3; ctx.stroke();
-                ctx.save(); ctx.rotate(startAngle + anglePerSegment / 2);
-                ctx.textAlign = 'right'; ctx.fillStyle = 'white';
-                ctx.font = 'bold 14px Cairo'; ctx.shadowColor = 'rgba(0,0,0,0.5)'; ctx.shadowBlur = 3;
-                ctx.fillText(wheelNames[i], radius - 20, 5);
-                ctx.restore();
-            }
-            ctx.restore();
-            ctx.beginPath(); ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-            ctx.strokeStyle = 'white'; ctx.lineWidth = 5; ctx.stroke();
-        }
-
-        function spinWheel() {
-            if (isSpinning) return;
-            isSpinning = true;
-            document.getElementById('spinBtn').disabled = true;
-            if (usedNames.length >= wheelNames.length) { usedNames = []; }
-            let availableNames = wheelNames.filter(name => !usedNames.includes(name));
-            let winnerIndex, winnerName;
-            if (availableNames.length > 0) {
-                winnerName = availableNames[Math.floor(Math.random() * availableNames.length)];
-                winnerIndex = wheelNames.indexOf(winnerName);
-            } else {
-                usedNames = [];
-                winnerName = wheelNames[Math.floor(Math.random() * wheelNames.length)];
-                winnerIndex = wheelNames.indexOf(winnerName);
-            }
-            usedNames.push(winnerName);
-            currentWinner = winnerName;
-
-            const numSegments = wheelNames.length;
-            const anglePerSegment = (2 * Math.PI) / numSegments;
-            const targetAngle = (2 * Math.PI * 5) + (winnerIndex * anglePerSegment) + (anglePerSegment / 2);
-            const totalRotation = wheelRotation + targetAngle;
-            const duration = 5000; const startTime = Date.now(); const startRotation = wheelRotation;
-
-            function animate() {
-                const elapsed = Date.now() - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const easeOut = 1 - Math.pow(1 - progress, 3);
-                wheelRotation = startRotation + (totalRotation - startRotation) * easeOut;
-                drawWheel();
-                if (progress < 1) { requestAnimationFrame(animate); }
-                else {
-                    isSpinning = false;
-                    document.getElementById('spinBtn').disabled = false;
-                    playSound('correct');
-                    const phrase = getPhrase(currentWinner, 'success');
-                    showCompanionSpeech(phrase);
-                    createConfetti();
-                    document.getElementById('confetti-container').style.display = 'block';
-                    setTimeout(() => {
-                        document.getElementById('confetti-container').style.display = 'none';
-                        document.getElementById('confetti-container').innerHTML = '';
-                    }, 5000);
-                }
-            }
-            animate();
-        }
-
-        const flashcardsData = [
-            { icon: '🌺', question: 'ما ناتج جمع (-5) + (-3) وفقاً لقاعدة الإشارات المتشابهة؟', answer: 'الناتج هو -8، لأننا نجمع القيمتين (5+3=8) ونضع الإشارة المشتركة (السالب)', category: 'من درس الجمع' },
-            { icon: '🦋', question: 'كيف نحول العملية (-6) - (+2) إلى عملية جمع؟', answer: 'نغير الطرح إلى جمع ونعكس إشارة العدد الثاني: (-6) + (-2) = -8', category: 'من درس الطرح' },
-            { icon: '🌻', question: 'ما ناتج (-4) × (+5) ولماذا؟', answer: 'الناتج هو -20، لأن موجب × سالب = سالب (إشارات مختلفة)', category: 'من درس الضرب' },
-            { icon: '🍀', question: 'ما ناتج (+12) ÷ (-3) وما القاعدة المطبقة؟', answer: 'الناتج هو -4، لأن موجب ÷ سالب = سالب (نفس قاعدة الضرب)', category: 'من درس القسمة' },
-            { icon: '🎐', question: 'في التعبير 2 × (3 + (-5))، ما الخطوة الأولى؟', answer: 'نحل ما داخل القوس أولاً: 3 + (-5) = -2، ثم نضرب: 2 × (-2) = -4', category: 'من درس الأقواس' },
-            { icon: '🕯️', question: 'ما الفرق بين (-7) + (-3) و (+7) + (-3)؟', answer: 'الأولى: إشارات متشابهة = -10 | الثانية: إشارات مختلفة = +4 (نطرح ونأخذ إشارة الأكبر)', category: 'تطبيق على الجمع' }
-        ];
-
-        function instantCheck(type) {
-            const inputMap = {'addition':'addAnswer','subtraction':'subAnswer','multiplication':'mulAnswer','division':'divAnswer','parentheses':'parAnswer','challenge':'challengeAnswer'};
-            const feedMap = {'addition':'addFeedback','subtraction':'subFeedback','multiplication':'mulFeedback','division':'divFeedback','parentheses':'parFeedback','challenge':'challengeFeedback'};
-            const successMap = {'addition':'addSuccessMsg','subtraction':'subSuccessMsg','multiplication':'mulSuccessMsg','division':'divSuccessMsg','parentheses':'parSuccessMsg','challenge':'challengeSuccessMsg'};
-            const failMap = {'addition':'addFailMsg','subtraction':'subFailMsg','multiplication':'mulFailMsg','division':'divFailMsg','parentheses':'parFailMsg','challenge':'challengeFailMsg'};
-            const input = document.getElementById(inputMap[type]);
-            const fb = document.getElementById(feedMap[type]);
-            const successMsg = document.getElementById(successMap[type]);
-            const failMsg = document.getElementById(failMap[type]);
-            const val = parseInt(input.value);
-            successMsg.style.display = 'none'; failMsg.style.display = 'none'; fb.style.display = 'none';
-            input.classList.remove('correct-answer', 'wrong-answer');
-            if (input.value === '' || isNaN(val)) { 
-                fb.textContent = themeEmojis[currentTheme].feedback + ' الرجاء إدخال رقم أولاً'; 
-                fb.className = 'feedback incorrect'; fb.style.display = 'block'; return; 
-            }
-            if (!currentProblems[type]) return;
-            const correct = currentProblems[type].ans;
-            
-            stats.attempts++;
-            
-            if (val === correct) {
-                playSound('correct'); input.classList.add('correct-answer');
-                fb.textContent = themeEmojis[currentTheme].success + ' إجابة صحيحة!';
-                fb.className = 'feedback correct'; fb.style.display = 'block'; successMsg.style.display = 'block';
-                const rect = input.getBoundingClientRect(); createFlyingNumbers(rect.left + rect.width / 2, rect.top);
-                
-                stats.correct++;
-                if (stats.byType[type]) stats.byType[type].correct++;
-                
-                const points = type === 'challenge' ? 2 : 1;
-                score += points; 
-                document.getElementById('score').textContent = score;
-                addFlowersByPoints(points);
-                
-                const phrase = getPhrase(currentWinner, 'success');
-                showCompanionSpeech(phrase);
-                
-                createConfetti(); document.getElementById('confetti-container').style.display = 'block';
-                setTimeout(() => { document.getElementById('confetti-container').style.display = 'none'; document.getElementById('confetti-container').innerHTML = ''; }, 5000);
-                
-                saveProgress();
-                
-                if (type === 'challenge') {
-                    challengeStopped = true; clearInterval(challengeTimer);
-                    document.getElementById('timer').classList.add('stopped');
-                    document.getElementById('timer').textContent = themeEmojis[currentTheme].stop + ' توقف!';
-                    setTimeout(() => {
-                        document.getElementById('challenge-game-area').style.display = 'none';
-                        successMsg.style.display = 'none';
-                        document.getElementById('newChallengeBtn').style.display = 'inline-block';
-                        document.getElementById('challengeAnswer').disabled = true;
-                        document.getElementById('challengeInstantBtn').style.display = 'none';
-                        document.getElementById('challengeCheckBtn').style.display = 'none';
-                    }, 2000);
-                } else { setTimeout(() => { successMsg.style.display = 'none'; newProblem(type); }, 2000); }
-            } else {
-                playSound('wrong'); input.classList.add('wrong-answer');
-                setTimeout(() => input.classList.remove('wrong-answer'), 500);
-                fb.textContent = themeEmojis[currentTheme].feedbackWrong + ' الجواب الصحيح هو: ' + correct;
-                fb.className = 'feedback incorrect'; fb.style.display = 'block'; failMsg.style.display = 'block';
-                
-                stats.wrong++;
-                if (stats.byType[type]) stats.byType[type].wrong++;
-                
-                const phrase = getPhrase(currentWinner, 'fail');
-                showCompanionSpeech(phrase);
-                
-                setTimeout(() => { failMsg.style.display = 'none'; }, 3000);
-                
-                saveProgress();
-                
-                if (type === 'challenge') {
-                    challengeStopped = true; clearInterval(challengeTimer);
-                    document.getElementById('timer').classList.add('stopped');
-                    document.getElementById('timer').textContent = themeEmojis[currentTheme].stop + ' توقف!';
-                    setTimeout(() => {
-                        document.getElementById('challenge-game-area').style.display = 'none';
-                        failMsg.style.display = 'none';
-                        document.getElementById('newChallengeBtn').style.display = 'inline-block';
-                        document.getElementById('challengeAnswer').disabled = true;
-                        document.getElementById('challengeInstantBtn').style.display = 'none';
-                        document.getElementById('challengeCheckBtn').style.display = 'none';
-                    }, 2000);
-                }
-            }
-        }
-
-        function renderFlashcards() {
-            const grid = document.getElementById('flashcardsGrid');
-            const e = themeEmojis[currentTheme]; grid.innerHTML = '';
-            flashcardsData.forEach((card) => {
-                grid.innerHTML += `<div class="flashcard-container" onclick="flipCard(this)" role="button" tabindex="0" aria-label="بطاقة ${card.category}"><div class="flashcard"><div class="flashcard-face flashcard-front"><div class="card-icon">${card.icon}</div><div class="card-label">${e.cardLabel} ${card.category} - اضغط للقلب</div><div class="card-question">${card.question}</div></div><div class="flashcard-face flashcard-back"><div class="card-icon">${e.cardBack}</div><div class="card-label">${e.cardBackLabel} الإجابة الصحيحة</div><div class="card-answer">${card.answer}</div></div></div></div>`;
-            });
-        }
-
-        function flipCard(container) {
-            const card = container.querySelector('.flashcard');
-            card.classList.toggle('flipped');
-            if (card.classList.contains('flipped') && !card.dataset.counted) {
-                score += 2; document.getElementById('score').textContent = score; card.dataset.counted = 'true';
-                playSound('click');
-                saveProgress();
-            }
-        }
-
-        function shuffleFlashcards() {
-            for (let i = flashcardsData.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [flashcardsData[i], flashcardsData[j]] = [flashcardsData[j], flashcardsData[i]];
-            }
-            renderFlashcards();
-            playSound('click');
-        }
-
-        function resetFlashcards() { 
-            document.querySelectorAll('.flashcard').forEach(card => { card.classList.remove('flipped'); card.dataset.counted = ''; }); 
-            playSound('click');
-        }
-
-        function generateProblem(type) {
-            let n1, n2, ans, exp;
-            const formatNum = (n) => n > 0 ? '+' + n : n;
-            if (type === 'challenge') {
-                const easyTypes = ['addition', 'subtraction', 'multiplication', 'division'];
-                const randomType = easyTypes[Math.floor(Math.random() * easyTypes.length)];
-                if (randomType === 'addition') { n1 = Math.floor(Math.random() * 11) - 5; n2 = Math.floor(Math.random() * 11) - 5; ans = n1 + n2; exp = `(${formatNum(n1)}) + (${formatNum(n2)})`; }
-                else if (randomType === 'subtraction') { n1 = Math.floor(Math.random() * 11) - 5; n2 = Math.floor(Math.random() * 11) - 5; ans = n1 - n2; exp = `(${formatNum(n1)}) - (${formatNum(n2)})`; }
-                else if (randomType === 'multiplication') { n1 = Math.floor(Math.random() * 7) - 3; n2 = Math.floor(Math.random() * 7) - 3; ans = n1 * n2; exp = `(${formatNum(n1)}) × (${formatNum(n2)})`; }
-                else { n2 = Math.floor(Math.random() * 5) + 1; if (Math.random() > 0.5) n2 *= -1; ans = Math.floor(Math.random() * 5) - 2; n1 = n2 * ans; exp = `(${formatNum(n1)}) ÷ (${formatNum(n2)})`; }
-                return { exp, ans };
-            }
-            const r = () => Math.floor(Math.random() * 20) - 10;
-            if (type === 'addition') { n1 = r(); n2 = r(); ans = n1 + n2; exp = `(${formatNum(n1)}) + (${formatNum(n2)})`; }
-            else if (type === 'subtraction') { n1 = r(); n2 = r(); ans = n1 - n2; exp = `(${formatNum(n1)}) - (${formatNum(n2)})`; }
-            else if (type === 'multiplication') { n1 = Math.floor(Math.random() * 12) - 6; n2 = Math.floor(Math.random() * 12) - 6; ans = n1 * n2; exp = `(${formatNum(n1)}) × (${formatNum(n2)})`; }
-            else if (type === 'division') { n2 = Math.floor(Math.random() * 10) + 1; if(Math.random()>0.5) n2*=-1; ans = Math.floor(Math.random() * 10) - 5; n1 = n2 * ans; exp = `(${formatNum(n1)}) ÷ (${formatNum(n2)})`; }
-            else if (type === 'parentheses') { const i1 = Math.floor(Math.random() * 10) - 5; const i2 = Math.floor(Math.random() * 10) - 5; const out = Math.floor(Math.random() * 6) - 3; ans = out * (i1 + i2); exp = `(${formatNum(out)}) × (${formatNum(i1)} + (${formatNum(i2)}))`; }
-            return { exp, ans };
-        }
-
-        function newProblem(type) {
-            const p = generateProblem(type); currentProblems[type] = p;
-            const map = {'addition':'addProblem','subtraction':'subProblem','multiplication':'mulProblem','division':'divProblem','parentheses':'parProblem','challenge':'challengeProblem'};
-            const inputMap = {'addition':'addAnswer','subtraction':'subAnswer','multiplication':'mulAnswer','division':'divAnswer','parentheses':'parAnswer','challenge':'challengeAnswer'};
-            const feedMap = {'addition':'addFeedback','subtraction':'subFeedback','multiplication':'mulFeedback','division':'divFeedback','parentheses':'parFeedback','challenge':'challengeFeedback'};
-            const successMap = {'addition':'addSuccessMsg','subtraction':'subSuccessMsg','multiplication':'mulSuccessMsg','division':'divSuccessMsg','parentheses':'parSuccessMsg','challenge':'challengeSuccessMsg'};
-            const failMap = {'addition':'addFailMsg','subtraction':'subFailMsg','multiplication':'mulFailMsg','division':'divFailMsg','parentheses':'parFailMsg','challenge':'challengeFailMsg'};
-            if(map[type]) document.getElementById(map[type]).innerHTML = p.exp + ' = ?';
-            if(inputMap[type]) { const input = document.getElementById(inputMap[type]); input.value = ''; input.classList.remove('correct-answer', 'wrong-answer'); input.disabled = false; }
-            if(feedMap[type]) { document.getElementById(feedMap[type]).style.display = 'none'; document.getElementById(feedMap[type]).textContent = ''; }
-            if(successMap[type]) document.getElementById(successMap[type]).style.display = 'none';
-            if(failMap[type]) document.getElementById(failMap[type]).style.display = 'none';
-            makeRobotLookAtQuestion();
-        }
-
-        function checkAnswer(type) { instantCheck(type); }
-
-        function createConfetti() {
-            const container = document.getElementById('confetti-container');
-            const colors = [getComputedStyle(document.documentElement).getPropertyValue('--primary-pink').trim(), getComputedStyle(document.documentElement).getPropertyValue('--secondary-pink').trim(), getComputedStyle(document.documentElement).getPropertyValue('--peach').trim(), getComputedStyle(document.documentElement).getPropertyValue('--success-green').trim(), getComputedStyle(document.documentElement).getPropertyValue('--sky').trim(), getComputedStyle(document.documentElement).getPropertyValue('--lavender').trim()];
-            for(let i=0; i<120; i++) { const confetti = document.createElement('div'); confetti.className = 'confetti'; confetti.style.left = Math.random() * 100 + '%'; confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; confetti.style.animationDuration = (Math.random() * 3 + 2) + 's'; confetti.style.animationDelay = Math.random() * 2 + 's'; confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0'; container.appendChild(confetti); }
-        }
-
-        function startChallenge() {
-            solvedCount = 0; timeLeft = 30; challengeStopped = false;
-            document.getElementById('newChallengeBtn').style.display = 'none';
-            document.getElementById('challenge-game-area').style.display = 'block';
-            document.getElementById('challengeInstantBtn').style.display = 'inline-block';
-            document.getElementById('challengeCheckBtn').style.display = 'inline-block';
-            document.getElementById('challengeAnswer').disabled = false;
-            document.getElementById('challengeSuccessMsg').style.display = 'none';
-            document.getElementById('challengeFailMsg').style.display = 'none';
-            document.getElementById('timer').classList.remove('stopped');
-            newProblem('challenge');
-            
-            const phrase = getPhrase(currentWinner, 'start');
-            showCompanionSpeech(phrase);
-            playSound('click');
-            
-            clearInterval(challengeTimer);
-            challengeTimer = setInterval(() => {
-                if (challengeStopped) return;
-                timeLeft--;
-                document.getElementById('timer').textContent = timeLeft + ' ثانية';
-                document.getElementById('progressBar').style.width = (timeLeft/30*100) + '%';
-                if(timeLeft <= 0) {
-                    clearInterval(challengeTimer); challengeStopped = true;
-                    document.getElementById('timer').classList.add('stopped');
-                    document.getElementById('challengeProblem').innerHTML = `انتهى الوقت! نتيجتك: ${solvedCount}`;
-                    document.getElementById('challengeInstantBtn').style.display = 'none';
-                    document.getElementById('challengeCheckBtn').style.display = 'none';
-                    document.getElementById('newChallengeBtn').style.display = 'inline-block';
-                    document.getElementById('challengeAnswer').disabled = true;
-                    document.getElementById('challengeFailMsg').style.display = 'block';
-                    
-                    const phrase = getPhrase(currentWinner, 'end');
-                    showCompanionSpeech(phrase);
-                    
-                    setTimeout(() => { document.getElementById('challengeFailMsg').style.display = 'none'; }, 3000);
-                }
-            }, 1000);
-        }
-
-        function makeRobotLookAtQuestion() {
-            const robotContainer = document.getElementById('companionContainer');
-            const robotRect = robotContainer.getBoundingClientRect();
-            const robotCenterX = robotRect.left + robotRect.width / 2;
-            const robotCenterY = robotRect.top + robotRect.height / 2;
-
-            const sections = document.querySelectorAll('.section');
-            let targetSection = null;
-            let minDistance = Infinity;
-
-            sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                const sectionCenterY = rect.top + rect.height / 2;
-                const distance = Math.abs(sectionCenterY - window.innerHeight / 2);
-                if (distance < minDistance && rect.top < window.innerHeight && rect.bottom > 0) {
-                    minDistance = distance;
-                    targetSection = section;
-                }
-            });
-
-            if (targetSection) {
-                const targetRect = targetSection.getBoundingClientRect();
-                const targetX = targetRect.left + targetRect.width / 2;
-                const targetY = targetRect.top + targetRect.height / 3;
-                const deltaX = targetX - robotCenterX;
-                const deltaY = targetY - robotCenterY;
-                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-                const maxOffset = 3;
-                const offsetX = (deltaX / distance) * maxOffset;
-                const offsetY = (deltaY / distance) * maxOffset;
-
-                const leftPupil = document.getElementById('leftPupil');
-                const rightPupil = document.getElementById('rightPupil');
-                const leftPupilInner = document.getElementById('leftPupilInner');
-                const rightPupilInner = document.getElementById('rightPupilInner');
-
-                if (leftPupil && rightPupil) {
-                    leftPupil.setAttribute('cx', 58 + offsetX);
-                    leftPupil.setAttribute('cy', 55 + offsetY);
-                    rightPupil.setAttribute('cx', 92 + offsetX);
-                    rightPupil.setAttribute('cy', 55 + offsetY);
-                    leftPupilInner.setAttribute('cx', 58 + offsetX);
-                    leftPupilInner.setAttribute('cy', 55 + offsetY);
-                    rightPupilInner.setAttribute('cx', 92 + offsetX);
-                    rightPupilInner.setAttribute('cy', 55 + offsetY);
-                }
-            }
-        }
-
-        window.addEventListener('scroll', makeRobotLookAtQuestion);
-        window.addEventListener('resize', makeRobotLookAtQuestion);
-
-        function changeRobotColor(color) {
-            const root = document.documentElement;
-            const colors = {
-                default: { body: '#a8b8c8', dark: '#7a8a9a', darker: '#5a6a7a', darkest: '#3a4a5a', eyes: '#3498db', accent: '#e74c3c', accentDark: '#c0392b' },
-                pink: { body: '#f4a6c3', dark: '#d48a9a', darker: '#b56a7a', darkest: '#8a4a5a', eyes: '#ff6b9d', accent: '#ff1493', accentDark: '#c71585' },
-                blue: { body: '#a8d5e2', dark: '#7ab8c8', darker: '#5a98a8', darkest: '#3a7888', eyes: '#00bcd4', accent: '#2196f3', accentDark: '#1976d2' },
-                green: { body: '#a8e2b4', dark: '#7ac88a', darker: '#5aa86a', darkest: '#3a884a', eyes: '#4caf50', accent: '#8bc34a', accentDark: '#689f38' },
-                gold: { body: '#ffd700', dark: '#daa520', darker: '#b8860b', darkest: '#8b6914', eyes: '#ff8c00', accent: '#ff6347', accentDark: '#dc143c' },
-                purple: { body: '#d4a5e2', dark: '#b87ac8', darker: '#985aa8', darkest: '#783a88', eyes: '#9c27b0', accent: '#e91e63', accentDark: '#c2185b' }
-            };
-            const selectedColors = colors[color] || colors.default;
-            root.style.setProperty('--robot-body', selectedColors.body);
-            root.style.setProperty('--robot-dark', selectedColors.dark);
-            root.style.setProperty('--robot-darker', selectedColors.darker);
-            root.style.setProperty('--robot-darkest', selectedColors.darkest);
-            root.style.setProperty('--robot-eyes', selectedColors.eyes);
-            root.style.setProperty('--robot-accent', selectedColors.accent);
-            root.style.setProperty('--robot-accent-dark', selectedColors.accentDark);
-            localStorage.setItem('robotColor', color);
-            playSound('click');
-        }
-
-        function loadRobotColor() {
-            const savedColor = localStorage.getItem('robotColor');
-            if (savedColor) {
-                changeRobotColor(savedColor);
-                document.getElementById('robotColorSelect').value = savedColor;
-            }
-        }
-
-        window.onload = () => {
-            loadProgress();
-            ['addition','subtraction','multiplication','division','parentheses'].forEach(newProblem);
-            renderFlashcards(); updateEmojis();
-            drawWheel();
-            loadRobotState();
-            loadRobotColor();
-            makeRobotLookAtQuestion();
-            setTimeout(() => { showCompanionSpeech("مرحباً! اسحبني لأي مكان أو استخدم الأزرار للتحكم! 🤖"); }, 1000);
-        };
-    </script>
+<div class="bg-shapes">
+<div class="bg-shape circle"></div><div class="bg-shape star"></div><div class="bg-shape heart"></div>
+<div class="bg-shape square"></div><div class="bg-shape triangle"></div><div class="bg-shape diamond"></div>
+<div class="bg-shape circle"></div><div class="bg-shape star"></div><div class="bg-shape heart"></div>
+<div class="bg-shape square"></div><div class="bg-shape triangle"></div><div class="bg-shape diamond"></div>
+</div>
+<div id="confetti-container"></div>
+
+<div class="current-player-banner" id="playerBanner">🎯 <span class="player-name" id="playerNameDisplay">تقى</span></div>
+
+<div class="controls-panel">
+<label>🎨 الثيم:</label>
+<select id="themeSelector" onchange="changeTheme(this.value)">
+<option value="pink">وردي 🌷</option><option value="blue">أزرق 💙</option><option value="green">أخضر 💚</option><option value="rainbow">قوس قزح 🌈</option><option value="warm">دافئ 🍂</option>
+</select>
+<button onclick="toggleDarkMode()" id="darkModeBtn">🌙 ليلي</button>
+<button class="stats-btn" onclick="openStats()">📊 إحصائيات</button>
+<button class="garden-btn" onclick="openGarden()">🌺 الحديقة</button>
+<button class="wheel-btn" onclick="openWheel()">🎡 العجلة</button>
+<button class="reset-btn" onclick="resetAll()">🔄 تصفير</button>
+</div>
+
+<div class="score-board"><span>🌟</span><span id="score">0</span> نقطة | 🌸 <span id="flowerCount">0</span></div>
+
+<div class="container">
+<div class="header"><h1 id="headerTitle">🌷 مغامرة الأعداد الصحيحة 🌷</h1><p>تعلم الرياضيات بأسلوب تفاعلي وممتع!</p></div>
+
+<div id="addition" class="section">
+<div class="lesson-card"><span class="lesson-icon">🌺</span><h3>درس جمع الأعداد الصحيحة</h3><p>عند جمع عددين صحيحين، ننظر إلى إشارتيهما:</p>
+<div class="rule-box"><strong>1. إشارات متشابهة:</strong> نجمع القيمتين ونضع الإشارة المشتركة.<br>🌷 (-5) + (-3) = -8</div>
+<div class="rule-box"><strong>2. إشارات مختلفة:</strong> نطرح الصغرى من الكبرى ونضع إشارة الأكبر.<br>🌷 (+7) + (-4) = +3</div></div>
+<div class="interactive-area"><div class="problem-display" id="addProblem">(+5) + (-2) = ?</div><input type="number" class="answer-input" id="addAnswer" placeholder="اكتب الجواب"><div class="btn-group">
+<button class="action-btn instant-btn" onclick="instantCheck('addition')">🌤️ تحقق فوري</button>
+<button class="action-btn hint-btn" onclick="showHint('addition')">💡 تلميح</button>
+<button class="action-btn new-btn" onclick="newProblem('addition')">مسألة جديدة 🌸</button></div>
+<div id="addSuccessMsg" class="big-success-msg">أحسنت! 🎊</div><div id="addFailMsg" class="big-fail-msg">حظاً أوفر 🌱</div><div class="feedback" id="addFeedback"></div></div></div>
+
+<div id="subtraction" class="section">
+<div class="lesson-card"><span class="lesson-icon">🦋</span><h3>درس طرح الأعداد الصحيحة</h3>
+<div class="rule-box"><strong>القاعدة الذهبية:</strong> نغير الطرح إلى جمع ونعكس إشارة العدد الثاني.<br>🌷 a - b = a + (-b)</div></div>
+<div class="interactive-area"><div class="problem-display" id="subProblem">(-8) - (-3) = ?</div><input type="number" class="answer-input" id="subAnswer" placeholder="اكتب الجواب"><div class="btn-group">
+<button class="action-btn instant-btn" onclick="instantCheck('subtraction')">🌤️ تحقق فوري</button>
+<button class="action-btn hint-btn" onclick="showHint('subtraction')">💡 تلميح</button>
+<button class="action-btn new-btn" onclick="newProblem('subtraction')">مسألة جديدة 🌸</button></div>
+<div id="subSuccessMsg" class="big-success-msg">أحسنت! 🎊</div><div id="subFailMsg" class="big-fail-msg">حظاً أوفر 🌱</div><div class="feedback" id="subFeedback"></div></div></div>
+
+<div id="multiplication" class="section">
+<div class="lesson-card"><span class="lesson-icon">🌻</span><h3>درس ضرب الأعداد الصحيحة</h3>
+<div class="rule-box"><strong>قاعدة الإشارات:</strong><br>🌷 موجب × موجب = موجب<br>🌷 سالب × سالب = موجب<br>🍂 موجب × سالب = سالب<br>🍂 سالب × موجب = سالب</div></div>
+<div class="interactive-area"><div class="problem-display" id="mulProblem">(-4) × (+5) = ?</div><input type="number" class="answer-input" id="mulAnswer" placeholder="اكتب الجواب"><div class="btn-group">
+<button class="action-btn instant-btn" onclick="instantCheck('multiplication')">🌤️ تحقق فوري</button>
+<button class="action-btn hint-btn" onclick="showHint('multiplication')">💡 تلميح</button>
+<button class="action-btn new-btn" onclick="newProblem('multiplication')">مسألة جديدة 🌸</button></div>
+<div id="mulSuccessMsg" class="big-success-msg">أحسنت! 🎊</div><div id="mulFailMsg" class="big-fail-msg">حظاً أوفر 🌱</div><div class="feedback" id="mulFeedback"></div></div></div>
+
+<div id="division" class="section">
+<div class="lesson-card"><span class="lesson-icon">🍀</span><h3>درس قسمة الأعداد الصحيحة</h3>
+<div class="rule-box"><strong>تنبيه:</strong> لا يمكن القسمة على صفر!<br>🌷 (+12) ÷ (-3) = -4</div></div>
+<div class="interactive-area"><div class="problem-display" id="divProblem">(-20) ÷ (+4) = ?</div><input type="number" class="answer-input" id="divAnswer" placeholder="اكتب الجواب"><div class="btn-group">
+<button class="action-btn instant-btn" onclick="instantCheck('division')">🌤️ تحقق فوري</button>
+<button class="action-btn hint-btn" onclick="showHint('division')">💡 تلميح</button>
+<button class="action-btn new-btn" onclick="newProblem('division')">مسألة جديدة 🌸</button></div>
+<div id="divSuccessMsg" class="big-success-msg">أحسنت! 🎊</div><div id="divFailMsg" class="big-fail-msg">حظاً أوفر 🌱</div><div class="feedback" id="divFeedback"></div></div></div>
+
+<div id="parentheses" class="section">
+<div class="lesson-card"><span class="lesson-icon">🎐</span><h3>درس أولوية العمليات والأقواس</h3>
+<div class="rule-box"><strong>ترتيب الحل:</strong><br>1️⃣ الأقواس → 2️⃣ الضرب والقسمة → 3️⃣ الجمع والطرح</div></div>
+<div class="interactive-area"><div class="problem-display" id="parProblem">2 × (3 + (-5)) = ?</div><input type="number" class="answer-input" id="parAnswer" placeholder="اكتب الجواب"><div class="btn-group">
+<button class="action-btn instant-btn" onclick="instantCheck('parentheses')">🌤️ تحقق فوري</button>
+<button class="action-btn hint-btn" onclick="showHint('parentheses')">💡 تلميح</button>
+<button class="action-btn new-btn" onclick="newProblem('parentheses')">مسألة جديدة 🌸</button></div>
+<div id="parSuccessMsg" class="big-success-msg">أحسنت! 🎊</div><div id="parFailMsg" class="big-fail-msg">حظاً أوفر 🌱</div><div class="feedback" id="parFeedback"></div></div></div>
+
+<div id="challenge" class="section">
+<div class="challenge-mode">
+<h2 style="font-size:1.6em;margin-bottom:12px;color:var(--dark)">⏱️ تحدي الـ 30 ثانية</h2>
+<div class="timer" id="timer">30 ثانية</div>
+<div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+<div id="challenge-game-area">
+<div class="problem-display" id="challengeProblem">اضغط ابدأ للتحدي!</div>
+<input type="number" class="answer-input" id="challengeAnswer" disabled placeholder="الجواب">
+<div class="btn-group">
+<button class="action-btn" id="startChallenge" onclick="startChallenge()" style="background:var(--red)">ابدأ التحدي 🎈</button>
+<button class="action-btn instant-btn" id="challengeInstantBtn" onclick="instantCheck('challenge')" style="display:none">🌤️ تحقق فوري</button></div></div>
+<button class="action-btn new-btn" id="newChallengeBtn" onclick="startChallenge()" style="display:none;margin-top:20px">🔄 تحدي جديد</button>
+<div id="challengeSuccessMsg" class="big-success-msg">أحسنت! 🎊</div>
+<div id="challengeFailMsg" class="big-fail-msg">حظاً أوفر 🌱</div>
+<div class="feedback" id="challengeFeedback"></div></div></div>
+
+<div class="footer-credit">
+<p>عمل الطالبة: <strong>تقى يونسو</strong></p>
+<p>المدرّسة: <strong>فلك عاصي</strong></p>
+<p>الصف السابع - الشعبة الأولى</p>
+<p class="school-name">المدرسة النموذجية للمتفوقين إناث</p></div>
+</div>
+
+<div class="companion-container" id="companionContainer">
+<div class="companion-speech" id="companionSpeech">مرحباً! أنا روبوتك المساعد! 🤖</div>
+<svg class="companion-svg" id="companionSvg" viewBox="0 0 180 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:var(--robot-body-light);stop-opacity:1" />
+      <stop offset="50%" style="stop-color:var(--robot-body);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:var(--robot-dark);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="headGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:var(--robot-body-light);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:var(--robot-body);stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="eyeGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fff;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:var(--robot-eyes);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:var(--robot-darkest);stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="screenGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a2a3a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a1520;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="2" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="shadow"><feDropShadow dx="0" dy="3" stdDeviation="2" flood-opacity="0.3"/></filter>
+  </defs>
+  <ellipse class="robot-shadow" cx="90" cy="270" rx="50" ry="6" fill="rgba(0,0,0,0.2)"/>
+  <rect x="60" y="210" width="16" height="50" rx="8" fill="url(#bodyGrad)" stroke="var(--robot-darker)" stroke-width="2"/>
+  <rect x="104" y="210" width="16" height="50" rx="8" fill="url(#bodyGrad)" stroke="var(--robot-darker)" stroke-width="2"/>
+  <ellipse cx="68" cy="262" rx="14" ry="7" fill="var(--robot-darker)" stroke="var(--robot-darkest)" stroke-width="1.5"/>
+  <ellipse cx="112" cy="262" rx="14" ry="7" fill="var(--robot-darker)" stroke="var(--robot-darkest)" stroke-width="1.5"/>
+  <rect x="25" y="130" width="16" height="60" rx="8" fill="url(#bodyGrad)" stroke="var(--robot-darker)" stroke-width="2"/>
+  <rect x="139" y="130" width="16" height="60" rx="8" fill="url(#bodyGrad)" stroke="var(--robot-darker)" stroke-width="2"/>
+  <circle cx="33" cy="130" r="5" fill="var(--robot-darker)"/>
+  <circle cx="147" cy="130" r="5" fill="var(--robot-darker)"/>
+  <circle cx="33" cy="195" r="10" fill="var(--robot-body)" stroke="var(--robot-darker)" stroke-width="2"/>
+  <circle cx="147" cy="195" r="10" fill="var(--robot-body)" stroke="var(--robot-darker)" stroke-width="2"/>
+  <circle cx="28" cy="192" r="2" fill="var(--robot-darker)"/><circle cx="33" cy="188" r="2" fill="var(--robot-darker)"/><circle cx="38" cy="192" r="2" fill="var(--robot-darker)"/>
+  <circle cx="142" cy="192" r="2" fill="var(--robot-darker)"/><circle cx="147" cy="188" r="2" fill="var(--robot-darker)"/><circle cx="152" cy="192" r="2" fill="var(--robot-darker)"/>
+  <rect x="45" y="120" width="90" height="95" rx="15" fill="url(#bodyGrad)" stroke="var(--robot-darker)" stroke-width="2.5" filter="url(#shadow)"/>
+  <rect x="55" y="130" width="70" height="40" rx="8" fill="url(#screenGrad)" stroke="var(--robot-darkest)" stroke-width="2"/>
+  <rect x="58" y="133" width="64" height="34" rx="5" fill="#0a1520" opacity="0.8"/>
+  <path class="robot-heart" d="M 85 148 Q 85 143 90 143 Q 95 143 95 148 Q 95 153 90 158 Q 85 153 85 148" fill="var(--robot-accent)" filter="url(#glow)"/>
+  <path d="M 65 155 L 75 155 L 78 150 L 82 160 L 85 155 L 95 155 L 98 148 L 102 162 L 105 155 L 115 155" stroke="#2ecc71" stroke-width="1.5" fill="none" opacity="0.7"/>
+  <circle cx="65" cy="185" r="5" fill="var(--robot-accent)" stroke="var(--robot-accent-dark)" stroke-width="1.5" filter="url(#glow)"/>
+  <circle cx="90" cy="185" r="5" fill="#2ecc71" stroke="#27ae60" stroke-width="1.5" filter="url(#glow)"/>
+  <circle cx="115" cy="185" r="5" fill="var(--robot-eyes)" stroke="#2980b9" stroke-width="1.5" filter="url(#glow)"/>
+  <circle class="robot-led" cx="60" cy="205" r="3" fill="#2ecc71" filter="url(#glow)"/>
+  <circle class="robot-led" cx="75" cy="205" r="3" fill="#f39c12" filter="url(#glow)"/>
+  <circle class="robot-led" cx="90" cy="205" r="3" fill="var(--robot-accent)" filter="url(#glow)"/>
+  <circle class="robot-led" cx="105" cy="205" r="3" fill="var(--robot-eyes)" filter="url(#glow)"/>
+  <circle class="robot-led" cx="120" cy="205" r="3" fill="#9b59b6" filter="url(#glow)"/>
+  <rect x="75" y="100" width="30" height="22" rx="5" fill="var(--robot-darker)" stroke="var(--robot-darkest)" stroke-width="2"/>
+  <rect x="40" y="35" width="100" height="70" rx="20" fill="url(#headGrad)" stroke="var(--robot-darker)" stroke-width="2.5" filter="url(#shadow)"/>
+  <g class="robot-antenna">
+    <line x1="90" y1="35" x2="90" y2="15" stroke="var(--robot-darker)" stroke-width="3"/>
+    <circle class="robot-antenna-tip" cx="90" cy="12" r="7" fill="var(--robot-accent)" stroke="var(--robot-accent-dark)" stroke-width="1.5" filter="url(#glow)"/>
+    <circle cx="90" cy="12" r="3" fill="#ff6b6b"/>
+  </g>
+  <rect x="25" y="55" width="15" height="25" rx="7" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="2"/>
+  <rect x="140" y="55" width="15" height="25" rx="7" fill="var(--robot-dark)" stroke="var(--robot-darker)" stroke-width="2"/>
+  <circle cx="32" cy="67" r="3" fill="var(--robot-eyes)" filter="url(#glow)"/>
+  <circle cx="147" cy="67" r="3" fill="var(--robot-eyes)" filter="url(#glow)"/>
+  <g class="robot-eye-blink">
+    <rect x="52" y="52" width="28" height="28" rx="14" fill="#fff" stroke="var(--robot-darker)" stroke-width="2"/>
+    <rect x="100" y="52" width="28" height="28" rx="14" fill="#fff" stroke="var(--robot-darker)" stroke-width="2"/>
+    <circle id="leftPupil" cx="66" cy="66" r="9" fill="url(#eyeGrad)"/>
+    <circle id="rightPupil" cx="114" cy="66" r="9" fill="url(#eyeGrad)"/>
+    <circle id="leftPupilInner" cx="66" cy="66" r="5" fill="var(--robot-darkest)"/>
+    <circle id="rightPupilInner" cx="114" cy="66" r="5" fill="var(--robot-darkest)"/>
+    <circle cx="69" cy="63" r="2.5" fill="#fff"/>
+    <circle cx="117" cy="63" r="2.5" fill="#fff"/>
+  </g>
+  <rect x="65" y="88" width="50" height="10" rx="5" fill="var(--robot-darkest)" stroke="var(--robot-darker)" stroke-width="1.5"/>
+  <line x1="72" y1="88" x2="72" y2="98" stroke="var(--robot-darker)" stroke-width="1"/>
+  <line x1="80" y1="88" x2="80" y2="98" stroke="var(--robot-darker)" stroke-width="1"/>
+  <line x1="88" y1="88" x2="88" y2="98" stroke="var(--robot-darker)" stroke-width="1"/>
+  <line x1="96" y1="88" x2="96" y2="98" stroke="var(--robot-darker)" stroke-width="1"/>
+  <line x1="104" y1="88" x2="104" y2="98" stroke="var(--robot-darker)" stroke-width="1"/>
+  <circle cx="48" cy="75" r="5" fill="#f4a6c3" opacity="0.5"/>
+  <circle cx="132" cy="75" r="5" fill="#f4a6c3" opacity="0.5"/>
+  <circle cx="55" cy="42" r="2.5" fill="#2ecc71" filter="url(#glow)"/>
+  <circle cx="75" cy="38" r="2.5" fill="#f39c12" filter="url(#glow)"/>
+  <circle cx="105" cy="38" r="2.5" fill="var(--robot-accent)" filter="url(#glow)"/>
+  <circle cx="125" cy="42" r="2.5" fill="var(--robot-eyes)" filter="url(#glow)"/>
+</svg>
+</div>
+
+<!-- ✅ شريط أدوات الروبوت - فوق الروبوت مباشرة -->
+<div class="robot-controls" id="robotControls">
+<button class="robot-control-btn" onclick="resizeRobot(1.2)" title="تكبير">➕</button>
+<button class="robot-control-btn" onclick="resizeRobot(0.8)" title="تصغير">➖</button>
+<button class="robot-control-btn" onclick="resetRobotPosition()" title="إعادة">🔄</button>
+<select class="robot-theme-select" id="robotThemeSelect" onchange="changeRobotTheme(this.value)" title="ثيم الروبوت">
+<option value="silver">🤖</option><option value="pink">🌸</option><option value="blue">💙</option><option value="green">💚</option><option value="gold">⭐</option><option value="purple">💜</option><option value="red">❤️</option><option value="rainbow">🌈</option>
+</select>
+</div>
+
+<div class="wheel-modal-overlay" id="wheelModal">
+<div class="wheel-modal">
+<button class="modal-close" onclick="closeWheel()">✕</button>
+<div class="modal-title">🎡 عجلة الأسماء الدوارة 🎡</div>
+<div class="wheel-container"><div class="wheel-pointer"></div><canvas class="wheel-canvas" id="wheelCanvas" width="400" height="400"></canvas></div>
+<button class="spin-btn" id="spinBtn" onclick="spinWheel()">🎯 تدوير العجلة</button>
+</div></div>
+
+<div class="garden-modal-overlay" id="gardenModal">
+<div class="garden-modal">
+<button class="modal-close" onclick="closeGarden()">✕</button>
+<div class="modal-title">🌺 حديقة إنجازاتي 🌺</div>
+<div id="gardenContent"></div></div></div>
+
+<div class="stats-modal-overlay" id="statsModal">
+<div class="stats-modal">
+<button class="modal-close" onclick="closeStats()">✕</button>
+<div class="modal-title">📊 إحصائيات التقدم</div>
+<div id="statsContent"></div></div></div>
+
+<script>
+const STUDENTS = [
+  { name:'حلا',        color:'#ff7eb3', success:["حلا، إجابة رائعة! 🌟","أحسنتِ يا حلا! 💪","ممتازة حلا! 🎉"], fail:["حلا، لا بأس! 💪","حلا، فكري بهدوء! 🤔"] },
+  { name:'سلام',       color:'#ff758c', success:["سلام، إجابة ذكية! 🌟","أحسنتِ يا سلام! 💪","ممتازة سلام! 🎉"], fail:["سلام، كل خطأ فرصة! 🌱","سلام، أنتِ قريبة! 🌸"] },
+  { name:'لانا',       color:'#ffd700', success:["لانا، عمل رائع! 🌟","ممتازة يا لانا! 💪","لانا، أحسنتِ! 🎉"], fail:["لانا، لا تستسلمي! 💪","لانا، حاولي مجدداً! 🌸"] },
+  { name:'لجين',       color:'#a8d5ba', success:["لجين، أنتِ نجمة! 🌟","إجابة مثالية يا لجين! 💪","ممتازة يا لجين! 🎉"], fail:["لجين، ثقي بنفسك! 🌟","لجين، المحاولة أهم! 💫"] },
+  { name:'جنى',        color:'#c5e0f5', success:["جنى، أحسنتِ! 🌟","ممتازة يا جنى! 💪","عمل رائع يا جنى! 🎉"], fail:["جنى، لا تحزني! 💪","جنى، فكري مرة أخرى! 🤔"] },
+  { name:'يقين',       color:'#d4c5e2', success:["يقين، إجابة صحيحة! 🌟","أحسنتِ يا يقين! 💪","ممتازة يا يقين! 🎉"], fail:["يقين، أنتِ قادرة! 💖","يقين، راجعي القاعدة! 📖"] },
+  { name:'ليندا',      color:'#f4a6c3', success:["ليندا، رائعة! 🌟","ممتازة يا ليندا! 💪","أحسنتِ يا ليندا! 🎉"], fail:["ليندا، لا بأس! 💪","ليندا، حاولي مرة أخرى! 🌸"] },
+  { name:'صبا',        color:'#f7c5d8', success:["صبا، عمل جميل! 🌟","أحسنتِ يا صبا! 💪","رائعة يا صبا! 🎉"], fail:["صبا، كل خطأ درس! 🌱","صبا، استمري! 🌟"] },
+  { name:'ليان شعار',  color:'#ffdac1', success:["ليان شعار، ممتازة! 🌟","إجابة رائعة يا ليان! 💪","أحسنتِ يا ليان! 🎉"], fail:["ليان، لا تستسلمي! 💪","ليان شعار، فكري بهدوء! 🤔"] },
+  { name:'ليان سويد',  color:'#c8e6d9', success:["ليان سويد، أحسنتِ! 🌟","ممتازة يا ليان! 💪","عمل جميل يا ليان! 🎉"], fail:["ليان، أنتِ قريبة! 🌸","ليان سويد، حاولي! 💪"] },
+  { name:'أبرار',      color:'#e8b4b8', success:["أبرار، عمل رائع! 🌟","أحسنتِ يا أبرار! 💪","ممتازة يا أبرار! 🎉"], fail:["أبرار، لا بأس! 💪","أبرار، راجعي الدرس! 📖"] },
+  { name:'حنين',       color:'#f4c2c2', success:["حنين، إجابة ذكية! 🌟","ممتازة يا حنين! 💪","أحسنتِ يا حنين! 🎉"], fail:["حنين، ثقي بنفسك! 🌟","حنين، حاولي مرة أخرى! 💪"] },
+  { name:'تقى',        color:'#b5838d', success:["تقى، أنتِ عبقرية! 🌟","أحسنتِ يا تقى! 💪","ممتازة يا تقى! 🎉"], fail:["تقى، أنتِ ذكية! 🌟","تقى، فكري مرة أخرى! 🤔"] },
+  { name:'لمار',       color:'#d63384', success:["لمار، عمل ممتاز! 🌟","أحسنتِ يا لمار! 💪","رائعة يا لمار! 🎉"], fail:["لمار، لا تحزني! 💪","لمار، المحاولة مهمة! 🌱"] },
+  { name:'ماسة',       color:'#ff9a9e', success:["ماسة، أنتِ متميزة! 🌟","إجابة رائعة يا ماسة! 💪","ممتازة يا ماسة! 🎉"], fail:["ماسة، أنتِ قادرة! 💖","ماسة، حاولي مجدداً! 🌸"] }
+];
+
+let score=0, currentProblems={}, challengeTimer=null, timeLeft=30, solvedCount=0, challengeStopped=false;
+let currentTheme='pink', currentMode='light', flowerCount=0, gardenFlowers=[];
+let currentStudentIndex = 12;
+let stats={attempts:0,correct:0,wrong:0,byType:{addition:{correct:0,wrong:0},subtraction:{correct:0,wrong:0},multiplication:{correct:0,wrong:0},division:{correct:0,wrong:0},parentheses:{correct:0,wrong:0},challenge:{correct:0,wrong:0}}};
+let robotScale=1;
+let wheelRotation=0,isSpinning=false,usedIndices=[];
+
+const audioContext=new(window.AudioContext||window.webkitAudioContext)();
+function playSound(type){
+  try{
+    const o=audioContext.createOscillator(),g=audioContext.createGain();
+    o.connect(g);g.connect(audioContext.destination);
+    if(type==='correct'){o.frequency.setValueAtTime(523.25,audioContext.currentTime);o.frequency.setValueAtTime(659.25,audioContext.currentTime+.1);o.frequency.setValueAtTime(783.99,audioContext.currentTime+.2);g.gain.setValueAtTime(.3,audioContext.currentTime);g.gain.exponentialRampToValueAtTime(.01,audioContext.currentTime+.5);o.start(audioContext.currentTime);o.stop(audioContext.currentTime+.5)}
+    else if(type==='wrong'){o.frequency.setValueAtTime(200,audioContext.currentTime);o.frequency.setValueAtTime(150,audioContext.currentTime+.2);g.gain.setValueAtTime(.3,audioContext.currentTime);g.gain.exponentialRampToValueAtTime(.01,audioContext.currentTime+.4);o.start(audioContext.currentTime);o.stop(audioContext.currentTime+.4)}
+    else if(type==='click'){o.frequency.setValueAtTime(800,audioContext.currentTime);g.gain.setValueAtTime(.1,audioContext.currentTime);g.gain.exponentialRampToValueAtTime(.01,audioContext.currentTime+.1);o.start(audioContext.currentTime);o.stop(audioContext.currentTime+.1)}
+  }catch(e){}
+}
+
+function updatePlayerBanner(){document.getElementById('playerNameDisplay').textContent=STUDENTS[currentStudentIndex].name}
+
+function getPhrase(type){
+  const student=STUDENTS[currentStudentIndex];
+  if(student&&student[type]){const phrases=student[type];return phrases[Math.floor(Math.random()*phrases.length)]}
+  return type==='success'?'رائعة! 🌟':'لا تحزني! 💪';
+}
+
+const themeHeaders={pink:'🌷 مغامرة الأعداد الصحيحة 🌷',blue:'💙 مغامرة الأعداد الصحيحة 💙',green:'💚 مغامرة الأعداد الصحيحة 💚',rainbow:'🌈 مغامرة قوس قزح 🌈',warm:'🍂 مغامرة دافئة 🍂'};
+function changeTheme(t){currentTheme=t;document.documentElement.setAttribute('data-theme',t);document.getElementById('headerTitle').textContent=themeHeaders[t]}
+function toggleDarkMode(){currentMode=currentMode==='light'?'dark':'light';document.documentElement.setAttribute('data-mode',currentMode);document.getElementById('darkModeBtn').textContent=currentMode==='light'?'🌙 ليلي':'☀️ نهاري'}
+
+function openGarden(){document.getElementById('gardenModal').classList.add('active');document.getElementById('gardenContent').innerHTML=`<div style="text-align:center;font-size:1.2em;color:var(--dark)"><p>🌟 النقاط: <strong>${score}</strong></p><p>🌸 الزهور: <strong>${flowerCount}</strong></p><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px">${gardenFlowers.map(f=>`<span style="font-size:2em">${f}</span>`).join('')||'<p>🌱 الحديقة فارغة</p>'}</div></div>`;playSound('click')}
+function closeGarden(){document.getElementById('gardenModal').classList.remove('active')}
+function openWheel(){document.getElementById('wheelModal').classList.add('active');drawWheel();playSound('click')}
+function closeWheel(){document.getElementById('wheelModal').classList.remove('active')}
+function openStats(){document.getElementById('statsModal').classList.add('active');const acc=stats.attempts>0?Math.round(stats.correct/stats.attempts*100):0;document.getElementById('statsContent').innerHTML=`<div style="text-align:center;font-size:1.1em;color:var(--dark)"><p>📝 المحاولات: <strong>${stats.attempts}</strong></p><p>✅ صحيحة: <strong>${stats.correct}</strong></p><p>❌ خاطئة: <strong>${stats.wrong}</strong></p><p>🎯 النسبة: <strong>${acc}%</strong></p><p>⭐ النقاط: <strong>${score}</strong></p></div>`;playSound('click')}
+function closeStats(){document.getElementById('statsModal').classList.remove('active')}
+function resetAll(){if(confirm('هل أنتِ متأكدة من التصفير؟')){score=0;flowerCount=0;gardenFlowers=[];stats={attempts:0,correct:0,wrong:0,byType:{addition:{correct:0,wrong:0},subtraction:{correct:0,wrong:0},multiplication:{correct:0,wrong:0},division:{correct:0,wrong:0},parentheses:{correct:0,wrong:0},challenge:{correct:0,wrong:0}}};document.getElementById('score').textContent=0;document.getElementById('flowerCount').textContent=0;showCompanionSpeech("تم التصفير! 💪")}}
+
+function createFlyingNumbers(x,y){const nums=['+','-','×','÷','=','✓'];for(let i=0;i<8;i++){const n=document.createElement('div');n.className='flying-number';n.textContent=nums[Math.floor(Math.random()*nums.length)];n.style.left=(x+Math.random()*100-50)+'px';n.style.top=y+'px';document.body.appendChild(n);setTimeout(()=>n.remove(),2000)}}
+
+function addFlowersByPoints(p){const types=['🌸','🌺','🌻','🌷','🌹','💮','🏵️','🌾','🌼'];for(let i=0;i<p;i++){flowerCount++;gardenFlowers.push(types[Math.floor(Math.random()*types.length)])}document.getElementById('flowerCount').textContent=flowerCount}
+
+function showCompanionSpeech(t){const s=document.getElementById('companionSpeech');s.textContent=t;s.style.display='block';setTimeout(()=>s.style.display='none',4000)}
+
+function showHint(t){showCompanionSpeech("💡 "+({addition:"إذا كانت الإشارات متشابهة نجمع، وإذا كانت مختلفة نطرح ونأخذ إشارة الأكبر",subtraction:"حوّلي الطرح إلى جمع بتغيير إشارة العدد الثاني",multiplication:"سالب × سالب = موجب، وموجب × سالب = سالب",division:"نفس قواعد الضرب تنطبق على القسمة",parentheses:"ابدئي بحل ما داخل الأقواس أولاً",challenge:"فكري بهدوء، أنتِ قادرة! 💪"}[t]||"فكري بهدوء! 💪"));playSound('click')}
+
+const robotThemes = {
+  silver: { body: '#c0c8d0', bodyLight: '#e8eef4', dark: '#7a8a9a', darker: '#5a6a7a', darkest: '#3a4a5a', eyes: '#3498db', accent: '#e74c3c', accentDark: '#c0392b' },
+  pink: { body: '#f4a6c3', bodyLight: '#ffd4e5', dark: '#d48a9a', darker: '#b56a7a', darkest: '#8a4a5a', eyes: '#ff6b9d', accent: '#ff1493', accentDark: '#c71585' },
+  blue: { body: '#a8d5e2', bodyLight: '#d4eef5', dark: '#7ab8c8', darker: '#5a98a8', darkest: '#3a7888', eyes: '#00bcd4', accent: '#2196f3', accentDark: '#1976d2' },
+  green: { body: '#a8e2b4', bodyLight: '#d4f5dc', dark: '#7ac88a', darker: '#5aa86a', darkest: '#3a884a', eyes: '#4caf50', accent: '#8bc34a', accentDark: '#689f38' },
+  gold: { body: '#ffd700', bodyLight: '#fff4a3', dark: '#daa520', darker: '#b8860b', darkest: '#8b6914', eyes: '#ff8c00', accent: '#ff6347', accentDark: '#dc143c' },
+  purple: { body: '#d4a5e2', bodyLight: '#ecd4f5', dark: '#b87ac8', darker: '#985aa8', darkest: '#783a88', eyes: '#9c27b0', accent: '#e91e63', accentDark: '#c2185b' },
+  red: { body: '#e8a5a5', bodyLight: '#f5d4d4', dark: '#c87a7a', darker: '#a85a5a', darkest: '#883a3a', eyes: '#f44336', accent: '#ff5722', accentDark: '#d84315' },
+  rainbow: { body: '#f4a6c3', bodyLight: '#ffd4e5', dark: '#a8d5e2', darker: '#a8e2b4', darkest: '#ffd700', eyes: '#9c27b0', accent: '#ff1493', accentDark: '#e91e63' }
+};
+
+function changeRobotTheme(themeName){
+  const theme = robotThemes[themeName] || robotThemes.silver;
+  const root = document.documentElement;
+  root.style.setProperty('--robot-body', theme.body);
+  root.style.setProperty('--robot-body-light', theme.bodyLight);
+  root.style.setProperty('--robot-dark', theme.dark);
+  root.style.setProperty('--robot-darker', theme.darker);
+  root.style.setProperty('--robot-darkest', theme.darkest);
+  root.style.setProperty('--robot-eyes', theme.eyes);
+  root.style.setProperty('--robot-accent', theme.accent);
+  root.style.setProperty('--robot-accent-dark', theme.accentDark);
+  localStorage.setItem('robotTheme', themeName);
+  playSound('click');
+  const names = {silver:'فضي',pink:'وردي',blue:'أزرق',green:'أخضر',gold:'ذهبي',purple:'بنفسجي',red:'أحمر',rainbow:'قوس قزح'};
+  showCompanionSpeech(`تم تغيير ثيمي إلى ${names[themeName]}!`);
+}
+
+function loadRobotTheme(){const saved=localStorage.getItem('robotTheme');if(saved&&robotThemes[saved]){changeRobotTheme(saved);document.getElementById('robotThemeSelect').value=saved}}
+
+function resizeRobot(f){robotScale=Math.max(.5,Math.min(2,robotScale*f));document.getElementById('companionSvg').style.width=(180*robotScale)+'px';document.getElementById('companionSvg').style.height=(280*robotScale)+'px'}
+function resetRobotPosition(){robotScale=1;document.getElementById('companionSvg').style.width='180px';document.getElementById('companionSvg').style.height='280px'}
+
+function drawWheel(){
+  const canvas=document.getElementById('wheelCanvas');const ctx=canvas.getContext('2d');
+  const cx=canvas.width/2,cy=canvas.height/2,r=180,n=STUDENTS.length,seg=(2*Math.PI)/n;
+  ctx.clearRect(0,0,canvas.width,canvas.height);ctx.save();ctx.translate(cx,cy);ctx.rotate(wheelRotation);
+  for(let i=0;i<n;i++){const sa=i*seg,ea=sa+seg;ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,r,sa,ea);ctx.closePath();ctx.fillStyle=STUDENTS[i].color;ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.stroke();ctx.save();ctx.rotate(sa+seg/2);ctx.textAlign='right';ctx.fillStyle='#fff';ctx.font='bold 14px Cairo';ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=3;ctx.fillText(STUDENTS[i].name,r-20,5);ctx.restore()}
+  ctx.restore();ctx.beginPath();ctx.arc(cx,cy,r,0,2*Math.PI);ctx.strokeStyle='#fff';ctx.lineWidth=5;ctx.stroke();
+}
+
+function spinWheel(){
+  if(isSpinning)return;isSpinning=true;document.getElementById('spinBtn').disabled=true;
+  const banner=document.getElementById('playerBanner');const nameDisplay=document.getElementById('playerNameDisplay');
+  nameDisplay.textContent='جاري التدوير...';banner.classList.add('spinning');
+  if(usedIndices.length>=STUDENTS.length)usedIndices=[];
+  let available=STUDENTS.map((_,i)=>i).filter(i=>!usedIndices.includes(i));
+  let winnerIdx;
+  if(available.length>0){winnerIdx=available[Math.floor(Math.random()*available.length)]}
+  else{usedIndices=[];winnerIdx=Math.floor(Math.random()*STUDENTS.length)}
+  usedIndices.push(winnerIdx);
+  const extraSpins=5+Math.random()*3;const randomExtra=Math.random()*2*Math.PI;
+  const totalRotation=wheelRotation+extraSpins*2*Math.PI+randomExtra;
+  const duration=5000,startTime=Date.now(),startRotation=wheelRotation;
+  function animate(){
+    const elapsed=Date.now()-startTime;const progress=Math.min(elapsed/duration,1);
+    const easeOut=1-Math.pow(1-progress,3);
+    wheelRotation=startRotation+(totalRotation-startRotation)*easeOut;drawWheel();
+    if(progress<1){requestAnimationFrame(animate)}
+    else{
+      isSpinning=false;document.getElementById('spinBtn').disabled=false;
+      const n=STUDENTS.length,seg=(2*Math.PI)/n;
+      const finalRotation=wheelRotation%(2*Math.PI);
+      const pointerAngle=(3*Math.PI/2-finalRotation+2*Math.PI)%(2*Math.PI);
+      const calculatedWinner=Math.floor(pointerAngle/seg);
+      currentStudentIndex=calculatedWinner;updatePlayerBanner();banner.classList.remove('spinning');
+      const winner=STUDENTS[calculatedWinner];
+      playSound('correct');createConfetti();
+      document.getElementById('confetti-container').style.display='block';
+      setTimeout(()=>{document.getElementById('confetti-container').style.display='none';document.getElementById('confetti-container').innerHTML=''},5000);
+      showCompanionSpeech(`مرحباً ${winner.name}! دورك الآن! 🎉`);
+    }
+  }
+  animate();
+}
+
+function instantCheck(type){
+  const inputMap={addition:'addAnswer',subtraction:'subAnswer',multiplication:'mulAnswer',division:'divAnswer',parentheses:'parAnswer',challenge:'challengeAnswer'};
+  const feedMap={addition:'addFeedback',subtraction:'subFeedback',multiplication:'mulFeedback',division:'divFeedback',parentheses:'parFeedback',challenge:'challengeFeedback'};
+  const successMap={addition:'addSuccessMsg',subtraction:'subSuccessMsg',multiplication:'mulSuccessMsg',division:'divSuccessMsg',parentheses:'parSuccessMsg',challenge:'challengeSuccessMsg'};
+  const failMap={addition:'addFailMsg',subtraction:'subFailMsg',multiplication:'mulFailMsg',division:'divFailMsg',parentheses:'parFailMsg',challenge:'challengeFailMsg'};
+  const input=document.getElementById(inputMap[type]);const fb=document.getElementById(feedMap[type]);
+  const successMsg=document.getElementById(successMap[type]);const failMsg=document.getElementById(failMap[type]);
+  if(!input)return;const val=parseInt(input.value);
+  successMsg.style.display='none';failMsg.style.display='none';fb.style.display='none';
+  input.classList.remove('correct-answer','wrong-answer');
+  if(input.value===''||isNaN(val)){fb.textContent='⚠️ الرجاء إدخال رقم أولاً';fb.className='feedback incorrect';fb.style.display='block';return}
+  if(!currentProblems[type]){newProblem(type);return}
+  const correct=currentProblems[type].ans;stats.attempts++;
+  if(val===correct){
+    playSound('correct');input.classList.add('correct-answer');
+    fb.textContent='🎊 إجابة صحيحة!';fb.className='feedback correct';fb.style.display='block';successMsg.style.display='block';
+    const rect=input.getBoundingClientRect();createFlyingNumbers(rect.left+rect.width/2,rect.top);
+    stats.correct++;if(stats.byType[type])stats.byType[type].correct++;
+    const points=type==='challenge'?2:1;score+=points;document.getElementById('score').textContent=score;addFlowersByPoints(points);
+    showCompanionSpeech(getPhrase('success'));
+    createConfetti();document.getElementById('confetti-container').style.display='block';setTimeout(()=>{document.getElementById('confetti-container').style.display='none';document.getElementById('confetti-container').innerHTML=''},5000);
+    if(type==='challenge'){challengeStopped=true;clearInterval(challengeTimer);document.getElementById('timer').textContent='⏸️ توقف!';setTimeout(()=>{document.getElementById('challenge-game-area').style.display='none';successMsg.style.display='none';document.getElementById('newChallengeBtn').style.display='inline-block';document.getElementById('challengeAnswer').disabled=true;document.getElementById('challengeInstantBtn').style.display='none'},2000)}
+    else{setTimeout(()=>{successMsg.style.display='none';newProblem(type)},2000)}
+  }else{
+    playSound('wrong');input.classList.add('wrong-answer');setTimeout(()=>input.classList.remove('wrong-answer'),500);
+    fb.textContent='❌ الجواب الصحيح: '+correct;fb.className='feedback incorrect';fb.style.display='block';failMsg.style.display='block';
+    stats.wrong++;if(stats.byType[type])stats.byType[type].wrong++;
+    showCompanionSpeech(getPhrase('fail'));
+    setTimeout(()=>failMsg.style.display='none',3000);
+    if(type==='challenge'){challengeStopped=true;clearInterval(challengeTimer);document.getElementById('timer').textContent='⏸️ توقف!';setTimeout(()=>{document.getElementById('challenge-game-area').style.display='none';failMsg.style.display='none';document.getElementById('newChallengeBtn').style.display='inline-block';document.getElementById('challengeAnswer').disabled=true;document.getElementById('challengeInstantBtn').style.display='none'},2000)}
+  }
+}
+
+function generateProblem(type){
+  let n1,n2,ans,exp;const fmt=n=>n>0?'+'+n:n;
+  if(type==='challenge'){
+    const types=['addition','subtraction','multiplication','division'];const rt=types[Math.floor(Math.random()*types.length)];
+    if(rt==='addition'){n1=Math.floor(Math.random()*11)-5;n2=Math.floor(Math.random()*11)-5;ans=n1+n2;exp=`(${fmt(n1)}) + (${fmt(n2)})`}
+    else if(rt==='subtraction'){n1=Math.floor(Math.random()*11)-5;n2=Math.floor(Math.random()*11)-5;ans=n1-n2;exp=`(${fmt(n1)}) - (${fmt(n2)})`}
+    else if(rt==='multiplication'){n1=Math.floor(Math.random()*7)-3;n2=Math.floor(Math.random()*7)-3;ans=n1*n2;exp=`(${fmt(n1)}) × (${fmt(n2)})`}
+    else{n2=Math.floor(Math.random()*5)+1;if(Math.random()>.5)n2*=-1;ans=Math.floor(Math.random()*5)-2;n1=n2*ans;exp=`(${fmt(n1)}) ÷ (${fmt(n2)})`}
+    return{exp,ans};
+  }
+  const r=()=>Math.floor(Math.random()*20)-10;
+  if(type==='addition'){n1=r();n2=r();ans=n1+n2;exp=`(${fmt(n1)}) + (${fmt(n2)})`}
+  else if(type==='subtraction'){n1=r();n2=r();ans=n1-n2;exp=`(${fmt(n1)}) - (${fmt(n2)})`}
+  else if(type==='multiplication'){n1=Math.floor(Math.random()*12)-6;n2=Math.floor(Math.random()*12)-6;ans=n1*n2;exp=`(${fmt(n1)}) × (${fmt(n2)})`}
+  else if(type==='division'){n2=Math.floor(Math.random()*10)+1;if(Math.random()>.5)n2*=-1;ans=Math.floor(Math.random()*10)-5;n1=n2*ans;exp=`(${fmt(n1)}) ÷ (${fmt(n2)})`}
+  else if(type==='parentheses'){const i1=Math.floor(Math.random()*10)-5,i2=Math.floor(Math.random()*10)-5,out=Math.floor(Math.random()*6)-3;ans=out*(i1+i2);exp=`(${fmt(out)}) × (${fmt(i1)} + (${fmt(i2)}))`}
+  return{exp,ans};
+}
+
+function newProblem(type){
+  const p=generateProblem(type);currentProblems[type]=p;
+  const map={addition:'addProblem',subtraction:'subProblem',multiplication:'mulProblem',division:'divProblem',parentheses:'parProblem',challenge:'challengeProblem'};
+  const inputMap={addition:'addAnswer',subtraction:'subAnswer',multiplication:'mulAnswer',division:'divAnswer',parentheses:'parAnswer',challenge:'challengeAnswer'};
+  if(map[type])document.getElementById(map[type]).innerHTML=p.exp+' = ?';
+  if(inputMap[type]){const input=document.getElementById(inputMap[type]);input.value='';input.classList.remove('correct-answer','wrong-answer');input.disabled=false}
+}
+
+function checkAnswer(type){instantCheck(type)}
+
+function createConfetti(){const c=document.getElementById('confetti-container');const colors=['#ff7eb3','#ff758c','#ffd700','#a8d5ba','#c5e0f5','#d4c5e2'];for(let i=0;i<120;i++){const d=document.createElement('div');d.className='confetti';d.style.left=Math.random()*100+'%';d.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];d.style.animationDuration=(Math.random()*3+2)+'s';d.style.animationDelay=Math.random()*2+'s';d.style.borderRadius=Math.random()>.5?'50%':'0';c.appendChild(d)}}
+
+function startChallenge(){
+  solvedCount=0;timeLeft=30;challengeStopped=false;
+  document.getElementById('newChallengeBtn').style.display='none';
+  document.getElementById('challenge-game-area').style.display='block';
+  document.getElementById('challengeInstantBtn').style.display='inline-block';
+  document.getElementById('challengeAnswer').disabled=false;
+  document.getElementById('challengeSuccessMsg').style.display='none';
+  document.getElementById('challengeFailMsg').style.display='none';
+  document.getElementById('timer').textContent='30 ثانية';
+  newProblem('challenge');playSound('click');
+  clearInterval(challengeTimer);
+  challengeTimer=setInterval(()=>{
+    if(challengeStopped)return;timeLeft--;
+    document.getElementById('timer').textContent=timeLeft+' ثانية';
+    document.getElementById('progressBar').style.width=(timeLeft/30*100)+'%';
+    if(timeLeft<=0){
+      clearInterval(challengeTimer);challengeStopped=true;
+      document.getElementById('timer').textContent='⏸️ توقف!';
+      document.getElementById('challengeProblem').innerHTML=`انتهى الوقت! نتيجتك: ${solvedCount}`;
+      document.getElementById('challengeInstantBtn').style.display='none';
+      document.getElementById('newChallengeBtn').style.display='inline-block';
+      document.getElementById('challengeAnswer').disabled=true;
+      document.getElementById('challengeFailMsg').style.display='block';
+      setTimeout(()=>document.getElementById('challengeFailMsg').style.display='none',3000);
+    }
+  },1000);
+}
+
+window.onload=()=>{
+  ['addition','subtraction','multiplication','division','parentheses'].forEach(t=>newProblem(t));
+  drawWheel();currentStudentIndex=12;updatePlayerBanner();loadRobotTheme();
+  setTimeout(()=>showCompanionSpeech(`مرحباً ${STUDENTS[currentStudentIndex].name}! قومي بتدوير العجلة! 🎡`),1000);
+};
+</script>
 </body>
 </html>
